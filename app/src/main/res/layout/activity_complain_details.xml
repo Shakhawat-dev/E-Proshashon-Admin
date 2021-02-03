@@ -414,36 +414,40 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:orientation="horizontal">
 
-
-                <com.google.android.material.button.MaterialButton
-
-                    android:id="@+id/cancel_form"
+                <Button
+                    android:id="@+id/previous_btn"
+                    style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:layout_marginEnd="4dp"
-                    android:layout_weight=".5"
-                    android:backgroundTint="@color/orange_500"
-                    android:text="বাতিল করুণ" />
+                    android:layout_weight="1"
+                    android:text="পূর্ববর্তী" />
 
-
-                <com.google.android.material.button.MaterialButton
-
-                    android:id="@+id/submit"
+                <Button
+                    android:id="@+id/cancel_btn"
+                    style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_weight=".5"
-                    android:backgroundTint="@color/green_500"
-                    android:text="দাখিল করুণ" />
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:text="বাতিল" />
+
+                <Button
+                    android:id="@+id/accept_btn"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_weight="1"
+                    android:text="গ্রহণ" />
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

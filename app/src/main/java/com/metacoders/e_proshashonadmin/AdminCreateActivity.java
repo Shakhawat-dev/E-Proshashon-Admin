@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,6 +43,11 @@ public class AdminCreateActivity extends AppCompatActivity {
     String imagePath, imageUrl;
     StorageReference imageRef;
     List<EmpModel> allEmpList = new ArrayList<>();
+    List<String> adminType = new ArrayList<>();
+    List<String> upozillaType = new ArrayList<>();
+
+//    private String[] adminType = {"জেলা প্রশাসন", "উপজেলা প্রশাসন"};
+
     private ActivityAdminCreateBinding binding;
 
     @Override
@@ -51,6 +58,7 @@ public class AdminCreateActivity extends AppCompatActivity {
 
         imageRef = FirebaseStorage.getInstance().getReference("emp_profile_image");
 
+        loadAdminTypes();
 
 //        binding.positionList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
@@ -103,6 +111,46 @@ public class AdminCreateActivity extends AppCompatActivity {
             }
         });
 
+        binding.adminTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 2) {
+                    binding.upozillaSpinner.setVisibility(View.VISIBLE);
+                } else {
+                    binding.upozillaSpinner.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+    }
+
+    private void loadAdminTypes() {
+        adminType.add("নির্বাচন করুন");
+        adminType.add("জেলা প্রশাসন");
+        adminType.add("উপজেলা প্রশাসন");
+        ArrayAdapter<String> employeeTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, adminType);
+        employeeTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.adminTypeSpinner.setAdapter(employeeTypeAdapter);
+
+        upozillaType.add("নির্বাচন করুন");
+        upozillaType.add("জেলা প্রশাসন");
+        upozillaType.add("নোয়াখালী সদর");
+        upozillaType.add("কোম্পানীগঞ্জ");
+        upozillaType.add("বেগমগঞ্জ");
+        upozillaType.add("হাতিয়া");
+        upozillaType.add("সুবর্ণচর");
+        upozillaType.add("কবিরহাট");
+        upozillaType.add("সেনবাগ");
+        upozillaType.add("চাটখিল");
+        upozillaType.add("সোনাইমুড়ী");
+        ArrayAdapter<String> upozillaAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, upozillaType);
+        upozillaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.upozillaSpinner.setAdapter(upozillaAdapter);
     }
 
     private void BringImagePicker() {
@@ -155,7 +203,6 @@ public class AdminCreateActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         dialog1.dismiss();
                         triggerNextPage();
-                        ;
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -198,7 +245,7 @@ public class AdminCreateActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             imageUri = data.getData();
-            imagePath = ImagePicker.Companion.getFilePath(data).toString();
+            imagePath = ImagePicker.Companion.getFilePath(data);
             uploadItToStorage(imageUri, imagePath);
 
         } else {

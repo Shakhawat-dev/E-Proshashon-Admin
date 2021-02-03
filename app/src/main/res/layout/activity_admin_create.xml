@@ -181,6 +181,7 @@
                 android:textSize="20sp" />
 
             <Spinner
+                android:id="@+id/admin_type_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -192,6 +193,7 @@
                 android:textStyle="normal" />
 
             <Spinner
+                android:id="@+id/upozilla_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -200,6 +202,7 @@
                 android:layout_marginBottom="4dp"
                 android:background="@drawable/spinner_background"
                 android:textColor="@color/black"
+                android:visibility="gone"
                 android:textStyle="normal" />
 
             <CheckBox
@@ -219,34 +222,25 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="4dp"
+                android:gravity="end"
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/previous_btn"
-                    style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:layout_weight="1"
-                    android:text="পূর্ববর্তী" />
-
-                <Button
                     android:id="@+id/cancel_btn"
-                    style="?attr/materialButtonOutlinedStyle"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
-                    android:layout_weight="1"
                     android:text="বাতিল" />
 
                 <Button
                     android:id="@+id/accept_btn"
-                    style="?attr/materialButtonOutlinedStyle"
+                    style="?attr/materialButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:layout_weight="1"
+                    android:backgroundTint="@color/blue_600"
                     android:text="গ্রহণ" />
 
             </LinearLayout>
