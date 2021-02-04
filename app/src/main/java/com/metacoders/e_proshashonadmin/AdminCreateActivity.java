@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.awesomedialog.blennersilva.awesomedialoglibrary.AwesomeSuccessDialog;
 import com.awesomedialog.blennersilva.awesomedialoglibrary.interfaces.Closure;
@@ -31,13 +33,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.metacoders.e_proshashonadmin.Adapter.Check_box_adapter;
+import com.metacoders.e_proshashonadmin.Const.Const;
 import com.metacoders.e_proshashonadmin.databinding.ActivityAdminCreateBinding;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminCreateActivity extends AppCompatActivity {
+public class AdminCreateActivity extends AppCompatActivity implements Check_box_adapter.ItemClickListener {
 
     Uri imageUri;
     String imagePath, imageUrl;
@@ -45,8 +49,9 @@ public class AdminCreateActivity extends AppCompatActivity {
     List<EmpModel> allEmpList = new ArrayList<>();
     List<String> adminType = new ArrayList<>();
     List<String> upozillaType = new ArrayList<>();
+    Check_box_adapter adapter;
 
-//    private String[] adminType = {"জেলা প্রশাসন", "উপজেলা প্রশাসন"};
+    // private String[] admin_Type_list = {"জেলা প্রশাসন", "উপজেলা প্রশাসন"};
 
     private ActivityAdminCreateBinding binding;
 
@@ -116,8 +121,17 @@ public class AdminCreateActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 2) {
                     binding.upozillaSpinner.setVisibility(View.VISIBLE);
+                    /*
+                        upzilaa flood
+                     */
+                    loadPermissionList(2);
+
                 } else {
                     binding.upozillaSpinner.setVisibility(View.GONE);
+                    /*
+                        Zila Rcv add
+                     */
+                    loadPermissionList(i);
                 }
             }
 
@@ -129,25 +143,28 @@ public class AdminCreateActivity extends AppCompatActivity {
 
     }
 
+    private void loadPermissionList(int i) {
+        List<String> dataset = new ArrayList<>();
+        if (i == 2) {
+            // upzilla load
+            dataset = Const.upzillaPermissions();
+        } else if (i == 1) {
+            /*
+             zilla permission load
+             */
+            dataset = Const.zillaPermissions();
+        }
+        adapter = new Check_box_adapter(dataset, getApplicationContext(), this);
+        binding.rcv.setLayoutManager(new LinearLayoutManager(this));
+        binding.rcv.setAdapter(adapter);
+    }
+
     private void loadAdminTypes() {
-        adminType.add("নির্বাচন করুন");
-        adminType.add("জেলা প্রশাসন");
-        adminType.add("উপজেলা প্রশাসন");
+         adminType = Const.adminType() ;
         ArrayAdapter<String> employeeTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, adminType);
         employeeTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.adminTypeSpinner.setAdapter(employeeTypeAdapter);
-
-        upozillaType.add("নির্বাচন করুন");
-        upozillaType.add("জেলা প্রশাসন");
-        upozillaType.add("নোয়াখালী সদর");
-        upozillaType.add("কোম্পানীগঞ্জ");
-        upozillaType.add("বেগমগঞ্জ");
-        upozillaType.add("হাতিয়া");
-        upozillaType.add("সুবর্ণচর");
-        upozillaType.add("কবিরহাট");
-        upozillaType.add("সেনবাগ");
-        upozillaType.add("চাটখিল");
-        upozillaType.add("সোনাইমুড়ী");
+        upozillaType = Const.upozillaType() ;
         ArrayAdapter<String> upozillaAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, upozillaType);
         upozillaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.upozillaSpinner.setAdapter(upozillaAdapter);
@@ -179,7 +196,6 @@ public class AdminCreateActivity extends AppCompatActivity {
                 model.setEmp_pp(imageUrl);
                 model.setEmp_name(emp_name);
                 model.setEmp_not_uid("NULL");
-
 
                 uploadTheData(model);
 
@@ -294,6 +310,17 @@ public class AdminCreateActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Error : " + e.getMessage(),
                     Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    @Override
+    public void onItemClick(String roleName, boolean isSelected) {
+        /*
+         here isSelected will come true with the role name selected
+         if its true then user selected
+         else user is not selected
+         */
+        Log.d("TAG", "onItemClick: " + roleName + " " + isSelected);
 
     }
 }
