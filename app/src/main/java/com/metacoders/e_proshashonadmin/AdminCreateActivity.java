@@ -39,7 +39,10 @@ import com.metacoders.e_proshashonadmin.databinding.ActivityAdminCreateBinding;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AdminCreateActivity extends AppCompatActivity implements Check_box_adapter.ItemClickListener {
 
@@ -54,6 +57,8 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
     // private String[] admin_Type_list = {"জেলা প্রশাসন", "উপজেলা প্রশাসন"};
 
     private ActivityAdminCreateBinding binding;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,11 +165,11 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
     }
 
     private void loadAdminTypes() {
-         adminType = Const.adminType() ;
+        adminType = Const.adminType();
         ArrayAdapter<String> employeeTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, adminType);
         employeeTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.adminTypeSpinner.setAdapter(employeeTypeAdapter);
-        upozillaType = Const.upozillaType() ;
+        upozillaType = Const.upozillaType();
         ArrayAdapter<String> upozillaAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, upozillaType);
         upozillaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.upozillaSpinner.setAdapter(upozillaAdapter);
@@ -322,5 +327,11 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
          */
         Log.d("TAG", "onItemClick: " + roleName + " " + isSelected);
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+     //   decideWhatToLoad("sort('     bubble    ')->[12,2,3,5]");
     }
 }
