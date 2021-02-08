@@ -5,7 +5,9 @@ import androidx.annotation.NonNull;
 import java.io.Serializable;
 
 public class EmpModel implements Serializable {
-    String  emp_name , emp_role , emp_pp , emp_ph , emp_mail , emp_uid , emp_not_uid , emp_password ;
+    String  emp_name = "NULL" , emp_role = "NULL"  , emp_pp = "NULL"
+            , emp_ph  = "NULL" , emp_mail  = "NULL" , emp_uid = "NULL"  , emp_not_uid  = "NULL" ,
+            emp_password = "NULL"  ;
 
     public EmpModel() {
     }

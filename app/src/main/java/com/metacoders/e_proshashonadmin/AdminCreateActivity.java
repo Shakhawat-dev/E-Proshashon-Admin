@@ -37,6 +37,7 @@ import com.metacoders.e_proshashonadmin.Adapter.Check_box_adapter;
 import com.metacoders.e_proshashonadmin.Const.Const;
 import com.metacoders.e_proshashonadmin.Models.EmpModel;
 import com.metacoders.e_proshashonadmin.databinding.ActivityAdminCreateBinding;
+import com.metacoders.e_proshashonadmin.utils.Utils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -198,8 +199,8 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
                 model.setEmp_role("ROLE");
                 model.setEmp_pp(imageUrl);
                 model.setEmp_name(emp_name);
+                model.setEmp_password(Utils.convertItTohash(pass));
                 model.setEmp_not_uid("NULL");
-
                 uploadTheData(model);
 
             } else {
