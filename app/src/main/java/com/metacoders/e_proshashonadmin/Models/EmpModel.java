@@ -1,4 +1,4 @@
-package com.metacoders.e_proshashonadmin;
+package com.metacoders.e_proshashonadmin.Models;
 
 import androidx.annotation.NonNull;
 

@@ -52,5 +52,8 @@ dependencies {
     implementation "de.hdodenhof:circleimageview:$circleImageView_version"
     // doa.ogue
     implementation 'com.github.eminsr:awesomedialog:2.0.1'
+    implementation 'com.firebaseui:firebase-ui-database:6.2.0'
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+
 
 }

@@ -35,14 +35,12 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.metacoders.e_proshashonadmin.Adapter.Check_box_adapter;
 import com.metacoders.e_proshashonadmin.Const.Const;
+import com.metacoders.e_proshashonadmin.Models.EmpModel;
 import com.metacoders.e_proshashonadmin.databinding.ActivityAdminCreateBinding;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class AdminCreateActivity extends AppCompatActivity implements Check_box_adapter.ItemClickListener {
 
