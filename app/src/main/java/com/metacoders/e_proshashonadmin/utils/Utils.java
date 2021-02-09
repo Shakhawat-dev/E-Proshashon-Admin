@@ -8,6 +8,9 @@ import java.util.Base64;
 
 public class Utils {
 
+
+    public   static  String COMPLAIN_REPO = "complain_box" ;
+
     public  static String convertItTohash(String password){
         String hashStr = "password"  ;
         try {

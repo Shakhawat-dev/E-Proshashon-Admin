@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.metacoders.e_proshashonadmin.Adapter.viewholderForAllCompainList;
 import com.metacoders.e_proshashonadmin.Models.ComplainModel;
 import com.metacoders.e_proshashonadmin.databinding.ActivityAllComplainListBinding;
+import com.metacoders.e_proshashonadmin.utils.Utils;
 
 public class AllComplainList extends AppCompatActivity {
 
@@ -39,7 +40,7 @@ public class AllComplainList extends AppCompatActivity {
     void loadAllList() {
         FirebaseRecyclerOptions<ComplainModel> options;
         FirebaseRecyclerAdapter<ComplainModel, viewholderForAllCompainList> firebaseRecyclerAdapter;
-        DatabaseReference mref = FirebaseDatabase.getInstance().getReference("complain_box");
+        DatabaseReference mref = FirebaseDatabase.getInstance().getReference(Utils.COMPLAIN_REPO);
 
         options = new FirebaseRecyclerOptions.Builder<ComplainModel>().setQuery(mref, ComplainModel.class).build();
 

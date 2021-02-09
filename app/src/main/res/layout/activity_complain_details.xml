@@ -372,9 +372,7 @@
                     android:id="@+id/comment_ed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
+
                     android:hint="মন্তব্য"
                     android:inputType="textMultiLine"
                     android:minLines="3"
