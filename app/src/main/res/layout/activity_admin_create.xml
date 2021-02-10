@@ -18,7 +18,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:text="অভিযোগকারীর তথ্যাদি বিভাগ"
+                android:text="তথ্যাদি "
                 android:textColor="@color/blue_800"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -141,7 +141,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="পাসওয়ার্ড"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textPassword"
                     android:textColor="@color/black"
                     android:textStyle="normal" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -165,7 +165,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="পাসওয়ার্ডটি আবার লিখুন"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textPassword"
                     android:textColor="@color/black"
                     android:textStyle="normal" />
             </com.google.android.material.textfield.TextInputLayout>

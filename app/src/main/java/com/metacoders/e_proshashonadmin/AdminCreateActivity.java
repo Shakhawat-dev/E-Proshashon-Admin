@@ -46,7 +46,7 @@ import java.util.List;
 public class AdminCreateActivity extends AppCompatActivity implements Check_box_adapter.ItemClickListener {
 
     Uri imageUri;
-    String imagePath, imageUrl;
+    String imagePath, imageUrl = "NULL";
     StorageReference imageRef;
     List<EmpModel> allEmpList = new ArrayList<>();
     List<String> adminType = new ArrayList<>();
@@ -188,6 +188,7 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
         String pass = binding.password.getText().toString();
         String email = binding.email.getText().toString();
         String com_pass = binding.passwordAgain.getText().toString();
+
         if (emp_name.isEmpty() || pass.isEmpty() || email.isEmpty() || mobile.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Fill The Form Accurately !!", Toast.LENGTH_SHORT).show();
         } else {
@@ -295,6 +296,7 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
                         while (!uriTask.isSuccessful()) ;
                         Uri download_Uri = uriTask.getResult();
                         imageUrl = download_Uri.toString();
+
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {
