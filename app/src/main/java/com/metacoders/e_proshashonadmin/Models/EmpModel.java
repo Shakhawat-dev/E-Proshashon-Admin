@@ -5,14 +5,15 @@ import androidx.annotation.NonNull;
 import java.io.Serializable;
 
 public class EmpModel implements Serializable {
+
     String  emp_name = "NULL" , emp_role = "NULL"  , emp_pp = "NULL"
             , emp_ph  = "NULL" , emp_mail  = "NULL" , emp_uid = "NULL"  , emp_not_uid  = "NULL" ,
-            emp_password = "NULL"  ;
+            emp_password = "NULL" , department = "NULL" ,upzila="NULL" ;
 
     public EmpModel() {
     }
 
-    public EmpModel(String emp_name, String emp_role, String emp_pp, String emp_ph, String emp_mail, String emp_uid, String emp_not_uid, String emp_password) {
+    public EmpModel(String emp_name, String emp_role, String emp_pp, String emp_ph, String emp_mail, String emp_uid, String emp_not_uid, String emp_password, String department, String upzila) {
         this.emp_name = emp_name;
         this.emp_role = emp_role;
         this.emp_pp = emp_pp;
@@ -21,6 +22,24 @@ public class EmpModel implements Serializable {
         this.emp_uid = emp_uid;
         this.emp_not_uid = emp_not_uid;
         this.emp_password = emp_password;
+        this.department = department;
+        this.upzila = upzila;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getUpzila() {
+        return upzila;
+    }
+
+    public void setUpzila(String upzila) {
+        this.upzila = upzila;
     }
 
     public String getEmp_uid() {

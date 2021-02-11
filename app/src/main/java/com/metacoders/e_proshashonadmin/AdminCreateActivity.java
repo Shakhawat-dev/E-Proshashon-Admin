@@ -41,6 +41,7 @@ import com.metacoders.e_proshashonadmin.utils.Utils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AdminCreateActivity extends AppCompatActivity implements Check_box_adapter.ItemClickListener {
@@ -52,11 +53,13 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
     List<String> adminType = new ArrayList<>();
     List<String> upozillaType = new ArrayList<>();
     Check_box_adapter adapter;
+    String emp_role = "";
+    String department = "";
+    String upzila = "";
 
     // private String[] admin_Type_list = {"জেলা প্রশাসন", "উপজেলা প্রশাসন"};
 
     private ActivityAdminCreateBinding binding;
-
 
 
     @Override
@@ -128,15 +131,23 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
                     /*
                         upzilaa flood
                      */
+
                     loadPermissionList(2);
+                    LoadRoleList(2);
 
                 } else {
                     binding.upozillaSpinner.setVisibility(View.GONE);
                     /*
                         Zila Rcv add
                      */
+                    upzila = "Z";
+                    Log.d("TAG", "upzila -> : " + upzila);
                     loadPermissionList(i);
+                    LoadRoleList(i);
                 }
+                department = adapterView.getSelectedItem().toString();
+                Log.d("TAG", "department -> : " + department);
+
             }
 
             @Override
@@ -145,22 +156,81 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
             }
         });
 
+        binding.roleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position != 1) {
+                    // not a admin
+                    emp_role = "employee_";
+
+                } else {
+                    // admin
+                    emp_role = "regadmin_";
+                }
+
+                emp_role = emp_role + parent.getSelectedItem().toString();
+
+                Log.d("TAG", "emp role -> : " + emp_role);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        binding.upozillaSpinner.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        upzila = parent.getSelectedItem().toString();
+                        Log.d("TAG", "upzila -> : " + upzila);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                }
+        );
+
+
     }
 
     private void loadPermissionList(int i) {
         List<String> dataset = new ArrayList<>();
         if (i == 2) {
             // upzilla load
-            dataset = Const.upzillaPermissions();
+            dataset = Arrays.asList(Utils.upzillaDesignationList);
         } else if (i == 1) {
             /*
              zilla permission load
              */
-            dataset = Const.zillaPermissions();
+            dataset = Arrays.asList(Utils.disrictDesignationList);
         }
         adapter = new Check_box_adapter(dataset, getApplicationContext(), this);
         binding.rcv.setLayoutManager(new LinearLayoutManager(this));
         binding.rcv.setAdapter(adapter);
+    }
+
+    private void LoadRoleList(int i) {
+        List<String> roleSet = new ArrayList<>();
+
+        if (i == 2) {
+            //  upzila role  load
+            roleSet = Arrays.asList(Utils.upzillaDesignationList);
+        } else if (i == 1) {
+            /*
+             zilla permission load
+             */
+            roleSet = Arrays.asList(Utils.disrictDesignationList);
+        }
+
+        ArrayAdapter<String> roleAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roleSet);
+        roleAdapter.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
+        binding.roleSpinner.setAdapter(roleAdapter);
+
     }
 
     private void loadAdminTypes() {
@@ -197,11 +267,15 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
                 EmpModel model = new EmpModel();
                 model.setEmp_mail(email);
                 model.setEmp_ph(mobile);
-                model.setEmp_role("ROLE");
+                model.setEmp_role(emp_role);
                 model.setEmp_pp(imageUrl);
                 model.setEmp_name(emp_name);
                 model.setEmp_password(Utils.convertItTohash(pass));
                 model.setEmp_not_uid("NULL");
+                model.setDepartment(department);
+                model.setUpzila(upzila);
+
+
                 uploadTheData(model);
 
             } else {
@@ -327,12 +401,12 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
          else user is not selected
          */
         Log.d("TAG", "onItemClick: " + roleName + " " + isSelected);
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-     //   decideWhatToLoad("sort('     bubble    ')->[12,2,3,5]");
+        //   decideWhatToLoad("sort('     bubble    ')->[12,2,3,5]");
+
     }
 }
