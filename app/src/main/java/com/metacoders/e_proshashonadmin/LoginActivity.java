@@ -17,7 +17,9 @@ import com.metacoders.e_proshashonadmin.Models.EmpModel;
 import com.metacoders.e_proshashonadmin.databinding.ActivityLoginBinding;
 import com.metacoders.e_proshashonadmin.utils.Utils;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
@@ -32,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        //testMethod();
         mref = FirebaseDatabase.getInstance().getReference("emp_list");
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,9 +71,8 @@ public class LoginActivity extends AppCompatActivity {
                     EmpModel user = postSnapshot.getValue(EmpModel.class);
                     empModelList.add(user) ;
 
-                    if (user.getEmp_ph().equals(number) && user.getEmp_password().equals(pass)) {
+                    if (user.getEmp_ph().equals("") && user.getEmp_password().equals("")) {
                         isUserFound = true;
-
                         Toast.makeText(getApplicationContext(), "User Found !!", Toast.LENGTH_SHORT).show();
                         //TODO send the route via role based
                         break;
@@ -90,4 +92,18 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    void testMethod(){
+        List<String> test1 = new ArrayList<>();
+
+        List<String> test = Arrays.asList(Utils.disrictDesignationList) ;
+        for ( String item : test ){
+            if(item.contains("") && item.contains("অতিরিক্ত জেলা প্রশাসক(সার্বিক)") ){
+               test1.add(item) ;
+
+            }
+        }
+        Log.d("TAG", "testMethod: " + test.size()+" "  +test1.size() );
+    }
+
 }
