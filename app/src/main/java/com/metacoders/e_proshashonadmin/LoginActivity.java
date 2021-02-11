@@ -17,12 +17,16 @@ import com.metacoders.e_proshashonadmin.Models.EmpModel;
 import com.metacoders.e_proshashonadmin.databinding.ActivityLoginBinding;
 import com.metacoders.e_proshashonadmin.utils.Utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LoginActivity extends AppCompatActivity {
 
     Boolean isUserFound = false;
     private DatabaseReference mref;
     private ActivityLoginBinding binding;
-
+    List<EmpModel> empModelList = new ArrayList<>();
+    List<EmpModel> TestempModelList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,9 +66,11 @@ public class LoginActivity extends AppCompatActivity {
                  */
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     EmpModel user = postSnapshot.getValue(EmpModel.class);
+                    empModelList.add(user) ;
 
                     if (user.getEmp_ph().equals(number) && user.getEmp_password().equals(pass)) {
                         isUserFound = true;
+
                         Toast.makeText(getApplicationContext(), "User Found !!", Toast.LENGTH_SHORT).show();
                         //TODO send the route via role based
                         break;
