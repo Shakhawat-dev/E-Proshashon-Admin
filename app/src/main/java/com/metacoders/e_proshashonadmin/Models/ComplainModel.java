@@ -7,24 +7,28 @@ public class ComplainModel implements Serializable {
     String name;
     String complain_status;
     String user_mobile;
-    String user_gender ;
+    String user_gender;
     String user_division;
     String user_district;
     String user_thana_upzila;
-    String user_union_porusova ;
-    String user_id ;
-    String post_id ;
-    String complain_division ;
+    String user_union_porusova;
+    String user_id;
+    String post_id;
+    String complain_division;
     String complain_district;
     String complain_thana_upzilla;
-    String complain_officer_type ;
-    String complain_officer_name ;
+    String complain_officer_type;
+    String complain_officer_name;
     String complain_officer_mobile;
-    String complain_type ;
-    String complain_desc ;
-    String complain_ref_link ;
+    String complain_type;
+    String complain_desc;
+    String complain_ref_link;
     Attachments attachments;
     String comment;
+    String department;
+    String emp_uid;
+    String emp_role;
+
 
     public ComplainModel() {
     }
@@ -34,7 +38,8 @@ public class ComplainModel implements Serializable {
                          String user_union_porusova, String user_id, String post_id, String complain_division,
                          String complain_district, String complain_thana_upzilla, String complain_officer_type,
                          String complain_officer_name, String complain_officer_mobile, String complain_type,
-                         String complain_desc, String complain_ref_link, Attachments attachments, String comment) {
+                         String complain_desc, String complain_ref_link, Attachments attachments,
+                         String comment, String department, String emp_uid, String emp_role) {
         this.name = name;
         this.complain_status = complain_status;
         this.user_mobile = user_mobile;
@@ -56,6 +61,9 @@ public class ComplainModel implements Serializable {
         this.complain_ref_link = complain_ref_link;
         this.attachments = attachments;
         this.comment = comment;
+        this.department = department;
+        this.emp_uid = emp_uid;
+        this.emp_role = emp_role;
     }
 
     public String getName() {
@@ -112,6 +120,30 @@ public class ComplainModel implements Serializable {
 
     public void setUser_thana_upzila(String user_thana_upzila) {
         this.user_thana_upzila = user_thana_upzila;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getEmp_uid() {
+        return emp_uid;
+    }
+
+    public void setEmp_uid(String emp_uid) {
+        this.emp_uid = emp_uid;
+    }
+
+    public String getEmp_role() {
+        return emp_role;
+    }
+
+    public void setEmp_role(String emp_role) {
+        this.emp_role = emp_role;
     }
 
     public String getUser_union_porusova() {
