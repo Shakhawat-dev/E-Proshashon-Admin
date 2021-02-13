@@ -372,7 +372,7 @@
                     android:id="@+id/comment_ed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
+                    android:gravity="start"
                     android:hint="মন্তব্য"
                     android:inputType="textMultiLine"
                     android:minLines="3"
