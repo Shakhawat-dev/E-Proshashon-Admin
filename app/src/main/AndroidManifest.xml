@@ -10,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EProshashonAdmin">
+        <activity android:name=".Acitivity.UserListActivity"></activity>
         <activity android:name=".Acitivity.Fillter_SysAdmin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,14 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity">
-
-        </activity>
-        <activity android:name=".AllComplainList"></activity>
+        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".AllComplainList" />
         <activity android:name=".ComplainDetailsActivity" />
-        <activity android:name=".AdminCreateActivity">
-
-        </activity>
+        <activity android:name=".AdminCreateActivity"></activity>
         <activity android:name=".MainActivity" />
     </application>
 

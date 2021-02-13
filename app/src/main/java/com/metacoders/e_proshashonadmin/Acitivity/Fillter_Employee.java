@@ -51,7 +51,7 @@ public class Fillter_Employee extends AppCompatActivity implements  complainList
 
         binding.clist.setLayoutManager(new LinearLayoutManager(this));
 
-
+    loadEmpListData();
 
     }
     void loadEmpListData() {

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +17,6 @@ import com.metacoders.e_proshashonadmin.Models.ComplainModel;
 import com.metacoders.e_proshashonadmin.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /*** Created by Rahat Shovo on 2/12/2021 
@@ -50,7 +48,7 @@ public class complainListAdapter extends RecyclerView.Adapter<complainListAdapte
     public void addItems(List<ComplainModel> newItems) {
         mData.addAll(newItems);
         Log.d("TAG", "old data  Size -? : " + newItems.size());
-        mDataFiltered = mData  ;
+        mDataFiltered = mData;
         Log.d("TAG", "filltered Size -> : " + mDataFiltered.size());
         notifyDataSetChanged();
     }
@@ -86,25 +84,24 @@ public class complainListAdapter extends RecyclerView.Adapter<complainListAdapte
 
                 String Key = department.toString();
                 String str[] = Key.split(",");
-                String a = "" ;
+                String a = "";
 
-                if(str[0].isEmpty()){
-                    str[0] = ""   ;
+                if (str[0].isEmpty()) {
+                    str[0] = "";
                 }
-                if(str[1].isEmpty()){
-                    str[1] = ""   ;
+                if (str[1].isEmpty()) {
+                    str[1] = "";
                 }
 
-                if(str[2].isEmpty()){
-                    str[2] = ""  ;
+                if (str[2].isEmpty()) {
+                    str[2] = "";
                 }
 
                 if (Key.isEmpty()) {
 
                     mDataFiltered = mData;
                     Log.d("TAG", "i am hese : ");
-                }
-                else {
+                } else {
                     List<ComplainModel> lstFiltered = new ArrayList<>();
                     for (ComplainModel row : mData) {
                         //Log.d("TAG", "Filtering : " + row.getProductTitle());
@@ -114,9 +111,8 @@ public class complainListAdapter extends RecyclerView.Adapter<complainListAdapte
 
 
                             lstFiltered.add(row);
-                        }
-                        else {
-                          //  Log.d("TAG", "Fillered: " + row.getPost_id());
+                        } else {
+                            //  Log.d("TAG", "Fillered: " + row.getPost_id());
                         }
 
                     }
@@ -152,6 +148,7 @@ public class complainListAdapter extends RecyclerView.Adapter<complainListAdapte
     class viewholder extends RecyclerView.ViewHolder {
 
         public TextView title, desc;
+
 
         viewholder(@NonNull View itemView) {
             super(itemView);

@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Const {
     public static final String COMPLAIN_REPO ="emp_list" ;
+    public static final String USER_PROFILE_REPO ="user_profile" ;
 
 
     //upozillaType
