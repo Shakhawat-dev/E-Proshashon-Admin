@@ -1,5 +1,7 @@
 package com.metacoders.e_proshashonadmin.utils;
 
+import android.util.Log;
+
 import com.metacoders.e_proshashonadmin.Models.ComplainModel;
 import com.metacoders.e_proshashonadmin.Models.EmpModel;
 
@@ -108,6 +110,7 @@ public class Utils {
 
     public static List<ComplainModel> FillterComplainModel(String uid, String upzila, String role, List<ComplainModel> complainModelList) {
 
+        Log.d("TAG", "FillterComplainModel: " + uid+ " " + upzila+" " + role );
         List<ComplainModel> fillteredList = new ArrayList<>();
         for (ComplainModel item : complainModelList) {
             if (item.getEmp_uid().contains(uid) &&

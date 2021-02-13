@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Const {
-
+    public static final String COMPLAIN_REPO ="emp_list" ;
 
 
     //upozillaType

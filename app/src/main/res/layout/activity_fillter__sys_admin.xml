@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fillter_SysAdmin">
+    tools:context=".Acitivity.Fillter_SysAdmin">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -94,6 +94,7 @@
             android:id="@+id/search_button"
             android:layout_width="wrap_content"
             android:text="Search"
+            android:visibility="gone"
             android:layout_margin="@dimen/_4sdp"
             android:layout_gravity="end"
             android:layout_height="wrap_content"/>

@@ -1,4 +1,4 @@
-package com.metacoders.e_proshashonadmin;
+package com.metacoders.e_proshashonadmin.Acitivity;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +21,6 @@ import com.metacoders.e_proshashonadmin.Const.Const;
 import com.metacoders.e_proshashonadmin.Models.ComplainModel;
 import com.metacoders.e_proshashonadmin.Models.EmpModel;
 import com.metacoders.e_proshashonadmin.databinding.ActivityFillterSysAdminBinding;
-import com.metacoders.e_proshashonadmin.databinding.RowEmployeeTypeBinding;
 import com.metacoders.e_proshashonadmin.utils.Utils;
 
 import java.util.ArrayList;
@@ -61,11 +60,18 @@ public class Fillter_SysAdmin extends AppCompatActivity implements  complainList
                     // েলা প্রশাসন
                     upzila = "z";
                     loadDistrictRoleList();
+
                 } else if (position == 2) {
                     //"উপজেলা প্রশাসন"
 
                     loadUpzilaList();
+
                 }
+                else {
+                    upzila ="" ;
+
+                }
+                search();
 
 
             }
@@ -85,12 +91,17 @@ public class Fillter_SysAdmin extends AppCompatActivity implements  complainList
                     // no load the upzila role list
                     loadUpzliaRoleList();
                     upzila = parent.getSelectedItem().toString();
+
                 }
+                else {
+                    upzila ="" ;
+                }
+                search();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                upzila = "" ;
             }
         });
 
@@ -101,15 +112,20 @@ public class Fillter_SysAdmin extends AppCompatActivity implements  complainList
                 if (position != 0) {
                     //  set the designationSpinner
                     role = parent.getSelectedItem().toString();
-
                     loadEmpListInSpinner();
                 }
+                else {
+                    role = "" ;
 
+                }
+
+                search();
 
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                role = "" ;
 
             }
         });
@@ -118,10 +134,7 @@ public class Fillter_SysAdmin extends AppCompatActivity implements  complainList
             @Override
             public void onClick(View v) {
                 // uid , upzila , role
-                Log.d("TAG", "onClick: " + complainModelList.size());
-                List<ComplainModel> fillteredList  =Utils.FillterComplainModel( uid , upzila , role  , complainModelList) ;
-                binding.complainList.setAdapter(new complainListAdapter(fillteredList , getApplicationContext() , Fillter_SysAdmin.this )) ;
-
+               search() ;
             }
         });
 
@@ -129,16 +142,30 @@ public class Fillter_SysAdmin extends AppCompatActivity implements  complainList
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-               EmpModel model   = (EmpModel)parent.getItemAtPosition(position)  ;
-               uid = model.getEmp_uid();
+              if(position !=0  ){
+                  EmpModel model   = (EmpModel)parent.getItemAtPosition(position)  ;
+                  uid = model.getEmp_uid();
 
+              }
+              else {
+                  uid = "" ;
+              }
+                search();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                uid = "" ;
             }
         });
+    }
+
+    private void search() {
+        Log.d("TAG", "onClick: " + complainModelList.size());
+        List<ComplainModel> fillteredList  =Utils.FillterComplainModel( uid , upzila , role  , complainModelList) ;
+     //   uid ="" ;upzila = "" ; role = ""  ; ;
+        binding.complainList.setAdapter(new complainListAdapter(fillteredList , getApplicationContext() , Fillter_SysAdmin.this )) ;
+
     }
 
     private void loadEmpListInSpinner() {
