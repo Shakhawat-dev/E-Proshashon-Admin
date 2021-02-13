@@ -4,27 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Const {
+    public static final String COMPLAIN_REPO ="emp_list" ;
 
-    public  static  List<String> upzillaPermissions (){
-        List<String> list=new ArrayList<String>();
-        list.add("Ravi");
-        list.add("Vijay");
-        list.add("Ravi");
-        list.add("Ajay");
-
-
-        return  list ;
-
-    }
-
-    public  static  List<String> zillaPermissions (){
-        List<String> list=new ArrayList<String>();
-        list.add("Apple");
-        list.add("Burger");
-        list.add("Orange");
-        return  list ;
-
-    }
 
     //upozillaType
 

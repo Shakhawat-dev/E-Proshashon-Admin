@@ -1,9 +1,16 @@
 package com.metacoders.e_proshashonadmin.utils;
 
+import android.util.Log;
+
+import com.metacoders.e_proshashonadmin.Models.ComplainModel;
+import com.metacoders.e_proshashonadmin.Models.EmpModel;
+
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Utils {
 
@@ -81,4 +88,39 @@ public class Utils {
         return hashStr;
     }
 
+
+    public static List<EmpModel> FillterEmpModel(
+            String department,
+            String zila_upzila,
+            String role,
+            List<EmpModel> mainList
+    ) {
+        List<EmpModel> fillteredList = new ArrayList<>();
+        for (EmpModel item : mainList) {
+            if (item.getDepartment().contains(department) &&
+                    item.getUpzila().contains(zila_upzila) &&
+                    item.getEmp_role().contains(role)) {
+                fillteredList.add(item);
+            }
+        }
+
+        return fillteredList;
+
+    }
+
+    public static List<ComplainModel> FillterComplainModel(String uid, String upzila, String role, List<ComplainModel> complainModelList) {
+
+        Log.d("TAG", "FillterComplainModel: " + uid+ " " + upzila+" " + role );
+        List<ComplainModel> fillteredList = new ArrayList<>();
+        for (ComplainModel item : complainModelList) {
+            if (item.getEmp_uid().contains(uid) &&
+                    item.getComplain_thana_upzilla().contains(upzila) &&
+                    item.getEmp_role().contains(role)
+            ) {
+                fillteredList.add(item);
+            }
+        }
+
+        return fillteredList;
+    }
 }

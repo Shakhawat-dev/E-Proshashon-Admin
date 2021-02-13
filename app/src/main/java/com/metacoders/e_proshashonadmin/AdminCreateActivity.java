@@ -34,7 +34,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.metacoders.e_proshashonadmin.Adapter.Check_box_adapter;
+import com.metacoders.e_proshashonadmin.Adapter.complainListAdapter;
 import com.metacoders.e_proshashonadmin.Const.Const;
+import com.metacoders.e_proshashonadmin.Models.ComplainModel;
 import com.metacoders.e_proshashonadmin.Models.EmpModel;
 import com.metacoders.e_proshashonadmin.databinding.ActivityAdminCreateBinding;
 import com.metacoders.e_proshashonadmin.utils.Utils;
@@ -44,7 +46,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class AdminCreateActivity extends AppCompatActivity implements Check_box_adapter.ItemClickListener {
+public class AdminCreateActivity extends AppCompatActivity implements Check_box_adapter.ItemClickListener
+, complainListAdapter.ItemClickListener {
 
     Uri imageUri;
     String imagePath, imageUrl = "NULL";
@@ -140,7 +143,7 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
                     /*
                         Zila Rcv add
                      */
-                    upzila = "Z";
+                    upzila = "z";
                     Log.d("TAG", "upzila -> : " + upzila);
                     loadPermissionList(i);
                     LoadRoleList(i);
@@ -407,6 +410,11 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
     protected void onStart() {
         super.onStart();
         //   decideWhatToLoad("sort('     bubble    ')->[12,2,3,5]");
+
+    }
+
+    @Override
+    public void onItemClick(ComplainModel model) {
 
     }
 }
