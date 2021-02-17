@@ -28,6 +28,7 @@ public class ComplainModel implements Serializable {
     String department;
     String emp_uid;
     String emp_role;
+    String complain_officer_department_name = "NULL" ;
 
 
     public ComplainModel() {
@@ -39,7 +40,8 @@ public class ComplainModel implements Serializable {
                          String complain_district, String complain_thana_upzilla, String complain_officer_type,
                          String complain_officer_name, String complain_officer_mobile, String complain_type,
                          String complain_desc, String complain_ref_link, Attachments attachments,
-                         String comment, String department, String emp_uid, String emp_role) {
+                         String comment, String department, String emp_uid, String emp_role ,
+                         String complain_officer_department_name) {
         this.name = name;
         this.complain_status = complain_status;
         this.user_mobile = user_mobile;
@@ -64,6 +66,16 @@ public class ComplainModel implements Serializable {
         this.department = department;
         this.emp_uid = emp_uid;
         this.emp_role = emp_role;
+        this.complain_officer_department_name = complain_officer_department_name;
+
+    }
+
+    public String getComplain_officer_department_name() {
+        return complain_officer_department_name;
+    }
+
+    public void setComplain_officer_department_name(String complain_officer_department_name) {
+        this.complain_officer_department_name = complain_officer_department_name;
     }
 
     public String getName() {

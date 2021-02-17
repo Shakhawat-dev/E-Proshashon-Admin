@@ -1,5 +1,6 @@
 package com.metacoders.e_proshashonadmin.utils;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.metacoders.e_proshashonadmin.Models.ComplainModel;
@@ -10,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Utils {
@@ -110,7 +112,7 @@ public class Utils {
 
     public static List<ComplainModel> FillterComplainModel(String uid, String upzila, String role, List<ComplainModel> complainModelList) {
 
-        Log.d("TAG", "FillterComplainModel: " + uid+ " " + upzila+" " + role );
+        Log.d("TAG", "FillterComplainModel: " + uid + " " + upzila + " " + role);
         List<ComplainModel> fillteredList = new ArrayList<>();
         for (ComplainModel item : complainModelList) {
             if (item.getEmp_uid().contains(uid) &&
@@ -123,4 +125,41 @@ public class Utils {
 
         return fillteredList;
     }
+
+    public static List<ComplainModel> FillterRegAdminComplainModel(String departmentName, String uid, String upzila,
+                                                                   String role, List<ComplainModel> complainModelList) {
+
+        Log.d("TAG", "FillterComplainModel: " + uid + " " + upzila + " " + role);
+        List<ComplainModel> fillteredList = new ArrayList<>();
+        for (ComplainModel item : complainModelList) {
+            if (item.getEmp_uid().contains(uid) &&
+                    item.getComplain_thana_upzilla().contains(upzila) &&
+                    item.getEmp_role().contains(role) && item.getComplain_officer_department_name().contains(departmentName)
+            ) {
+                fillteredList.add(item);
+            }
+        }
+
+        return fillteredList;
+    }
+
+    public static  String getRole(Context context) {
+
+        String ROLESTR = "";
+        EmpModel model = SharedPrefManager.getInstance(context)
+                .getUser();
+
+        if (model != null) {
+            String data = model.getEmp_role();
+            List<String> role = Arrays.asList(data.split("_"));
+            ROLESTR = role.get(0);
+        }
+
+        return ROLESTR;
+
+    }
 }
+
+
+
+

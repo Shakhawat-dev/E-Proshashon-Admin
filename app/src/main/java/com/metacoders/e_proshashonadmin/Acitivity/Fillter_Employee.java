@@ -63,10 +63,11 @@ public class Fillter_Employee extends AppCompatActivity implements  complainList
                 loop the data  for the certain number and pass
                  */
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                    EmpModel user = postSnapshot.getValue(EmpModel.class);
+                    ComplainModel model = postSnapshot.getValue(ComplainModel.class);
                     // replce with real uid
-                    if(user.getEmp_uid() == "TES"){
-                        employeeList.add(user);
+                    Log.d("TAG", "onDataChange: "+ model.getEmp_uid());
+                    if(model.getEmp_uid().contains("-MSbMbmEypTEoKJXlVaQ")){
+                        complainModelList.add(model);
                     }
 
                 }

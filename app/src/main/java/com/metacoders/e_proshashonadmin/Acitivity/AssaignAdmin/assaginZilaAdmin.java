@@ -1,4 +1,4 @@
-package com.metacoders.e_proshashonadmin;
+package com.metacoders.e_proshashonadmin.Acitivity.AssaignAdmin;
 
 import android.Manifest;
 import android.app.Activity;
@@ -36,9 +36,11 @@ import com.google.firebase.storage.UploadTask;
 import com.metacoders.e_proshashonadmin.Adapter.Check_box_adapter;
 import com.metacoders.e_proshashonadmin.Adapter.complainListAdapter;
 import com.metacoders.e_proshashonadmin.Const.Const;
+import com.metacoders.e_proshashonadmin.Models.CheckBoxModel;
 import com.metacoders.e_proshashonadmin.Models.ComplainModel;
 import com.metacoders.e_proshashonadmin.Models.EmpModel;
-import com.metacoders.e_proshashonadmin.databinding.ActivityAdminCreateBinding;
+import com.metacoders.e_proshashonadmin.R;
+import com.metacoders.e_proshashonadmin.databinding.ActivityAssaginZilaAdminBinding;
 import com.metacoders.e_proshashonadmin.utils.Utils;
 
 import java.io.File;
@@ -46,7 +48,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class AdminCreateActivity extends AppCompatActivity implements Check_box_adapter.ItemClickListener
+public class assaginZilaAdmin extends AppCompatActivity implements Check_box_adapter.ItemClickListener
         , complainListAdapter.ItemClickListener {
 
     Uri imageUri;
@@ -59,30 +61,29 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
     String emp_role = "";
     String department = "";
     String upzila = "";
-    String department_name="" ;
+    String department_name = "";
     // private String[] admin_Type_list = {"জেলা প্রশাসন", "উপজেলা প্রশাসন"};
 
-    private ActivityAdminCreateBinding binding;
-
+    private ActivityAssaginZilaAdminBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityAdminCreateBinding.inflate(getLayoutInflater());
+        binding = ActivityAssaginZilaAdminBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         imageRef = FirebaseStorage.getInstance().getReference("emp_profile_image");
 
         loadAdminTypes();
         loadDepartmentTypes();
-
+        loadPermissionList();
         binding.positionList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                department_name = parent.getSelectedItem().toString() ;
+                department_name = parent.getSelectedItem().toString();
 
-                Toast.makeText(getApplicationContext(), "" + department_name , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "" + department_name, Toast.LENGTH_SHORT).show();
 
             }
 
@@ -91,11 +92,12 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
 
             }
         });
-
         binding.acceptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 getTheData();
+
             }
         });
 
@@ -107,9 +109,9 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-                    if (ContextCompat.checkSelfPermission(AdminCreateActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(assaginZilaAdmin.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
-                        ActivityCompat.requestPermissions(AdminCreateActivity.this,
+                        ActivityCompat.requestPermissions(assaginZilaAdmin.this,
                                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
 
                         BringImagePicker();
@@ -139,7 +141,7 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
                         upzilaa flood
                      */
 
-                    loadPermissionList(2);
+                    // loadPermissionList(2);
                     LoadRoleList(2);
 
                 } else {
@@ -149,7 +151,7 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
                      */
                     upzila = "z";
                     Log.d("TAG", "upzila -> : " + upzila);
-                    loadPermissionList(i);
+                    //loadPermissionList(i);
                     LoadRoleList(i);
                 }
                 department = adapterView.getSelectedItem().toString();
@@ -205,20 +207,16 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
 
     }
 
-    private void loadPermissionList(int i) {
-        List<String> dataset = new ArrayList<>();
-        if (i == 2) {
-            // upzilla load
-            dataset = Arrays.asList(Utils.upzillaDesignationList);
-        } else if (i == 1) {
-            /*
-             zilla permission load
-             */
-            dataset = Arrays.asList(Utils.disrictDesignationList);
+    private void loadPermissionList() {
+        List<String> dataset = Arrays.asList(Const.divisionList());
+        List<CheckBoxModel> checkBoxModelList = new ArrayList<>();
+        for (int i = 0; i < dataset.size(); i++) {
+            CheckBoxModel model = new CheckBoxModel(dataset.get(i), false, i);
+            checkBoxModelList.add(model);
         }
-//        adapter = new Check_box_adapter(dataset, getApplicationContext(), this, checkBoxModelList);
-//        binding.rcv.setLayoutManager(new LinearLayoutManager(this));
-//        binding.rcv.setAdapter(adapter);
+        adapter = new Check_box_adapter(dataset, getApplicationContext(), this, checkBoxModelList);
+        binding.rcv.setLayoutManager(new LinearLayoutManager(this));
+        binding.rcv.setAdapter(adapter);
     }
 
     private void LoadRoleList(int i) {
@@ -242,6 +240,7 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
 
     private void loadAdminTypes() {
         adminType = Const.adminType();
+        adminType.remove(2);
         ArrayAdapter<String> employeeTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, adminType);
         employeeTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.adminTypeSpinner.setAdapter(employeeTypeAdapter);
@@ -261,7 +260,7 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
     }
 
     private void BringImagePicker() {
-        ImagePicker.Companion.with(AdminCreateActivity.this)
+        ImagePicker.Companion.with(assaginZilaAdmin.this)
                 .galleryOnly()
                 //Crop image(Optional), Check Customization for more option
                 .compress(1024)            //Final image size will be less than 1 MB(Optional)
@@ -280,6 +279,19 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
         } else {
             if (com_pass.equals(pass)) {
 
+                /*
+                 * create the role list from the adapters list
+                 *
+                 */
+                StringBuilder roleList = new StringBuilder();
+
+                List<CheckBoxModel> list = adapter.getCheckedRoleList();
+                for (CheckBoxModel model : list) {
+                    Log.d("TAG", "onClick: " + model.getRole() + " -> " + model.isCheck());
+                    if (model.isCheck()) {
+                        roleList.append(",").append(model.getRole());
+                    }
+                }
                 EmpModel model = new EmpModel();
                 model.setEmp_mail(email);
                 model.setEmp_ph(mobile);
@@ -290,9 +302,8 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
                 model.setEmp_not_uid("NULL");
                 model.setDepartment_name(department_name);
                 model.setDepartment(department);
+                model.setRole_list(roleList.toString());
                 model.setUpzila(upzila);
-
-
                 uploadTheData(model);
 
             } else {
@@ -303,7 +314,7 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
     }
 
     private void uploadTheData(EmpModel model) {
-        ProgressDialog dialog1 = new ProgressDialog(AdminCreateActivity.this);
+        ProgressDialog dialog1 = new ProgressDialog(assaginZilaAdmin.this);
         dialog1.setMessage("Creating Profile...");
         dialog1.show();
         DatabaseReference m = FirebaseDatabase.getInstance().getReference().child("emp_list");
@@ -326,7 +337,7 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
     }
 
     private void triggerNextPage() {
-        new AwesomeSuccessDialog(AdminCreateActivity.this)
+        new AwesomeSuccessDialog(assaginZilaAdmin.this)
                 .setTitle("অভিনন্দন")
                 .setMessage(R.string.app_name)
                 .setColoredCircle(R.color.dialogSuccessBackgroundColor)
@@ -367,7 +378,7 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
 
     private void uploadItToStorage(Uri imageUri, String imagePath) {
 
-        ProgressDialog dialog = new ProgressDialog(AdminCreateActivity.this);
+        ProgressDialog dialog = new ProgressDialog(assaginZilaAdmin.this);
         dialog.setMessage("Uploading The Image...");
 
         if (imageUri != null) {

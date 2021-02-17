@@ -6,14 +6,15 @@ import java.io.Serializable;
 
 public class EmpModel implements Serializable {
 
-    String  emp_name = "NULL" , emp_role = "NULL"  , emp_pp = "NULL"
-            , emp_ph  = "NULL" , emp_mail  = "NULL" , emp_uid = "NULL"  , emp_not_uid  = "NULL" ,
-            emp_password = "NULL" , department = "NULL" ,upzila="NULL" ;
+    String emp_name = "NULL", emp_role = "NULL", emp_pp = "NULL", emp_ph = "NULL", emp_mail = "NULL", emp_uid = "NULL", emp_not_uid = "NULL",
+            emp_password = "NULL", department = "NULL", upzila = "NULL", department_name = "NULL", role_list = "NULL";
 
     public EmpModel() {
     }
 
-    public EmpModel(String emp_name, String emp_role, String emp_pp, String emp_ph, String emp_mail, String emp_uid, String emp_not_uid, String emp_password, String department, String upzila) {
+    public EmpModel(String emp_name, String emp_role, String emp_pp, String emp_ph, String emp_mail, String emp_uid,
+                    String emp_not_uid, String emp_password, String department, String upzila, String department_name,
+                    String role_list) {
         this.emp_name = emp_name;
         this.emp_role = emp_role;
         this.emp_pp = emp_pp;
@@ -24,6 +25,16 @@ public class EmpModel implements Serializable {
         this.emp_password = emp_password;
         this.department = department;
         this.upzila = upzila;
+        this.department_name = department_name;
+        this.role_list = role_list;
+    }
+
+    public String getRole_list() {
+        return role_list;
+    }
+
+    public void setRole_list(String role_list) {
+        this.role_list = role_list;
     }
 
     public String getDepartment() {
@@ -104,6 +115,14 @@ public class EmpModel implements Serializable {
 
     public void setEmp_mail(String emp_mail) {
         this.emp_mail = emp_mail;
+    }
+
+    public String getDepartment_name() {
+        return department_name;
+    }
+
+    public void setDepartment_name(String department_name) {
+        this.department_name = department_name;
     }
 
     @NonNull

@@ -21,8 +21,7 @@ import java.util.List;
 
 /*** Created by Rahat Shovo on 2/12/2021 
  */
-public class complainListAdapter extends RecyclerView.Adapter<complainListAdapter.viewholder>
-        implements Filterable {
+public class complainListAdapter extends RecyclerView.Adapter<complainListAdapter.viewholder> {
 
     private final Context context;
     private List<ComplainModel> mData = new ArrayList<>();
@@ -75,71 +74,7 @@ public class complainListAdapter extends RecyclerView.Adapter<complainListAdapte
         return mDataFiltered.size();
     }
 
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence department) {
-                // uid , upzila , role
 
-                String Key = department.toString();
-                String str[] = Key.split(",");
-                String a = "";
-
-                if (str[0].isEmpty()) {
-                    str[0] = "";
-                }
-                if (str[1].isEmpty()) {
-                    str[1] = "";
-                }
-
-                if (str[2].isEmpty()) {
-                    str[2] = "";
-                }
-
-                if (Key.isEmpty()) {
-
-                    mDataFiltered = mData;
-                    Log.d("TAG", "i am hese : ");
-                } else {
-                    List<ComplainModel> lstFiltered = new ArrayList<>();
-                    for (ComplainModel row : mData) {
-                        //Log.d("TAG", "Filtering : " + row.getProductTitle());
-                        if (row.getEmp_uid().contains(str[0]) &&
-                                row.getUser_thana_upzila().contains(str[1]) &&
-                                row.getEmp_role().contains(str[2])) {
-
-
-                            lstFiltered.add(row);
-                        } else {
-                            //  Log.d("TAG", "Fillered: " + row.getPost_id());
-                        }
-
-                    }
-                    // Log.d("TAG", "Size: " + lstFiltered.size());
-                    mDataFiltered = lstFiltered;
-                    // Log.d("TAG", "dataset Size: " + mDataFiltered.size());
-
-                }
-
-
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = mDataFiltered;
-                return filterResults;
-
-            }
-
-
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-
-
-                mDataFiltered = (List<ComplainModel>) results.values;
-                notifyDataSetChanged();
-
-            }
-        };
-    }
 
     public interface ItemClickListener {
         void onItemClick(ComplainModel model);

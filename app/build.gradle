@@ -55,6 +55,8 @@ dependencies {
     implementation 'com.github.eminsr:awesomedialog:2.0.1'
     implementation 'com.firebaseui:firebase-ui-database:6.2.0'
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    // converts json to a java object
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
 
 }
