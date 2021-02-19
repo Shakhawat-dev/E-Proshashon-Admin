@@ -1,5 +1,6 @@
 package com.metacoders.e_proshashonadmin.Acitivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.metacoders.e_proshashonadmin.Adapter.complainListAdapter;
+import com.metacoders.e_proshashonadmin.ComplainDetailsActivity;
 import com.metacoders.e_proshashonadmin.Const.Const;
 import com.metacoders.e_proshashonadmin.Models.ComplainModel;
 import com.metacoders.e_proshashonadmin.Models.EmpModel;
@@ -219,7 +221,7 @@ public class Fillter_SysAdmin extends AppCompatActivity implements  complainList
     }
 
     public void loadComplainList() {
-
+        complainModelList.clear();
         DatabaseReference mref = FirebaseDatabase.getInstance().getReference("complain_box");
 
         valueEventListener = new ValueEventListener() {
@@ -250,6 +252,7 @@ public class Fillter_SysAdmin extends AppCompatActivity implements  complainList
     }
 
    public void loadEmpListData() {
+       employeeList.clear();
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("emp_list");
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -281,6 +284,9 @@ public class Fillter_SysAdmin extends AppCompatActivity implements  complainList
     @Override
     public void onItemClick(ComplainModel model) {
 
+        Intent p = new Intent(getApplicationContext() , ComplainDetailsActivity.class);
+        p.putExtra("COMPLAIN_MODEL" , model) ;
+        startActivity(p);
     }
 }
 

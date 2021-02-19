@@ -1,5 +1,6 @@
 package com.metacoders.e_proshashonadmin.Acitivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.metacoders.e_proshashonadmin.Adapter.complainListAdapter;
+import com.metacoders.e_proshashonadmin.ComplainDetailsActivity;
 import com.metacoders.e_proshashonadmin.Const.Const;
 import com.metacoders.e_proshashonadmin.Models.ComplainModel;
 import com.metacoders.e_proshashonadmin.Models.EmpModel;
@@ -294,7 +296,9 @@ public class Fillter_RegAdmin extends AppCompatActivity implements complainListA
 
     @Override
     public void onItemClick(ComplainModel model) {
-
+        Intent p = new Intent(getApplicationContext() , ComplainDetailsActivity.class);
+        p.putExtra("COMPLAIN_MODEL" , model) ;
+        startActivity(p);
     }
 }
 

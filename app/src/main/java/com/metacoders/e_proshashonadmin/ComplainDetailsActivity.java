@@ -1,5 +1,6 @@
 package com.metacoders.e_proshashonadmin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -7,14 +8,24 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.github.tntkhang.fullscreenimageview.library.FullScreenImageViewActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.metacoders.e_proshashonadmin.Const.Const;
 import com.metacoders.e_proshashonadmin.Models.ComplainModel;
+import com.metacoders.e_proshashonadmin.Models.EmpModel;
 import com.metacoders.e_proshashonadmin.databinding.ActivityComplainDetailsBinding;
 import com.metacoders.e_proshashonadmin.utils.Utils;
+
+import java.util.ArrayList;
 
 public class ComplainDetailsActivity extends AppCompatActivity {
 
@@ -34,6 +45,7 @@ public class ComplainDetailsActivity extends AppCompatActivity {
 
         setViews(model);
 
+        loadProfile(model.getEmp_uid());
         binding.acceptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,9 +80,86 @@ public class ComplainDetailsActivity extends AppCompatActivity {
         binding.cDivision.setText(model.getComplain_division());
         binding.cDistrict.setText(model.getComplain_district());
         binding.cComplainDesc.setText(model.getComplain_desc());
+        binding.cCompalinLink.setText(model.getComplain_ref_link());
         binding.cCompalinType.setText(model.getComplain_type());
+        binding.cThanaUpzilla.setText(model.getComplain_thana_upzilla());
+        binding.department.setText(model.getEmp_role());
+        if(!model.getComment().toLowerCase().equals("null")){
+            binding.commentEd.setText(model.getComment());
+        }
+        // load image
+        Glide.with(getApplicationContext())
+                .load(model.getAttachments().getImage_1())
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .into(binding.cImage1);
+        Glide.with(getApplicationContext())
+                .load(model.getAttachments().getImage_2())
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .into(binding.cImage2);
+        Glide.with(getApplicationContext())
+                .load(model.getAttachments().getImage_3())
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .into(binding.cImage3);
+
+
+        binding.cImage1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                loadImages();
+
+            }
+        });
+        binding.cImage2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                loadImages();
+            }
+        });
+        binding.cImage3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                loadImages();
+            }
+        });
 
     }
 
+    private void loadProfile(String uid) {
+        DatabaseReference mref = FirebaseDatabase.getInstance().getReference(Const.EMPLOYEE_LIST).child(uid);
+        mref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                EmpModel model = snapshot.getValue(EmpModel.class);
+                Glide.with(getApplicationContext())
+                        .load(model.getEmp_pp())
+                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                        .into(binding.pp);
+                binding.cOfficerName.setText(model.getEmp_name());
+                binding.cOfficerNumber.setText(model.getEmp_ph());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void loadImages() {
+        ArrayList<String> images = new ArrayList<>();
+        images.add(model.getAttachments().getImage_1());
+        images.add(model.getAttachments().getImage_2());
+        images.add(model.getAttachments().getImage_3());
+        Intent fullImageIntent = new Intent(ComplainDetailsActivity.this, FullScreenImageViewActivity.class);
+// uriString is an ArrayList<String> of URI of all images
+        fullImageIntent.putExtra(FullScreenImageViewActivity.URI_LIST_DATA, images);
+// pos is the position of image will be showned when open
+      //  fullImageIntent.putExtra(FullScreenImageViewActivity.IMAGE_FULL_SCREEN_CURRENT_POS, 0);
+        startActivity(fullImageIntent);
+    }
 
 }
