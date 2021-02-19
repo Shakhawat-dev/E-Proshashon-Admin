@@ -163,14 +163,15 @@
                             android:layout_height="wrap_content"
                             app:boxStrokeColor="@color/black"
                             app:hintAnimationEnabled="true"
-
+                            app:prefixText="+88 "
+                            app:prefixTextColor="@color/colorPrimary"
                             app:hintTextColor="@color/black">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/login_number"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="+88-01XXXXXXXXX"
+                                android:hint="Your phone number"
                                 android:inputType="phone" />
 
                         </com.google.android.material.textfield.TextInputLayout>
