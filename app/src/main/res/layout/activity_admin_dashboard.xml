@@ -18,12 +18,177 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <LinearLayout
+
+                android:id="@+id/filter_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/light_gray"
+                android:backgroundTint="@color/light_gray"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="সর্বমোট অভিযোগ"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/tottalPostCount"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:drawableStart="@drawable/ic_baseline_how_to_vote_24"
+                                android:text="00"
+                                android:textColor="@color/black"
+                                android:textSize="36sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="গ্রহীত অভিযোগ"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/acceptedPostCount"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:drawableStart="@drawable/ic_baseline_verified_24"
+                                android:text="00"
+                                android:textColor="@color/black"
+                                android:textSize="36sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="বাতিলকৃত অভিযোগ"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/rejectedPostCount"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:drawableStart="@drawable/ic_baseline_new_releases_24"
+                                android:text="00"
+                                android:textColor="@color/black"
+                                android:textSize="36sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="সফল অভিযোগ"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/completedPostCount"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:drawableStart="@drawable/completed_icon_24"
+                                android:text="00"
+                                android:textColor="@color/black"
+                                android:textSize="36sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="Admin Dashboard"
+                android:layout_marginTop="8dp"
+                android:text="এডমিন প্যানেল"
                 android:textColor="@color/blue_800"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -72,7 +237,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
                                 android:layout_weight="1"
-                                android:text="Your Complaints"
+                                android:text="অভিযোগ সমূহ"
                                 android:textAlignment="textStart"
                                 android:textStyle="bold" />
 
@@ -124,7 +289,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
                                 android:layout_weight="1"
-                                android:text="Create Zila Officer"
+                                android:text="জেলা অভিসার তৈরি করুন"
                                 android:textAlignment="textStart"
                                 android:textStyle="bold" />
 
@@ -175,7 +340,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
                                 android:layout_weight="1"
-                                android:text="Create Employee"
+                                android:text="কর্মকর্তা তৈরি করুন"
                                 android:textAlignment="textStart"
                                 android:textStyle="bold" />
 
@@ -279,7 +444,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
                                 android:layout_weight="1"
-                                android:text="Log Out"
+                                android:text="বাহির হউন"
                                 android:textAlignment="textStart"
                                 android:textStyle="bold" />
 
