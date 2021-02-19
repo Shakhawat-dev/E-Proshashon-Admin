@@ -32,7 +32,8 @@
         </activity>
         <activity android:name=".AllComplainList" />
         <activity android:name=".ComplainDetailsActivity"/>
-        <activity android:name=".AdminCreateActivity">
+        <activity android:name=".Acitivity.Fillter_UpzilaAdmin"/>
+        <activity android:name=".EmpCreateActivity">
 
         </activity>
         <activity android:name=".MainActivity" />

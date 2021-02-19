@@ -19,7 +19,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.awesomedialog.blennersilva.awesomedialoglibrary.AwesomeSuccessDialog;
 import com.awesomedialog.blennersilva.awesomedialoglibrary.interfaces.Closure;
@@ -46,7 +45,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class AdminCreateActivity extends AppCompatActivity implements Check_box_adapter.ItemClickListener
+public class EmpCreateActivity extends AppCompatActivity implements Check_box_adapter.ItemClickListener
         , complainListAdapter.ItemClickListener {
 
     Uri imageUri;
@@ -107,9 +106,9 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-                    if (ContextCompat.checkSelfPermission(AdminCreateActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(EmpCreateActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
-                        ActivityCompat.requestPermissions(AdminCreateActivity.this,
+                        ActivityCompat.requestPermissions(EmpCreateActivity.this,
                                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
 
                         BringImagePicker();
@@ -171,9 +170,10 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
                     // not a admin
                     emp_role = "employee_";
 
-                } else {
+                }
+                else {
                     // admin
-                    emp_role = "regadmin_";
+                    emp_role = "upzadmin_";
                 }
 
                 emp_role = emp_role + parent.getSelectedItem().toString();
@@ -261,7 +261,7 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
     }
 
     private void BringImagePicker() {
-        ImagePicker.Companion.with(AdminCreateActivity.this)
+        ImagePicker.Companion.with(EmpCreateActivity.this)
                 .galleryOnly()
                 //Crop image(Optional), Check Customization for more option
                 .compress(1024)            //Final image size will be less than 1 MB(Optional)
@@ -303,7 +303,7 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
     }
 
     private void uploadTheData(EmpModel model) {
-        ProgressDialog dialog1 = new ProgressDialog(AdminCreateActivity.this);
+        ProgressDialog dialog1 = new ProgressDialog(EmpCreateActivity.this);
         dialog1.setMessage("Creating Profile...");
         dialog1.show();
         DatabaseReference m = FirebaseDatabase.getInstance().getReference().child("emp_list");
@@ -326,7 +326,7 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
     }
 
     private void triggerNextPage() {
-        new AwesomeSuccessDialog(AdminCreateActivity.this)
+        new AwesomeSuccessDialog(EmpCreateActivity.this)
                 .setTitle("অভিনন্দন")
                 .setMessage(R.string.app_name)
                 .setColoredCircle(R.color.dialogSuccessBackgroundColor)
@@ -367,7 +367,7 @@ public class AdminCreateActivity extends AppCompatActivity implements Check_box_
 
     private void uploadItToStorage(Uri imageUri, String imagePath) {
 
-        ProgressDialog dialog = new ProgressDialog(AdminCreateActivity.this);
+        ProgressDialog dialog = new ProgressDialog(EmpCreateActivity.this);
         dialog.setMessage("Uploading The Image...");
 
         if (imageUri != null) {

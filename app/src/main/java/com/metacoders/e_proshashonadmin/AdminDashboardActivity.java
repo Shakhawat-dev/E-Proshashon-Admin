@@ -1,7 +1,6 @@
 package com.metacoders.e_proshashonadmin;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +12,7 @@ import com.metacoders.e_proshashonadmin.Acitivity.AssaignAdmin.assaginZilaAdmin;
 import com.metacoders.e_proshashonadmin.Acitivity.Fillter_Employee;
 import com.metacoders.e_proshashonadmin.Acitivity.Fillter_RegAdmin;
 import com.metacoders.e_proshashonadmin.Acitivity.Fillter_SysAdmin;
+import com.metacoders.e_proshashonadmin.Acitivity.Fillter_UpzilaAdmin;
 import com.metacoders.e_proshashonadmin.Models.EmpModel;
 import com.metacoders.e_proshashonadmin.databinding.ActivityAdminDashboardBinding;
 import com.metacoders.e_proshashonadmin.utils.SharedPrefManager;
@@ -43,6 +43,9 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(getApplicationContext(), Fillter_Employee.class);
                     startActivity(intent);
+                } else if (Utils.getRole(getApplicationContext()).equals("upzadmin")) {
+                    Intent intent = new Intent(getApplicationContext(), Fillter_UpzilaAdmin.class);
+                    startActivity(intent);
                 } else {
 
                     Intent intent = new Intent(getApplicationContext(), Fillter_SysAdmin.class);
@@ -72,10 +75,9 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
                 // nbow the get the login
 
-                Intent p = new Intent(getApplicationContext() , LoginActivity.class);
-                p.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                Intent p = new Intent(getApplicationContext(), LoginActivity.class);
+                p.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(p);
-
 
 
             }
@@ -92,7 +94,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getApplicationContext(), AdminCreateActivity.class);
+                Intent intent = new Intent(getApplicationContext(), EmpCreateActivity.class);
                 startActivity(intent);
             }
         });
@@ -128,7 +130,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
              */
             // decide thte data
-            if (ROLESTR.equals("regadmin")) {
+            if (ROLESTR.equals("regadmin" ) || ROLESTR.equals("upzadmin")) {
                 // regonal admin like -> zila admin
                 binding.createZilaAdminCard.setVisibility(View.GONE);
                 binding.createEmp.setVisibility(View.GONE);
@@ -139,6 +141,9 @@ public class AdminDashboardActivity extends AppCompatActivity {
                 binding.createEmp.setVisibility(View.GONE);
                 binding.zilaAdminView.setVisibility(View.GONE);
             }
+
+
+
             else {
                 binding.zilaAdminView.setVisibility(View.GONE);
             }
