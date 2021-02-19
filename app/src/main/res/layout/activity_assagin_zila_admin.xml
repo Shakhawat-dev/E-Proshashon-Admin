@@ -51,7 +51,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
-                android:text="জিলা সংস্থা"
+                android:text="অধিদপ্তর/ বিভাগ / কার্যালয়"
                 android:textColor="@color/blue_800"
                 android:textSize="20sp" />
 
