@@ -4,11 +4,95 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".AllComplainList">
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:checkedChip="@id/all"
+
+                app:singleLine="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="All post"
+                    android:textColor="@color/black"
+                    app:checkedIconVisible="false"
+                    app:chipIcon="@drawable/ic_baseline_how_to_vote_24"
+                    app:chipIconTint="@color/black" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/accepted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="Accepted"
+
+                    android:textColor="@color/black"
+                    app:checkedIconVisible="false"
+                    app:chipIcon="@drawable/ic_baseline_verified_24"
+                    app:chipIconTint="@color/green_500" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/rejected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="Rejected"
+                    android:textColor="@color/black"
+                    app:checkedIconVisible="false"
+                    app:chipIcon="@drawable/ic_baseline_new_releases_24"
+                    app:chipIconTint="@color/colorRed" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/incomplete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="Inquiry "
+
+                    android:textColor="@color/black"
+                    app:checkedIconVisible="false"
+                    app:chipIcon="@drawable/incompleted_icon_24"
+                    app:chipIconTint="@color/colorYellow" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/completed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="Completed"
+                    android:textColor="@color/black"
+                    app:checkedIconVisible="false"
+                    app:chipIcon="@drawable/completed_icon_24"
+                    app:chipIconTint="@color/green_500" />
+            </com.google.android.material.chip.ChipGroup>
+        </LinearLayout>
+    </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

@@ -146,7 +146,7 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <!--<TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
@@ -155,7 +155,7 @@
                             android:gravity="center"
                             android:textColor="@color/black"
                             android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold" />-->
 
                         <com.google.android.material.textfield.TextInputLayout
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -163,13 +163,14 @@
                             android:layout_height="wrap_content"
                             app:boxStrokeColor="@color/black"
                             app:hintAnimationEnabled="true"
+
                             app:hintTextColor="@color/black">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/login_number"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="01XXXXXXXXX"
+                                android:hint="+88-01XXXXXXXXX"
                                 android:inputType="phone" />
 
                         </com.google.android.material.textfield.TextInputLayout>
