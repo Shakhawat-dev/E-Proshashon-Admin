@@ -84,9 +84,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="ই-প্রশাসন"
+                        android:text="ই-প্রশাসন এডমিন"
                         android:textColor="@color/black"
-                        android:textSize="48sp"
+                        android:textSize="36sp"
                         android:textStyle="bold" />
 
                     <!--                    <ImageView-->
@@ -101,19 +101,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
-                        android:text="লগিন"
+                        android:text="প্রবেশ করুন"
                         android:textColor="@color/black"
-                        android:textSize="40sp"
+                        android:textSize="32sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="ই-প্রশাসন এপটি ব্যবহার করার জন্য আপনি আপনার মোবাইল নাম্বার টি নিচে প্রবেশ করুন।"
+                        android:text="ই-প্রশাসন এডমিন এপটি ব্যবহার করার জন্য আপনি আপনার মোবাইল নাম্বার ও পাসওয়ার্ড নিচে প্রবেশ করুন।"
                         android:textColor="#000000"
                         android:textSize="14sp"
-                        android:visibility="visible" />
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
@@ -136,7 +136,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="16dp"
                         android:padding="4dp"
-                        android:text="আপনার ফোন নাম্বার দিয়ে লগিন করুন"
+                        android:text="আপনার ফোন নাম্বার ও পাসওয়ার্ড দিয়ে প্রবেশ করুন"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
 
@@ -171,7 +171,7 @@
                                 android:id="@+id/login_number"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Your phone number"
+                                android:hint="আপনার মোবাইল নাম্বার"
                                 android:inputType="phone" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -183,7 +183,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:hint="Password"
+                        android:hint="পাসওয়ার্ড"
                         android:visibility="visible"
                         app:hintAnimationEnabled="true"
                         app:hintTextColor="@color/black"
@@ -243,7 +243,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:backgroundTint="@color/black"
-                        android:text="পাঠান"
+                        android:text="প্রবেশ করুন"
                         android:textColor="@color/white" />
 
                 </LinearLayout>

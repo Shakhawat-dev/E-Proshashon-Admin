@@ -289,7 +289,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
                                 android:layout_weight="1"
-                                android:text="জেলা অভিসার তৈরি করুন"
+                                android:text="জেলা অফিসার তৈরি করুন"
                                 android:textAlignment="textStart"
                                 android:textStyle="bold" />
 
