@@ -5,11 +5,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.annotations.NotNull;
@@ -26,7 +26,7 @@ public class complainListAdapter extends RecyclerView.Adapter<complainListAdapte
     private final Context context;
     private List<ComplainModel> mData = new ArrayList<>();
     private List<ComplainModel> mDataFiltered = new ArrayList<>();
-    private ItemClickListener itemClickListener;
+    private final ItemClickListener itemClickListener;
 
     public complainListAdapter(List<ComplainModel> items, Context context, ItemClickListener itemClickListener) {
         this.mData = items;
@@ -60,9 +60,27 @@ public class complainListAdapter extends RecyclerView.Adapter<complainListAdapte
             itemClickListener.onItemClick(item);
         });
 
-        holder.title.setText(item.getName());
+        holder.title.setText(item.getComplain_type());
         //    fareView.setText(fare);
-        holder.desc.setText(item.getComment());
+
+        if (item.getComplain_status().equals("ACCEPTED")) {
+            holder.iconImage.setBackgroundColor(ContextCompat.getColor(context, R.color.green_500));
+            holder.iconImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_baseline_verified_24));
+        } else if (item.getComplain_status().equals("REJECTED")) {
+            holder.iconImage.setBackgroundColor(ContextCompat.getColor(context, R.color.colorRed));
+            holder.title.setTextColor(ContextCompat.getColor(context, R.color.colorRed));
+            holder.iconImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_baseline_new_releases_24));
+        } else if (item.getComplain_status().equals("COMPLETED")) {
+            holder.iconImage.setBackgroundColor(ContextCompat.getColor(context, R.color.green_500));
+            holder.iconImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.completed_icon_24));
+        }
+
+        if (item.getComment().equals("NULL") || item.getComment().equals("নাই") || item.getComment().equals("")) {
+            holder.desc.setText("মন্তব্যঃ কোন মন্তব্য পরেনি।");
+        } else {
+            holder.desc.setText("মন্তব্যঃ " + item.getComment());
+        }
+
     }
 
 
@@ -83,6 +101,7 @@ public class complainListAdapter extends RecyclerView.Adapter<complainListAdapte
     class viewholder extends RecyclerView.ViewHolder {
 
         public TextView title, desc;
+        public ImageView iconImage;
 
 
         viewholder(@NonNull View itemView) {
@@ -90,6 +109,7 @@ public class complainListAdapter extends RecyclerView.Adapter<complainListAdapte
 
             title = itemView.findViewById(R.id.complain_title);
             desc = itemView.findViewById(R.id.complain_details);
+            iconImage = itemView.findViewById(R.id.status_image);
         }
 
 

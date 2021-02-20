@@ -45,28 +45,6 @@
                     android:textStyle="normal" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
-                android:text="অধিদপ্তর/ বিভাগ / কার্যালয়"
-                android:textColor="@color/blue_800"
-                android:textSize="20sp" />
-
-            <Spinner
-                android:id="@+id/positionList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="4dp"
-                android:background="@drawable/spinner_background"
-                android:textColor="@color/black"
-                android:textStyle="normal" />
-
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
@@ -124,14 +102,14 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="11dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="4dp"
                 android:gravity="center"
-                android:text="ছবি আপ্লোড করুন "
+                android:text="ছবি আপলোড করুন "
                 android:textColor="@color/blue_800"
                 android:textSize="11sp" />
 
@@ -189,7 +167,29 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
-                android:text="ঊপজেলা / জেলা প্রশাসন"
+                android:text="অধিদপ্তর/ বিভাগ / কার্যালয়"
+                android:textColor="@color/blue_800"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/positionList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/spinner_background"
+                android:textColor="@color/black"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:text="উপজেলা / জেলা প্রশাসন"
                 android:textColor="@color/blue_800"
                 android:textSize="20sp" />
 
