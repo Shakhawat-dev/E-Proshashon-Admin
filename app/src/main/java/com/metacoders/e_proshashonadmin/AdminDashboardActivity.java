@@ -4,25 +4,36 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.metacoders.e_proshashonadmin.Acitivity.AssaignAdmin.assaginZilaAdmin;
 import com.metacoders.e_proshashonadmin.Acitivity.Fillter_Employee;
 import com.metacoders.e_proshashonadmin.Acitivity.Fillter_RegAdmin;
 import com.metacoders.e_proshashonadmin.Acitivity.Fillter_SysAdmin;
 import com.metacoders.e_proshashonadmin.Acitivity.Fillter_UpzilaAdmin;
+import com.metacoders.e_proshashonadmin.Const.Const;
+import com.metacoders.e_proshashonadmin.Models.ComplainModel;
 import com.metacoders.e_proshashonadmin.Models.EmpModel;
 import com.metacoders.e_proshashonadmin.databinding.ActivityAdminDashboardBinding;
 import com.metacoders.e_proshashonadmin.utils.SharedPrefManager;
 import com.metacoders.e_proshashonadmin.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class AdminDashboardActivity extends AppCompatActivity {
 
+    int rejectCount = 0, acceptCount = 0, completedCount = 0, allCount = 0;
     private MaterialCardView mAllComplainCard, mCreateAdminCard;
     private ActivityAdminDashboardBinding binding;
 
@@ -130,25 +141,227 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
              */
             // decide thte data
-            if (ROLESTR.equals("regadmin" ) || ROLESTR.equals("upzadmin")) {
+            if (ROLESTR.equals("regadmin")) {
                 // regonal admin like -> zila admin
                 binding.createZilaAdminCard.setVisibility(View.GONE);
                 binding.createEmp.setVisibility(View.GONE);
+                loadCounterForRegAdmin();
 
+            } else if (ROLESTR.equals("upzadmin")) {
+                binding.createZilaAdminCard.setVisibility(View.GONE);
+                binding.createEmp.setVisibility(View.GONE);
+                loadCounterForUpzAdmin();
             } else if (ROLESTR.equals("employee")) {
                 // plain employee like ->  employee
                 binding.createZilaAdminCard.setVisibility(View.GONE);
                 binding.createEmp.setVisibility(View.GONE);
                 binding.zilaAdminView.setVisibility(View.GONE);
-            }
-
-
-
-            else {
+                loadCounterForEmp();
+            } else {
                 binding.zilaAdminView.setVisibility(View.GONE);
+                loadCounterForSysAdmin();
             }
 
         }
+
+
+    }
+
+
+    public void loadCounterForSysAdmin() {
+        List<ComplainModel> complainModelList = new ArrayList<>();
+
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference(Const.COMPLAIN_REPO);
+        complainModelList.clear();
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                /*
+                loop the data  for the certain number and pass
+                 */
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    ComplainModel complainModel = postSnapshot.getValue(ComplainModel.class);
+                    // replce with real uid
+                    //* counter
+                    if (complainModel.getComplain_status().equals("ACCEPTED")) {
+                        acceptCount++;
+                    } else if (complainModel.getComplain_status().equals("REJECTED")) {
+                        rejectCount++;
+                    } else if (complainModel.getComplain_status().equals("COMPLETED")) {
+                        completedCount++;
+                    }
+
+                    complainModelList.add(complainModel);
+
+
+                }
+
+                binding.tottalPostCount.setText(snapshot.getChildrenCount() + "");
+                binding.acceptedPostCount.setText(acceptCount + "");
+                binding.completedPostCount.setText(completedCount + "");
+                binding.rejectedPostCount.setText(rejectCount + "");
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getApplicationContext(), "Error : " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
+    public void loadCounterForRegAdmin() { //AKA ZIlA ADMIN
+        List<ComplainModel> complainModelList = new ArrayList<>();
+        String roleListStr = SharedPrefManager.getInstance(getApplicationContext()).getUser().getRole_list();
+        List<String> departmentList = Arrays.asList(roleListStr.split(","));
+
+
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference(Const.COMPLAIN_REPO);
+        complainModelList.clear();
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                /*
+                loop the data  for the certain number and pass
+                 */
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    ComplainModel complainModel = postSnapshot.getValue(ComplainModel.class);
+                    // replce with real uid
+                    //* counter
+                    for (int i = 1; i < departmentList.size(); i++) {
+
+                        if (complainModel.getComplain_status().equals("ACCEPTED")
+                                && complainModel.getComplain_officer_department_name().equals(departmentList.get(i))) {
+                            acceptCount++;
+                            complainModelList.add(complainModel);
+                        } else if (complainModel.getComplain_status().equals("REJECTED")
+                                && complainModel.getComplain_officer_department_name().equals(departmentList.get(i))) {
+                            rejectCount++;
+                            complainModelList.add(complainModel);
+                        } else if (complainModel.getComplain_status().equals("COMPLETED")
+                                && complainModel.getComplain_officer_department_name().equals(departmentList.get(i))) {
+                            completedCount++;
+                            complainModelList.add(complainModel);
+                        }
+                    }
+                }
+
+                binding.tottalPostCount.setText(complainModelList.size() + "");
+                binding.acceptedPostCount.setText(acceptCount + "");
+                binding.completedPostCount.setText(completedCount + "");
+                binding.rejectedPostCount.setText(rejectCount + "");
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getApplicationContext(), "Error : " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
+    public void loadCounterForUpzAdmin() {
+        List<ComplainModel> complainModelList = new ArrayList<>();
+        String thana = Utils.getRole(getApplicationContext());
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference(Const.COMPLAIN_REPO);
+        complainModelList.clear();
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                /*
+                loop the data  for the certain number and pass
+                 */
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    ComplainModel complainModel = postSnapshot.getValue(ComplainModel.class);
+                    // replce with real uid
+                    //* counter
+                    if (complainModel.getComplain_status().equals("ACCEPTED") && complainModel.getComplain_thana_upzilla().equals(
+                            thana)) {
+                        acceptCount++;
+                    } else if (complainModel.getComplain_status().equals("REJECTED")
+                            && complainModel.getComplain_thana_upzilla().equals(
+                            thana)) {
+                        rejectCount++;
+                    } else if (complainModel.getComplain_status().equals("COMPLETED")
+                            && complainModel.getComplain_thana_upzilla().equals(
+                            thana)) {
+                        completedCount++;
+                    }
+
+                    complainModelList.add(complainModel);
+
+
+                }
+
+                binding.tottalPostCount.setText((acceptCount + completedCount + rejectCount) + "");
+                binding.acceptedPostCount.setText(acceptCount + "");
+                binding.completedPostCount.setText(completedCount + "");
+                binding.rejectedPostCount.setText(rejectCount + "");
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getApplicationContext(), "Error : " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
+    public void loadCounterForEmp() {
+        List<ComplainModel> complainModelList = new ArrayList<>();
+        String uid = SharedPrefManager.getInstance(getApplicationContext()).getUser().getEmp_uid();
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference(Const.COMPLAIN_REPO);
+        complainModelList.clear();
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                /*
+                loop the data  for the certain number and pass
+                 */
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    ComplainModel complainModel = postSnapshot.getValue(ComplainModel.class);
+                    // replce with real uid
+                    //* counter
+                    if (complainModel.getComplain_status().equals("ACCEPTED") && complainModel.getEmp_uid().equals(
+                            uid)) {
+                        acceptCount++;
+                    } else if (complainModel.getComplain_status().equals("REJECTED")
+                            && complainModel.getEmp_uid().equals(
+                            uid)) {
+                        rejectCount++;
+                    } else if (complainModel.getComplain_status().equals("COMPLETED")
+                            && complainModel.getEmp_uid().equals(
+                            uid)) {
+                        completedCount++;
+                    }
+
+                    complainModelList.add(complainModel);
+
+
+                }
+
+                binding.tottalPostCount.setText((acceptCount + completedCount + rejectCount) + "");
+                binding.acceptedPostCount.setText(acceptCount + "");
+                binding.completedPostCount.setText(completedCount + "");
+                binding.rejectedPostCount.setText(rejectCount + "");
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getApplicationContext(), "Error : " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
     }

@@ -38,6 +38,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getSupportActionBar().hide();
+
         //testMethod();
         mref = FirebaseDatabase.getInstance().getReference("emp_list");
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {

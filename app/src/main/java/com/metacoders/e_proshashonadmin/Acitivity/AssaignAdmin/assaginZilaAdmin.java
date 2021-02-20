@@ -169,14 +169,14 @@ public class assaginZilaAdmin extends AppCompatActivity implements Check_box_ada
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if (position != 1) {
-                    // not a admin
-                    emp_role = "employee_";
-
-                } else {
+//                if (position != 1) {
+//                    // not a admin
+//                    emp_role = "employee_";
+//
+//                } else {
                     // admin
                     emp_role = "regadmin_";
-                }
+
 
                 emp_role = emp_role + parent.getSelectedItem().toString();
 
