@@ -58,7 +58,7 @@ public class EmpCreateActivity extends AppCompatActivity implements Check_box_ad
     String emp_role = "";
     String department = "";
     String upzila = "";
-    String department_name="" ;
+    String department_name = "";
     // private String[] admin_Type_list = {"জেলা প্রশাসন", "উপজেলা প্রশাসন"};
 
     private ActivityAdminCreateBinding binding;
@@ -79,9 +79,11 @@ public class EmpCreateActivity extends AppCompatActivity implements Check_box_ad
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                department_name = parent.getSelectedItem().toString() ;
+                department_name = parent.getSelectedItem().toString();
 
-                Toast.makeText(getApplicationContext(), "" + department_name , Toast.LENGTH_SHORT).show();
+                LoadRoleList(2);
+
+           //     Toast.makeText(getApplicationContext(), "" + department_name, Toast.LENGTH_SHORT).show();
 
             }
 
@@ -132,24 +134,14 @@ public class EmpCreateActivity extends AppCompatActivity implements Check_box_ad
         binding.adminTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i == 2) {
+                if (i == 1) {
                     binding.upozillaSpinner.setVisibility(View.VISIBLE);
                     /*
                         upzilaa flood
                      */
+                    loadPermissionList(1);
+                    LoadRoleList(1);
 
-                    loadPermissionList(2);
-                    LoadRoleList(2);
-
-                } else {
-                    binding.upozillaSpinner.setVisibility(View.GONE);
-                    /*
-                        Zila Rcv add
-                     */
-                    upzila = "z";
-                    Log.d("TAG", "upzila -> : " + upzila);
-                    loadPermissionList(i);
-                    LoadRoleList(i);
                 }
                 department = adapterView.getSelectedItem().toString();
                 Log.d("TAG", "department -> : " + department);
@@ -170,8 +162,7 @@ public class EmpCreateActivity extends AppCompatActivity implements Check_box_ad
                     // not a admin
                     emp_role = "employee_";
 
-                }
-                else {
+                } else {
                     // admin
                     emp_role = "upzadmin_";
                 }
@@ -207,14 +198,9 @@ public class EmpCreateActivity extends AppCompatActivity implements Check_box_ad
 
     private void loadPermissionList(int i) {
         List<String> dataset = new ArrayList<>();
-        if (i == 2) {
+        if (i == 1) {
             // upzilla load
             dataset = Arrays.asList(Utils.upzillaDesignationList);
-        } else if (i == 1) {
-            /*
-             zilla permission load
-             */
-            dataset = Arrays.asList(Utils.disrictDesignationList);
         }
 //        adapter = new Check_box_adapter(dataset, getApplicationContext(), this, checkBoxModelList);
 //        binding.rcv.setLayoutManager(new LinearLayoutManager(this));
@@ -223,18 +209,20 @@ public class EmpCreateActivity extends AppCompatActivity implements Check_box_ad
 
     private void LoadRoleList(int i) {
         List<String> roleSet = new ArrayList<>();
+        List<String> dataset = new ArrayList<>();
 
-        if (i == 2) {
+        if (i == 1) {
             //  upzila role  load
             roleSet = Arrays.asList(Utils.upzillaDesignationList);
-        } else if (i == 1) {
-            /*
-             zilla permission load
-             */
-            roleSet = Arrays.asList(Utils.disrictDesignationList);
+
+            for (String item : roleSet) {
+                if (item.contains(department_name)) {
+                    dataset.add(item);
+                }
+            }
         }
 
-        ArrayAdapter<String> roleAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roleSet);
+        ArrayAdapter<String> roleAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dataset);
         roleAdapter.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
         binding.roleSpinner.setAdapter(roleAdapter);
 
@@ -242,9 +230,12 @@ public class EmpCreateActivity extends AppCompatActivity implements Check_box_ad
 
     private void loadAdminTypes() {
         adminType = Const.adminType();
+        adminType.remove(1);
         ArrayAdapter<String> employeeTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, adminType);
         employeeTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.adminTypeSpinner.setAdapter(employeeTypeAdapter);
+
+
         upozillaType = Const.upozillaType();
         ArrayAdapter<String> upozillaAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, upozillaType);
         upozillaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

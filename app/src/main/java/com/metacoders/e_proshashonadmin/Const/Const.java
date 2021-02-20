@@ -29,6 +29,35 @@ public class Const {
         return upozillaType;
 
     }
+    public static List<String> complainType() {
+        List<String> complainTypes = new ArrayList<String>();
+        complainTypes.add("নির্বাচন করুন");
+        complainTypes.add("নারী ও শিশু নির্যাতন");
+        complainTypes.add("শিক্ষা");
+        complainTypes.add("কৃষি");
+        complainTypes.add("স্বাস্থ্য");
+        complainTypes.add("দুর্নীতি");
+        complainTypes.add("জন্ম নিবন্ধন");
+        complainTypes.add("জাতীয় পরিচয়পত্র");
+        complainTypes.add("মাদক");
+        complainTypes.add("সন্ত্রাস ও চাঁদাবাজি");
+        complainTypes.add("অন্যান্য");
+        return complainTypes;
+
+    }
+
+    public static List<String> statusList() {
+        List<String> statusList = new ArrayList<String>();
+        statusList.add("নির্বাচন করুন");
+        statusList.add("ACCEPTED");
+        statusList.add("REJECTED");
+        statusList.add("INCOMPLETE");
+        statusList.add("COMPLETED");
+
+        return statusList;
+
+    }
+
 
     // admin type  adminType
     public static List<String> adminType() {
@@ -45,21 +74,38 @@ public class Const {
 
         String[] divisionList = {
                 "নির্বাচন করুন",
-                "জেলা প্রশাসন",
-                "পুলিশ প্রশাসন",
-                "আনসার ও ভিডিপি",
+                "ALL" ,
+                "পুলিশ সুপারের কার্যালয়",
+                "র\u200C্যাপিড এ্যাকশন ব্যাটালিয়ন (র\u200C্যাব)",
+                "আনসার ও গ্রাম প্রতিরক্ষা",
+                "মাদকদ্রব্য নিয়ন্ত্রন অধিদপ্তর",
                 "জেলা নির্বাচন অফিস",
-                "জেলা শিক্ষা অফিস",
+                "পাসপোর্ট অফিস",
+                "দুর্নীতি দমন কমিশন",
+                "জেলা সমাজসেবা কার্যালয়",
+                "জেলা সিভিল সার্জনের কার্যালয়",
+                "পরিবার পরিকল্পনা",
+                "গণপূর্ত বিভাগ",
+                "সড়ক ও জনপথ",
+                "স্থানীয় সরকার প্রকৌশল অধিদপ্তর",
+                "বিদ্যুৎ উন্নয়ন বোর্ড",
+                "জনস্বাস্থ্য প্রকৌশল অধিদপ্তর",
+                "নির্বাহী প্রকৌশলীর অফিস বিএডিসি,সেচ",
+                "বিআরটিএ",
+                "রেলওয়ে",
+                "জেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়",
+                "জাতীয় মহিলা সংস্থা,জেলা অফিস",
+                "কৃষি সম্প্রসারণ অধিদপ্তর",
+                "জেলা খাদ্য নিয়ন্ত্রকের কার্যালয়",
+                "জেলা মৎস্য অফিস",
+                "জেলা প্রাণিসম্পদ অফিস",
                 "জেলা প্রাথমিক শিক্ষা অফিস",
-                "জেলা ভূমি অফিস",
-                "পরিবার পরিকল্পনা অধিদপ্তর অফিস",
-                "সমাজসেবা অধিদপ্তর অফিস",
-                "কৃষি অধিদপ্তর অফিস",
-                "মৎস্য অধিদপ্তর অফিস",
-                "খাদ্য অধিদপ্তর অফিস",
-                "প্রাণিসম্পদ অধিদপ্তর অফিস",
-                "আইসিটি বিভাগ",
-                "অন্যান্য"
+                "জেলা শিক্ষা অফিস",
+                "তথ্য ও যোগাযোগ প্রযুক্তি অধিদপ্তর",
+                "বন বিভাগ",
+                "জেলা ত্রান ও পনর্বাসন অফিস",
+                "জাতীয় ভোক্তা অধিকার সংরক্ষণ অধিদপ্তর"
+               // "অন্যান্য"
         };
 
         return divisionList ;

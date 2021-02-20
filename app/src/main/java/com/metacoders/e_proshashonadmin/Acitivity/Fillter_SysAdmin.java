@@ -28,12 +28,12 @@ import com.metacoders.e_proshashonadmin.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Fillter_SysAdmin extends AppCompatActivity implements  complainListAdapter.ItemClickListener {
+public class Fillter_SysAdmin extends AppCompatActivity implements complainListAdapter.ItemClickListener {
     ValueEventListener valueEventListener = null;
     List<ComplainModel> complainModelList = new ArrayList<>();
     List<EmpModel> employeeList = new ArrayList<>();
-    String department = "", upzila = "", role = "" , uid ="";
-    complainListAdapter adapter ;
+    String department = "", upzila = "", role = "", uid = "", status = "";
+    complainListAdapter adapter;
 
     private ActivityFillterSysAdminBinding binding;
 
@@ -45,14 +45,14 @@ public class Fillter_SysAdmin extends AppCompatActivity implements  complainList
         binding = ActivityFillterSysAdminBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        adapter = new complainListAdapter(complainModelList , getApplicationContext() , this) ;
+        adapter = new complainListAdapter(complainModelList, getApplicationContext(), this);
         binding.complainList.setLayoutManager(new LinearLayoutManager(this));
 
 
         // 1 st flood the dpartment chooser
 
         loadZoneList();
-
+        loadStatusList();
         // on seletected
         binding.departTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -68,9 +68,8 @@ public class Fillter_SysAdmin extends AppCompatActivity implements  complainList
 
                     loadUpzilaList();
 
-                }
-                else {
-                    upzila ="" ;
+                } else {
+                    upzila = "";
 
                 }
                 search();
@@ -94,16 +93,15 @@ public class Fillter_SysAdmin extends AppCompatActivity implements  complainList
                     loadUpzliaRoleList();
                     upzila = parent.getSelectedItem().toString();
 
-                }
-                else {
-                    upzila ="" ;
+                } else {
+                    upzila = "";
                 }
                 search();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                upzila = "" ;
+                upzila = "";
             }
         });
 
@@ -115,9 +113,8 @@ public class Fillter_SysAdmin extends AppCompatActivity implements  complainList
                     //  set the designationSpinner
                     role = parent.getSelectedItem().toString();
                     loadEmpListInSpinner();
-                }
-                else {
-                    role = "" ;
+                } else {
+                    role = "";
 
                 }
 
@@ -127,7 +124,7 @@ public class Fillter_SysAdmin extends AppCompatActivity implements  complainList
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                role = "" ;
+                role = "";
 
             }
         });
@@ -136,7 +133,7 @@ public class Fillter_SysAdmin extends AppCompatActivity implements  complainList
             @Override
             public void onClick(View v) {
                 // uid , upzila , role
-               search() ;
+                search();
             }
         });
 
@@ -144,41 +141,60 @@ public class Fillter_SysAdmin extends AppCompatActivity implements  complainList
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-              if(position !=0  ){
-                  EmpModel model   = (EmpModel)parent.getItemAtPosition(position)  ;
-                  uid = model.getEmp_uid();
+                if (position != 0) {
+                    EmpModel model = (EmpModel) parent.getItemAtPosition(position);
+                    uid = model.getEmp_uid();
 
-              }
-              else {
-                  uid = "" ;
-              }
+                } else {
+                    uid = "";
+                }
                 search();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                uid = "" ;
+                uid = "";
+            }
+        });
+
+        binding.statusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position != 0) {
+                    status = parent.getSelectedItem().toString();
+
+                }
+                else {
+                    status="PENDING" ;
+                }
+                search();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // search();
             }
         });
     }
 
     private void search() {
         Log.d("TAG", "onClick: " + complainModelList.size());
-        List<ComplainModel> fillteredList  =Utils.FillterComplainModel( uid , upzila , role  , complainModelList) ;
-     //   uid ="" ;upzila = "" ; role = ""  ; ;
-        binding.complainList.setAdapter(new complainListAdapter(fillteredList , getApplicationContext() , Fillter_SysAdmin.this )) ;
+        List<ComplainModel> fillteredList = Utils.FillterComplainModel(uid, upzila, role, complainModelList, status);
+        //   uid ="" ;upzila = "" ; role = ""  ; ;
+        binding.complainList.setAdapter(new complainListAdapter(fillteredList, getApplicationContext(), Fillter_SysAdmin.this));
 
     }
 
     private void loadEmpListInSpinner() {
 
-        List<EmpModel>fillteredEmpList = Utils.FillterEmpModel(
-                department ,
+        List<EmpModel> fillteredEmpList = Utils.FillterEmpModel(
+                department,
                 upzila,
                 role,
                 employeeList
 
-        ) ;
+        );
 
         ArrayAdapter userListAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,
                 fillteredEmpList);
@@ -195,6 +211,13 @@ public class Fillter_SysAdmin extends AppCompatActivity implements  complainList
                 list);
         upozillaListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.upzilaSpinner.setAdapter(upozillaListAdapter);
+    }
+
+    private void loadStatusList() {
+        ArrayAdapter<String> complainTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+                Const.statusList());
+        complainTypeAdapter.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
+        binding.statusSpinner.setAdapter(complainTypeAdapter);
     }
 
     private void loadUpzliaRoleList() {
@@ -233,7 +256,7 @@ public class Fillter_SysAdmin extends AppCompatActivity implements  complainList
                     complainModelList.add(complainModel);
                 }
                 binding.complainList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                binding.complainList.setAdapter(new complainListAdapter(complainModelList , getApplicationContext() , Fillter_SysAdmin.this));
+                binding.complainList.setAdapter(new complainListAdapter(complainModelList, getApplicationContext(), Fillter_SysAdmin.this));
                 binding.complainList.setAdapter(adapter);
                 mref.removeEventListener(valueEventListener);
 
@@ -251,8 +274,8 @@ public class Fillter_SysAdmin extends AppCompatActivity implements  complainList
 
     }
 
-   public void loadEmpListData() {
-       employeeList.clear();
+    public void loadEmpListData() {
+        employeeList.clear();
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("emp_list");
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -284,8 +307,8 @@ public class Fillter_SysAdmin extends AppCompatActivity implements  complainList
     @Override
     public void onItemClick(ComplainModel model) {
 
-        Intent p = new Intent(getApplicationContext() , ComplainDetailsActivity.class);
-        p.putExtra("COMPLAIN_MODEL" , model) ;
+        Intent p = new Intent(getApplicationContext(), ComplainDetailsActivity.class);
+        p.putExtra("COMPLAIN_MODEL", model);
         startActivity(p);
     }
 }

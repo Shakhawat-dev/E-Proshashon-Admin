@@ -35,7 +35,7 @@ public class Fillter_RegAdmin extends AppCompatActivity implements complainListA
     ValueEventListener valueEventListener = null;
     List<ComplainModel> complainModelList = new ArrayList<>();
     List<EmpModel> employeeList = new ArrayList<>();
-    String department = "", upzila = "", role = "", uid = "" , departmentName ="";
+    String department = "", upzila = "", role = "", uid = "" , departmentName ="" ,status;
     complainListAdapter adapter;
 
     private ActivityFillterRegAdminBinding binding;
@@ -52,6 +52,7 @@ public class Fillter_RegAdmin extends AppCompatActivity implements complainListA
         adapter = new complainListAdapter(complainModelList, getApplicationContext(), this);
         binding.complainList.setLayoutManager(new LinearLayoutManager(this));
 
+        loadStatusList();
 
         // 1 st flood the dpartment chooser
 
@@ -140,6 +141,23 @@ public class Fillter_RegAdmin extends AppCompatActivity implements complainListA
             }
         });
 
+        binding.statusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position != 0) {
+                    status = parent.getSelectedItem().toString();
+                    search();
+                }
+                search();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // search();
+            }
+        });
+
         binding.userListSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -186,7 +204,12 @@ public class Fillter_RegAdmin extends AppCompatActivity implements complainListA
         binding.userListSpinner.setAdapter(userListAdapter);
 
     }
-
+    private void loadStatusList() {
+        ArrayAdapter<String> complainTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+                Const.statusList());
+        complainTypeAdapter.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
+        binding.designationSpinner.setAdapter(complainTypeAdapter);
+    }
     private void loadUpzilaList() {
 
         List<String> list = Const.upozillaType();

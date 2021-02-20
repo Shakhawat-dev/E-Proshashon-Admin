@@ -82,7 +82,7 @@ public class assaginZilaAdmin extends AppCompatActivity implements Check_box_ada
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 department_name = parent.getSelectedItem().toString();
-
+                LoadRoleList(1);
                 Toast.makeText(getApplicationContext(), "" + department_name, Toast.LENGTH_SHORT).show();
 
             }
@@ -221,7 +221,7 @@ public class assaginZilaAdmin extends AppCompatActivity implements Check_box_ada
 
     private void LoadRoleList(int i) {
         List<String> roleSet = new ArrayList<>();
-
+        List<String> dataset = new ArrayList<>();
         if (i == 2) {
             //  upzila role  load
             roleSet = Arrays.asList(Utils.upzillaDesignationList);
@@ -230,9 +230,16 @@ public class assaginZilaAdmin extends AppCompatActivity implements Check_box_ada
              zilla permission load
              */
             roleSet = Arrays.asList(Utils.disrictDesignationList);
+            for(String item : roleSet ){
+                if(item.contains(department_name)){
+                    dataset.add(item);
+                }
+            }
         }
 
-        ArrayAdapter<String> roleAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roleSet);
+
+
+        ArrayAdapter<String> roleAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dataset);
         roleAdapter.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
         binding.roleSpinner.setAdapter(roleAdapter);
 

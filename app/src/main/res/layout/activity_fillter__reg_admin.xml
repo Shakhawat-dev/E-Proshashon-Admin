@@ -83,7 +83,21 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="6dp"
                 android:layout_marginBottom="4dp"
-                android:layout_weight="2"
+                android:layout_weight="1"
+                android:background="@drawable/spinner_background"
+                android:textColor="@color/black"
+                android:textStyle="normal" />
+
+
+            <Spinner
+                android:id="@+id/status_spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
                 android:background="@drawable/spinner_background"
                 android:textColor="@color/black"
                 android:textStyle="normal" />
