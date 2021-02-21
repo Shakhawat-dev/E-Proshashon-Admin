@@ -116,7 +116,8 @@ public class Utils {
         for (EmpModel item : mainList) {
             if (item.getDepartment().contains(department) &&
                     item.getUpzila().contains(zila_upzila) &&
-                    item.getEmp_role().contains(role)) {
+                    item.getEmp_role().contains(role)
+            ) {
                 fillteredList.add(item);
             }
         }
@@ -127,7 +128,7 @@ public class Utils {
 
     public static List<ComplainModel> FillterComplainModel(String uid, String upzila, String role,
                                                            List<ComplainModel> complainModelList, String status
-            , String origINDepartment) {
+            , String origINDepartment , String complain_type) {
 
 
         Log.d("TAG", "FillterComplainModel: " + uid + " " + upzila + " " );
@@ -137,6 +138,7 @@ public class Utils {
                     item.getComplain_thana_upzilla().contains(upzila) &&
                     item.getEmp_role().contains(role) && item.getComplain_status().contains(status)
                     && item.getComplain_officer_department_name().contains(origINDepartment)
+                    && item.getComplain_type().contains(complain_type)
             ) {
                 fillteredList.add(item);
             }
@@ -146,14 +148,17 @@ public class Utils {
     }
 
     public static List<ComplainModel> FillterRegAdminComplainModel(String departmentName, String uid, String upzila,
-                                                                   String role, List<ComplainModel> complainModelList) {
+                                                                   String role, List<ComplainModel> complainModelList ,
+                                                                   String complainType ) {
 
         Log.d("TAG", "FillterComplainModel: " + uid + " " + upzila + " " + role);
         List<ComplainModel> fillteredList = new ArrayList<>();
         for (ComplainModel item : complainModelList) {
             if (item.getEmp_uid().contains(uid) &&
                     item.getComplain_thana_upzilla().contains(upzila) &&
-                    item.getEmp_role().contains(role) && item.getComplain_officer_department_name().contains(departmentName)
+                    item.getEmp_role().contains(role)
+                    && item.getComplain_officer_department_name().contains(departmentName)
+                    && item.getComplain_type().contains(complainType)
             ) {
                 fillteredList.add(item);
             }

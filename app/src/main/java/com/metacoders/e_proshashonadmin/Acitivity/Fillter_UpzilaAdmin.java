@@ -35,7 +35,7 @@ public class Fillter_UpzilaAdmin extends AppCompatActivity implements complainLi
     ValueEventListener valueEventListener = null;
     List<ComplainModel> complainModelList = new ArrayList<>();
     List<EmpModel> employeeList = new ArrayList<>();
-    String department = "", upzila = "", role = "", uid = "", departmentName = "", status = "";
+    String department = "", upzila = "", role = "", uid = "", departmentName = "", status = "" , complainType ="";
     complainListAdapter adapter;
 
     private ActivityFillterRegAdminBinding binding;
@@ -53,6 +53,7 @@ public class Fillter_UpzilaAdmin extends AppCompatActivity implements complainLi
         binding.complainList.setLayoutManager(new LinearLayoutManager(this));
         loadUpzilaList();
         loadStatusList();
+        loadComplainType();
         // 1 st flood the dpartment chooser
 
 
@@ -175,12 +176,37 @@ public class Fillter_UpzilaAdmin extends AppCompatActivity implements complainLi
                 uid = "";
             }
         });
+        binding.complainType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position != 0) {
+
+                    complainType =parent.getSelectedItem().toString() ;
+                } else {
+                    complainType ="";
+                }
+                search();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                uid = "";
+            }
+        });
 
     }
 
+    private void loadComplainType() {
+        ArrayAdapter<String> upzilaRoleListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+                Const.complainType());
+        upzilaRoleListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.complainType.setAdapter(upzilaRoleListAdapter);
+
+    }
     private void search() {
         Log.d("TAG", "onClick: " + complainModelList.size());
-        List<ComplainModel> fillteredList = Utils.FillterRegAdminComplainModel(departmentName, uid, upzila, role, complainModelList);
+        List<ComplainModel> fillteredList = Utils.FillterRegAdminComplainModel(departmentName, uid, upzila, role, complainModelList , complainType);
         //   uid ="" ;upzila = "" ; role = ""  ; ;
         binding.complainList.setAdapter(new complainListAdapter(fillteredList, getApplicationContext(), Fillter_UpzilaAdmin.this));
 

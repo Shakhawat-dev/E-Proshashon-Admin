@@ -29,18 +29,36 @@ public class Const {
         return upozillaType;
 
     }
+/*
+১. নারী ও শিশু নির্যাতন
+২.  বাল্য বিবাহ নিরসন
+৩. ইভটিজিং
+৪. মাদক
+৫. সন্ত্রাস ও চাঁদাবাজি
+৬. দুর্নীতি
+৭. স্বাস্থ্য
+৮. শিক্ষা
+৯. সোশ্যাল মিডিয়ায় মানহানী
+১০. জন্ম নিবন্ধন
+১১. কৃষি
+১৩. অন্যান্য
+ */
+
     public static List<String> complainType() {
         List<String> complainTypes = new ArrayList<String>();
         complainTypes.add("নির্বাচন করুন");
         complainTypes.add("নারী ও শিশু নির্যাতন");
-        complainTypes.add("শিক্ষা");
-        complainTypes.add("কৃষি");
-        complainTypes.add("স্বাস্থ্য");
-        complainTypes.add("দুর্নীতি");
-        complainTypes.add("জন্ম নিবন্ধন");
-        complainTypes.add("জাতীয় পরিচয়পত্র");
+        complainTypes.add("বাল্য বিবাহ নিরসন");
+        complainTypes.add("ইভটিজিং");
         complainTypes.add("মাদক");
         complainTypes.add("সন্ত্রাস ও চাঁদাবাজি");
+        complainTypes.add("দুর্নীতি");
+        complainTypes.add("স্বাস্থ্য");
+        complainTypes.add("শিক্ষা");
+        complainTypes.add("জন্ম নিবন্ধন");
+        complainTypes.add("সোশ্যাল মিডিয়ায় মানহানী");
+        complainTypes.add("জন্ম নিবন্ধন");
+        complainTypes.add("কৃষি");
         complainTypes.add("অন্যান্য");
         return complainTypes;
 

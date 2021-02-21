@@ -13,13 +13,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:orientation="vertical"
+            >
 
 
             <Spinner
                 android:id="@+id/depart_role_spinner"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="4dp"
@@ -29,6 +29,7 @@
                 android:background="@drawable/spinner_background"
                 android:textColor="@color/black"
                 android:textStyle="normal" />
+
 
 
         </LinearLayout>
@@ -104,6 +105,19 @@
 
 
         </LinearLayout>
+
+        <Spinner
+            android:id="@+id/complainType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/spinner_background"
+            android:textColor="@color/black"
+            android:textStyle="normal" />
         <Button
             android:id="@+id/search_button"
             android:layout_width="wrap_content"
