@@ -126,14 +126,17 @@ public class Utils {
     }
 
     public static List<ComplainModel> FillterComplainModel(String uid, String upzila, String role,
-                                                           List<ComplainModel> complainModelList , String status) {
+                                                           List<ComplainModel> complainModelList, String status
+            , String origINDepartment) {
 
-        Log.d("TAG", "FillterComplainModel: " + uid + " " + upzila + " " + role);
+
+        Log.d("TAG", "FillterComplainModel: " + uid + " " + upzila + " " );
         List<ComplainModel> fillteredList = new ArrayList<>();
         for (ComplainModel item : complainModelList) {
             if (item.getEmp_uid().contains(uid) &&
                     item.getComplain_thana_upzilla().contains(upzila) &&
                     item.getEmp_role().contains(role) && item.getComplain_status().contains(status)
+                    && item.getComplain_officer_department_name().contains(origINDepartment)
             ) {
                 fillteredList.add(item);
             }

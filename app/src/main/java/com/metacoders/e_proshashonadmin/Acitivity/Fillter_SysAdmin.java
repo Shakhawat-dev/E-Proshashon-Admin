@@ -26,13 +26,14 @@ import com.metacoders.e_proshashonadmin.databinding.ActivityFillterSysAdminBindi
 import com.metacoders.e_proshashonadmin.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Fillter_SysAdmin extends AppCompatActivity implements complainListAdapter.ItemClickListener {
     ValueEventListener valueEventListener = null;
     List<ComplainModel> complainModelList = new ArrayList<>();
     List<EmpModel> employeeList = new ArrayList<>();
-    String department = "", upzila = "", role = "", uid = "", status = "";
+    String department = "", upzila = "", role = "", uid = "", status = "", orginDepartment = "";
     complainListAdapter adapter;
 
     private ActivityFillterSysAdminBinding binding;
@@ -52,6 +53,7 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
         // 1 st flood the dpartment chooser
 
         loadZoneList();
+        loadEmpRole();
         loadStatusList();
         // on seletected
         binding.departTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -62,11 +64,14 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
                     // েলা প্রশাসন
                     upzila = "z";
                     loadDistrictRoleList();
+                    loadEmpListInSpinner();
 
                 } else if (position == 2) {
                     //"উপজেলা প্রশাসন"
 
                     loadUpzilaList();
+                    loadUpzliaRoleList();
+                    loadEmpListInSpinner();
 
                 } else {
                     upzila = "";
@@ -105,6 +110,35 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
             }
         });
 
+        binding.roleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position != 0) {
+
+                    orginDepartment = parent.getSelectedItem().toString();
+                    String[] a = orginDepartment.split("_");
+
+                    //orginDepartment = a[0];
+                } else {
+                    orginDepartment = "";
+                }
+                if(  upzila.equals("z")){
+                    loadDistrictRoleList();
+                }else {
+                    loadUpzliaRoleList();
+                }
+                search();
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                orginDepartment = "";
+            }
+        });
+
         binding.designationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -113,6 +147,7 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
                     //  set the designationSpinner
                     role = parent.getSelectedItem().toString();
                     loadEmpListInSpinner();
+
                 } else {
                     role = "";
 
@@ -164,9 +199,8 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
                 if (position != 0) {
                     status = parent.getSelectedItem().toString();
 
-                }
-                else {
-                    status="PENDING" ;
+                } else {
+                    status = "PENDING";
                 }
                 search();
             }
@@ -178,9 +212,17 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
         });
     }
 
+    private void loadEmpRole() {
+        ArrayAdapter roleListAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,
+                Const.divisionList());
+        roleListAdapter.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
+        binding.roleSpinner.setAdapter(roleListAdapter);
+
+    }
+
     private void search() {
         Log.d("TAG", "onClick: " + complainModelList.size());
-        List<ComplainModel> fillteredList = Utils.FillterComplainModel(uid, upzila, role, complainModelList, status);
+        List<ComplainModel> fillteredList = Utils.FillterComplainModel(uid, upzila, role, complainModelList, status, orginDepartment);
         //   uid ="" ;upzila = "" ; role = ""  ; ;
         binding.complainList.setAdapter(new complainListAdapter(fillteredList, getApplicationContext(), Fillter_SysAdmin.this));
 
@@ -221,16 +263,39 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
     }
 
     private void loadUpzliaRoleList() {
-        ArrayAdapter<String> upzilaRoleListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
-                Utils.upzillaDesignationList);
+        Toast.makeText(getApplicationContext() , orginDepartment +" ", Toast.LENGTH_SHORT).show();
+        List<String> newlist = new ArrayList<>();
+        List<String> upzilaList = Arrays.asList(Utils.upzillaDesignationList);
+
+        for (String roleNmae : upzilaList) {
+            if (roleNmae.contains(orginDepartment)) {
+                newlist.add(roleNmae);
+            }
+        }
+
+        ArrayAdapter<String> upzilaRoleListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item
+                , newlist
+        );
         upzilaRoleListAdapter.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
         binding.designationSpinner.setAdapter(upzilaRoleListAdapter);
 
     }
 
     private void loadDistrictRoleList() {
+
+        Log.d("TAGROLE", "loadDistrictRoleList: " + orginDepartment);
+        List<String> newlist = new ArrayList<>();
+        List<String> zill_list = Arrays.asList(Utils.disrictDesignationList);
+
+        for (String roleNmae : zill_list) {
+            Log.d("TAGROLE", "loadDistrictRoleList: " + roleNmae);
+            if (roleNmae.contains(orginDepartment)) {
+                newlist.add(roleNmae);
+                Log.d("TAGROLE", "MATCHED: " + roleNmae);
+            }
+        }
         ArrayAdapter<String> districtRoleListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
-                Utils.disrictDesignationList);
+                newlist);
         districtRoleListAdapter.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
         binding.designationSpinner.setAdapter(districtRoleListAdapter);
 
