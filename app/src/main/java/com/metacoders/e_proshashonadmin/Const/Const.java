@@ -8,7 +8,7 @@ public class Const {
     public static final String USER_PROFILE_REPO = "user_profile";
     public static final String PUBLISHABLE = "pk_test_51ILMXLELeQjZhqHV6W3QTtzVzKitUVEpdoJOf3xUwXslmO5x1zNG9wO7SZxVXM2pGeFnb5YtzeDJZxTpmFNG1e9100qd1hRJCE";
     public static final String SECRET_KEY = "sk_test_51ILMXLELeQjZhqHV70x6UA3wvLdikhX7hjTE8n3g97N9X6m2l6T9ZOwY9O9AJxGnOKL6ieNT8QsQIsEoM3Mc9fDq00oGdySOt9";
-    public static final String EMPLOYEE_LIST ="emp_list" ;
+    public static final String EMPLOYEE_LIST = "emp_list";
 
 
     //upozillaType
@@ -29,20 +29,6 @@ public class Const {
         return upozillaType;
 
     }
-/*
-১. নারী ও শিশু নির্যাতন
-২.  বাল্য বিবাহ নিরসন
-৩. ইভটিজিং
-৪. মাদক
-৫. সন্ত্রাস ও চাঁদাবাজি
-৬. দুর্নীতি
-৭. স্বাস্থ্য
-৮. শিক্ষা
-৯. সোশ্যাল মিডিয়ায় মানহানী
-১০. জন্ম নিবন্ধন
-১১. কৃষি
-১৩. অন্যান্য
- */
 
     public static List<String> complainType() {
         List<String> complainTypes = new ArrayList<String>();
@@ -67,6 +53,7 @@ public class Const {
     public static List<String> statusList() {
         List<String> statusList = new ArrayList<String>();
         statusList.add("নির্বাচন করুন");
+        statusList.add("PENDING") ;
         statusList.add("ACCEPTED");
         statusList.add("REJECTED");
         statusList.add("INCOMPLETE");
@@ -80,19 +67,22 @@ public class Const {
     // admin type  adminType
     public static List<String> adminType() {
         List<String> adminType = new ArrayList<String>();
-        adminType.add("নির্বাচন করুন");
+        adminType.add("নির্বাচন করুন");//0
         adminType.add("জেলা প্রশাসন");
         adminType.add("উপজেলা প্রশাসন");
         return adminType;
 
     }
 
-    // department
+
+
     public static String[] divisionList() {
+
 
         String[] divisionList = {
                 "নির্বাচন করুন",
-                "ALL" ,
+                "জেলা প্রশাসকের কার্যালয়",
+                "উপজেলা নির্বাহী অফিসারের কার্যালয়",
                 "পুলিশ সুপারের কার্যালয়",
                 "র\u200C্যাপিড এ্যাকশন ব্যাটালিয়ন (র\u200C্যাব)",
                 "আনসার ও গ্রাম প্রতিরক্ষা",
@@ -123,10 +113,10 @@ public class Const {
                 "বন বিভাগ",
                 "জেলা ত্রান ও পনর্বাসন অফিস",
                 "জাতীয় ভোক্তা অধিকার সংরক্ষণ অধিদপ্তর"
-               // "অন্যান্য"
+                // "অন্যান্য"
         };
 
-        return divisionList ;
+        return divisionList;
     }
 
 

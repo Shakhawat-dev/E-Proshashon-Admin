@@ -33,7 +33,7 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
     ValueEventListener valueEventListener = null;
     List<ComplainModel> complainModelList = new ArrayList<>();
     List<EmpModel> employeeList = new ArrayList<>();
-    String department = "", upzila = "", role = "", uid = "", status = "", orginDepartment = "" , complain_type = "" ;
+    String department = "", upzila = "", role = "", uid = "", status = "", orginDepartment = "", complain_type = "";
     complainListAdapter adapter;
 
     private ActivityFillterSysAdminBinding binding;
@@ -51,9 +51,8 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
 
 
         // 1 st flood the dpartment chooser
-
         loadZoneList();
-        loadEmpRole();
+
         loadComplainType();
         loadStatusList();
         // on seletected
@@ -65,12 +64,14 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
                     // েলা প্রশাসন
                     upzila = "z";
                     loadDistrictRoleList();
+                    loadEmpRole("z");
                     loadEmpListInSpinner();
 
                 } else if (position == 2) {
                     //"উপজেলা প্রশাসন"
 
                     loadUpzilaList();
+                    loadEmpRole("");
                     loadUpzliaRoleList();
                     loadEmpListInSpinner();
 
@@ -94,7 +95,7 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 // set the upzlia name
-                if (position != 0) {
+                if (position > 0) {
                     // no load the upzila role list
                     loadUpzliaRoleList();
                     upzila = parent.getSelectedItem().toString();
@@ -102,6 +103,7 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
                 } else {
                     upzila = "";
                 }
+                loadEmpListInSpinner();
                 search();
             }
 
@@ -124,11 +126,13 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
                 } else {
                     orginDepartment = "";
                 }
-                if(  upzila.equals("z")){
+                Log.d("UPZILA", "onItemSelected: " + upzila);
+                if (upzila.equals("z")) {
                     loadDistrictRoleList();
-                }else {
+                } else {
                     loadUpzliaRoleList();
                 }
+                loadEmpListInSpinner();
                 search();
 
 
@@ -142,36 +146,34 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
 
         binding.designationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
-                if (position != 0) {
+                role = parent.getSelectedItem().toString();
+                if (role.equals("নির্বাচন করুন")) {
                     //  set the designationSpinner
-                    role = parent.getSelectedItem().toString();
-                    loadEmpListInSpinner();
-
-                } else {
                     role = "";
 
                 }
 
+                loadEmpListInSpinner();
                 search();
 
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                role = "";
+
 
             }
         });
 
-        binding.searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // uid , upzila , role
-                search();
-            }
-        });
+//        binding.searchButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // uid , upzila , role
+//                search();
+//            }
+//        });
 
         binding.userListSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -217,9 +219,9 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
 
                 if (position != 0) {
 
-                    complain_type =parent.getSelectedItem().toString() ;
+                    complain_type = parent.getSelectedItem().toString();
                 } else {
-                    complain_type ="";
+                    complain_type = "";
                 }
                 search();
             }
@@ -230,6 +232,7 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
             }
         });
     }
+
     private void loadComplainType() {
         ArrayAdapter<String> upzilaRoleListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
                 Const.complainType());
@@ -237,24 +240,34 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
         binding.complainType.setAdapter(upzilaRoleListAdapter);
 
     }
-    private void loadEmpRole() {
+
+    private void loadEmpRole(String upzila) {
+        List<String> divisionS = new ArrayList<String>(Arrays.asList(Const.divisionList()));
+        if(upzila.equals("z")){
+          divisionS.remove(2) ;
+        }else {
+            divisionS.remove(1) ;
+        }
         ArrayAdapter roleListAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,
-                Const.divisionList());
+                divisionS);
         roleListAdapter.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
         binding.roleSpinner.setAdapter(roleListAdapter);
+
 
     }
 
     private void search() {
         Log.d("TAG", "onClick: " + complainModelList.size());
         List<ComplainModel> fillteredList = Utils.FillterComplainModel(uid, upzila, role, complainModelList,
-                status, orginDepartment , complain_type);
+                status, orginDepartment, complain_type);
         //   uid ="" ;upzila = "" ; role = ""  ; ;
         binding.complainList.setAdapter(new complainListAdapter(fillteredList, getApplicationContext(), Fillter_SysAdmin.this));
-
+        callConter();
     }
 
     private void loadEmpListInSpinner() {
+
+        Log.d("EMP", ": " + department + " ->" + upzila + " " + role);
 
         List<EmpModel> fillteredEmpList = Utils.FillterEmpModel(
                 department,
@@ -288,7 +301,7 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
     }
 
     private void loadUpzliaRoleList() {
-        Toast.makeText(getApplicationContext() , orginDepartment +" ", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), orginDepartment + " ", Toast.LENGTH_SHORT).show();
         List<String> newlist = new ArrayList<>();
         List<String> upzilaList = Arrays.asList(Utils.upzillaDesignationList);
 
@@ -308,15 +321,15 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
 
     private void loadDistrictRoleList() {
 
-        Log.d("TAGROLE", "loadDistrictRoleList: " + orginDepartment);
         List<String> newlist = new ArrayList<>();
+
         List<String> zill_list = Arrays.asList(Utils.disrictDesignationList);
 
         for (String roleNmae : zill_list) {
-            Log.d("TAGROLE", "loadDistrictRoleList: " + roleNmae);
+            //   Log.d("TAGROLE", "loadDistrictRoleList: " + roleNmae);
             if (roleNmae.contains(orginDepartment)) {
                 newlist.add(roleNmae);
-                Log.d("TAGROLE", "MATCHED: " + roleNmae);
+                //  Log.d("TAGROLE", "MATCHED: " + roleNmae);
             }
         }
         ArrayAdapter<String> districtRoleListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
@@ -348,6 +361,7 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
                 binding.complainList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 binding.complainList.setAdapter(new complainListAdapter(complainModelList, getApplicationContext(), Fillter_SysAdmin.this));
                 binding.complainList.setAdapter(adapter);
+                callConter() ;
                 mref.removeEventListener(valueEventListener);
 
             }
@@ -364,7 +378,16 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
 
     }
 
-    public void loadEmpListData() {
+    private void callConter() {
+        try{
+            binding.counter.setText(binding.complainList.getAdapter().getItemCount() +  "টি অভিযোগ") ;
+        }catch (Exception e ){
+
+        }
+
+    }
+
+    public void loadEmpListFromFirebase() {
         employeeList.clear();
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("emp_list");
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -391,7 +414,7 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
     protected void onResume() {
         super.onResume();
         loadComplainList();
-        loadEmpListData();
+        loadEmpListFromFirebase();
     }
 
     @Override

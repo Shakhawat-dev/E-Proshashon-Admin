@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class EmpModel implements Serializable {
 
-    String emp_name = "NULL", emp_role = "NULL", emp_pp = "NULL", emp_ph = "NULL", emp_mail = "NULL", emp_uid = "NULL", emp_not_uid = "NULL",
+    String emp_name = "NULL", emp_role = "NULL", emp_pp = "NULL", emp_ph = "NULL", emp_mail = "NULL", emp_uid = "", emp_not_uid = "NULL",
             emp_password = "NULL", department = "NULL", upzila = "NULL", department_name = "NULL", role_list = "NULL";
 
     public EmpModel() {

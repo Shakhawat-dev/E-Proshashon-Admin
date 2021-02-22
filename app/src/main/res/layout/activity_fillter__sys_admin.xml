@@ -126,14 +126,14 @@
             android:textColor="@color/black"
             android:textStyle="normal" />
 
-        <Button
-            android:id="@+id/search_button"
+        <TextView
+            android:id="@+id/counter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_margin="@dimen/_4sdp"
-            android:text="Search"
-            android:visibility="gone" />
+            android:layout_margin="5dp"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
 
         <View
             android:layout_width="match_parent"

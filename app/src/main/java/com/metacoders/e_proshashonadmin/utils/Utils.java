@@ -15,13 +15,25 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Utils {
+/*
+      /*
+        অতিরিক্ত জেলা ম্যাজিস্ট্রেট
+অতিরিক্ত জেলা প্রশাসক (রাজস্ব)
+অতিরিক্ত জেলা প্রশাসক (সার্বিক)
+উপ পরিচালক, স্থানীয় সরকার (চলতি দায়িত্ব)
+অতিরিক্ত জেলা প্রশাসক (শিক্ষা ও আইসিটি)
+         */
 
 
     public static String COMPLAIN_REPO = "complain_box";
     public static String[] disrictDesignationList = new String[]{
             "নির্বাচন করুন",
-            //"DC জেলা প্রশাসক_",
+            "জেলা প্রশাসক_জেলা প্রশাসকের কার্যালয়",
             "পুলিশ সুপার_পুলিশ সুপারের কার্যালয়",
+            "অতিরিক্ত জেলা ম্যাজিস্ট্রেট_জেলা প্রশাসকের কার্যালয়",
+            "অতিরিক্ত জেলা প্রশাসক (রাজস্ব)_জেলা প্রশাসকের কার্যালয়",
+            "উপ পরিচালক,স্থানীয় সরকার (চলতি দায়িত্ব)_জেলা প্রশাসকের কার্যালয়",
+            "অতিরিক্ত জেলা প্রশাসক (শিক্ষা ও আইসিটি)_জেলা প্রশাসকের কার্যালয়",
             "কোম্পানী কমান্ডার সিপিসি-৩_র\u200C্যাপিড এ্যাকশন ব্যাটালিয়ন (র\u200C্যাব)",
             "জেলা কমান্ড্যান্ট (অতিঃ দায়িত্ব)_আনসার ও গ্রাম প্রতিরক্ষা",
             "সহকারী পরিচালক_মাদকদ্রব্য নিয়ন্ত্রন অধিদপ্তর",
@@ -56,7 +68,7 @@ public class Utils {
     };
     public static String[] upzillaDesignationList = new String[]{
             "নির্বাচন করুন",
-            "UNO উপজেলা নির্বাহী কর্মকর্তা_ALL",
+            "উপজেলা নির্বাহী অফিসার_উপজেলা নির্বাহী অফিসারের কার্যালয়",
             "ভারপ্রাপ্ত কর্মকর্তা-ওসি_পুলিশ সুপারের কার্যালয়",
             "উপজেলা আনসার ও ভিডিপি প্রশিক্ষক_আনসার ও গ্রাম প্রতিরক্ষা",
             "মাদকদ্রব্য নিয়ন্ত্রন কর্মকর্তা_মাদকদ্রব্য নিয়ন্ত্রন অধিদপ্তর",
@@ -112,7 +124,14 @@ public class Utils {
             String role,
             List<EmpModel> mainList
     ) {
+        Log.d("EMP", "FillterEmpModel: " + department + " "  +zila_upzila + " " + role);
         List<EmpModel> fillteredList = new ArrayList<>();
+        EmpModel model = new EmpModel()  ;
+        model.setEmp_name("নির্বাচন করুন");
+        model.setEmp_uid("");
+        fillteredList.add(model);
+
+
         for (EmpModel item : mainList) {
             if (item.getDepartment().contains(department) &&
                     item.getUpzila().contains(zila_upzila) &&
@@ -149,9 +168,14 @@ public class Utils {
 
     public static List<ComplainModel> FillterRegAdminComplainModel(String departmentName, String uid, String upzila,
                                                                    String role, List<ComplainModel> complainModelList ,
-                                                                   String complainType ) {
+                                                                   String complainType , String status  ) {
 
-        Log.d("TAG", "FillterComplainModel: " + uid + " " + upzila + " " + role);
+
+        if(role.contains("_")){
+            String[] a = role.split("_");
+            role = a[0] ;
+        }
+        Log.d("TAG", "FillterComplainModel: " + uid + " " + upzila + " " + role + " " + departmentName );
         List<ComplainModel> fillteredList = new ArrayList<>();
         for (ComplainModel item : complainModelList) {
             if (item.getEmp_uid().contains(uid) &&
@@ -159,6 +183,7 @@ public class Utils {
                     item.getEmp_role().contains(role)
                     && item.getComplain_officer_department_name().contains(departmentName)
                     && item.getComplain_type().contains(complainType)
+                    && item.getComplain_status().contains(status)
             ) {
                 fillteredList.add(item);
             }

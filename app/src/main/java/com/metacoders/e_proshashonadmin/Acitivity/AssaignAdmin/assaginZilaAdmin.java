@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.awesomedialog.blennersilva.awesomedialoglibrary.AwesomeSuccessDialog;
 import com.awesomedialog.blennersilva.awesomedialoglibrary.interfaces.Closure;
 import com.github.dhaval2404.imagepicker.ImagePicker;
+import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -101,6 +102,13 @@ public class assaginZilaAdmin extends AppCompatActivity implements Check_box_ada
             }
         });
 
+        binding.cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
         binding.profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +152,7 @@ public class assaginZilaAdmin extends AppCompatActivity implements Check_box_ada
                     // loadPermissionList(2);
                     LoadRoleList(2);
 
-                } else {
+                } else if ( i != 0 ) {
                     binding.upozillaSpinner.setVisibility(View.GONE);
                     /*
                         Zila Rcv add
@@ -208,13 +216,18 @@ public class assaginZilaAdmin extends AppCompatActivity implements Check_box_ada
     }
 
     private void loadPermissionList() {
+
         List<String> dataset = Arrays.asList(Const.divisionList());
+        List<String>newDataset = new ArrayList<String>(dataset);
+        newDataset.remove(0) ;
+        newDataset.remove(1) ;
         List<CheckBoxModel> checkBoxModelList = new ArrayList<>();
-        for (int i = 0; i < dataset.size(); i++) {
+
+        for (int i = 0; i < newDataset.size(); i++) {
             CheckBoxModel model = new CheckBoxModel(dataset.get(i), false, i);
             checkBoxModelList.add(model);
         }
-        adapter = new Check_box_adapter(dataset, getApplicationContext(), this, checkBoxModelList);
+        adapter = new Check_box_adapter(newDataset, getApplicationContext(), this, checkBoxModelList);
         binding.rcv.setLayoutManager(new LinearLayoutManager(this));
         binding.rcv.setAdapter(adapter);
     }
@@ -232,7 +245,8 @@ public class assaginZilaAdmin extends AppCompatActivity implements Check_box_ada
             roleSet = Arrays.asList(Utils.disrictDesignationList);
             for(String item : roleSet ){
                 if(item.contains(department_name)){
-                    dataset.add(item);
+                    String[] strings = item.split("_") ;
+                    dataset.add(strings[0]);
                 }
             }
         }
@@ -247,7 +261,8 @@ public class assaginZilaAdmin extends AppCompatActivity implements Check_box_ada
 
     private void loadAdminTypes() {
         adminType = Const.adminType();
-        adminType.remove(2);
+        adminType.remove(0);
+        adminType.remove(1);
         ArrayAdapter<String> employeeTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, adminType);
         employeeTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.adminTypeSpinner.setAdapter(employeeTypeAdapter);
@@ -260,7 +275,9 @@ public class assaginZilaAdmin extends AppCompatActivity implements Check_box_ada
 
     private void loadDepartmentTypes() {
         List<String> deptList = Arrays.asList(Const.divisionList());
-        ArrayAdapter<String> departmentTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, deptList);
+        List<String> newDepList = new ArrayList<String>(deptList);
+        newDepList.remove(2) ;
+        ArrayAdapter<String> departmentTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, newDepList);
         departmentTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.positionList.setAdapter(departmentTypeAdapter);
 
@@ -357,6 +374,7 @@ public class assaginZilaAdmin extends AppCompatActivity implements Check_box_ada
                     @Override
                     public void exec() {
                         //click
+                        finish();
                     }
                 })
                 .setNegativeButtonClick(new Closure() {
