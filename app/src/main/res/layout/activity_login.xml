@@ -70,7 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
-                    android:layout_marginTop="64dp"
+                    android:layout_marginTop="32dp"
                     android:layout_marginEnd="32dp"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toTopOf="@+id/linearLayout"
@@ -80,22 +80,23 @@
                     app:layout_constraintVertical_bias="0.0">
 
 
-                    <TextView
+                    <!--<TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="ই-প্রশাসন এডমিন"
                         android:textColor="@color/black"
                         android:textSize="36sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold" />-->
 
-                    <!--                    <ImageView-->
-                    <!--                        android:layout_width="128dp"-->
-                    <!--                        android:layout_height="128dp"-->
-                    <!--                        android:layout_gravity="center"-->
-                    <!--                        android:layout_margin="16dp"-->
-                    <!--                        android:src="@drawable/ic_baseline_support_agent_24"-->
-                    <!--                        app:tint="@color/black" />-->
+                    <ImageView
+                        android:layout_width="170dp"
+                        android:layout_height="150dp"
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/ic_launcher_foreground"
+                        android:textSize="48sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -280,6 +281,19 @@
 
         </LinearLayout>
 
+
+
     </ScrollView>
+
+    <ImageView
+        android:id="@+id/footer_image"
+        android:layout_width="match_parent"
+        android:src="@drawable/bottom"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
