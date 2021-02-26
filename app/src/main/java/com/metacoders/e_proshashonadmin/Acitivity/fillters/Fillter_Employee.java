@@ -1,11 +1,8 @@
-package com.metacoders.e_proshashonadmin.Acitivity;
+package com.metacoders.e_proshashonadmin.Acitivity.fillters;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,8 +20,7 @@ import com.metacoders.e_proshashonadmin.Const.Const;
 import com.metacoders.e_proshashonadmin.Models.ComplainModel;
 import com.metacoders.e_proshashonadmin.Models.EmpModel;
 import com.metacoders.e_proshashonadmin.databinding.ActivityEmpComplainListBinding;
-import com.metacoders.e_proshashonadmin.databinding.ActivityFillterSysAdminBinding;
-import com.metacoders.e_proshashonadmin.utils.Utils;
+import com.metacoders.e_proshashonadmin.utils.SharedPrefManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +41,7 @@ public class Fillter_Employee extends AppCompatActivity implements  complainList
 
         binding = ActivityEmpComplainListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        uid = SharedPrefManager.getInstance(getApplicationContext()).getUser().getEmp_uid() ;
         // as it is employee hide necessary views
 
 
@@ -66,10 +62,16 @@ public class Fillter_Employee extends AppCompatActivity implements  complainList
                     ComplainModel model = postSnapshot.getValue(ComplainModel.class);
                     // replce with real uid
                     Log.d("TAG", "onDataChange: "+ model.getEmp_uid());
-                    if(model.getEmp_uid().contains("-MSbMbmEypTEoKJXlVaQ")){
+                    if(model.getEmp_uid().equals(uid)){
                         complainModelList.add(model);
                     }
 
+                }
+
+
+                if(complainModelList.size()==0){
+                    Toast.makeText(getApplicationContext() ,
+                            "কোন অভিযোগ নেই" , Toast.LENGTH_LONG).show();
                 }
 
                 binding.clist.setAdapter(new complainListAdapter(complainModelList, getApplicationContext(), Fillter_Employee.this));

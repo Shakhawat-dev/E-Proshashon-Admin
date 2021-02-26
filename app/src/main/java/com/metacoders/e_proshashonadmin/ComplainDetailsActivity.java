@@ -3,6 +3,8 @@ package com.metacoders.e_proshashonadmin;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,11 +28,13 @@ import com.metacoders.e_proshashonadmin.databinding.ActivityComplainDetailsBindi
 import com.metacoders.e_proshashonadmin.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ComplainDetailsActivity extends AppCompatActivity {
 
     ComplainModel model;
     private ActivityComplainDetailsBinding binding;
+    String status  = "" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,20 +44,43 @@ public class ComplainDetailsActivity extends AppCompatActivity {
 
         // recive the model
         model = (ComplainModel) getIntent().getSerializableExtra("COMPLAIN_MODEL");
+        status = model.getComplain_status();
 
         // this model has all the data
 
         setViews(model);
 
+
         loadProfile(model.getEmp_uid());
+        loadStatus();
+
         binding.acceptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //
                 String comment = binding.commentEd.getText().toString();
                 model.setComment(comment);
-                //TODO assert Commplian Type
+                model.setComplain_status(status);
                 updateTheComplain(model);
+            }
+        });
+
+        binding.statusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if(position== 0){
+
+                }else {
+                    status = parent.getSelectedItem().toString() ;
+
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
@@ -84,7 +111,9 @@ public class ComplainDetailsActivity extends AppCompatActivity {
         binding.cCompalinType.setText(model.getComplain_type());
         binding.cThanaUpzilla.setText(model.getComplain_thana_upzilla());
         binding.department.setText(model.getEmp_role());
-        if(!model.getComment().toLowerCase().equals("null")){
+        binding.cCompalinStatus.setText(model.getComplain_status());
+
+        if (!model.getComment().toLowerCase().equals("null")) {
             binding.commentEd.setText(model.getComment());
         }
         // load image
@@ -158,8 +187,17 @@ public class ComplainDetailsActivity extends AppCompatActivity {
 // uriString is an ArrayList<String> of URI of all images
         fullImageIntent.putExtra(FullScreenImageViewActivity.URI_LIST_DATA, images);
 // pos is the position of image will be showned when open
-      //  fullImageIntent.putExtra(FullScreenImageViewActivity.IMAGE_FULL_SCREEN_CURRENT_POS, 0);
+        //  fullImageIntent.putExtra(FullScreenImageViewActivity.IMAGE_FULL_SCREEN_CURRENT_POS, 0);
         startActivity(fullImageIntent);
     }
+
+    private void loadStatus() {
+        List<String> deptList = Const.statusList();
+        List<String> newDeptList = new ArrayList<>(deptList);
+        ArrayAdapter<String> departmentTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, newDeptList);
+        departmentTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.statusSpinner.setAdapter(departmentTypeAdapter);
+    }
+
 
 }

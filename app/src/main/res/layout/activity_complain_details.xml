@@ -353,9 +353,73 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
-                android:visibility="gone"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="4dp" />
+                android:layout_marginBottom="4dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:drawableStart="@drawable/location_icon_w"
+                android:drawablePadding="8dp"
+                android:text="অভিযোগের বর্তমান হাল"
+                android:textColor="@color/blue_800"
+                android:textSize="16dp"
+                android:textStyle="normal" />
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                app:boxStrokeColor="@color/blue_600"
+                app:hintAnimationEnabled="true"
+                app:hintTextColor="@color/blue_600">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/c_compalin_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="Status"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+                    android:textStyle="normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:drawableStart="@drawable/location_icon_w"
+                android:drawablePadding="8dp"
+                android:text="অভিযোগের বর্তমান হাল পরিবর্তন করুন"
+                android:textColor="@color/blue_800"
+                android:textSize="16dp"
+                android:textStyle="normal" />
+            <Spinner
+                android:id="@+id/status_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/spinner_background"
+                android:textColor="@color/black"
+                android:textStyle="normal" />
 
             <com.google.android.material.textfield.TextInputLayout
 

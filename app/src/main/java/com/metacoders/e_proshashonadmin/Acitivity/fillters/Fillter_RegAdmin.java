@@ -1,4 +1,4 @@
-package com.metacoders.e_proshashonadmin.Acitivity;
+package com.metacoders.e_proshashonadmin.Acitivity.fillters;
 
 import android.content.Intent;
 import android.os.Bundle;

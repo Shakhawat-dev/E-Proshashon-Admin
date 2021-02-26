@@ -10,33 +10,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EProshashonAdmin">
-        <activity android:name=".AdminDashboardActivity"/>
-        <activity android:name=".Acitivity.Fillter_Employee">
-
-        </activity>
-        <activity android:name=".Acitivity.Fillter_RegAdmin">
-
-        </activity>
-        <activity android:name=".Acitivity.AssaignAdmin.assaginZilaAdmin">
-
-        </activity>
-        <activity android:name=".Acitivity.UserListActivity" />
-        <activity android:name=".Acitivity.Fillter_SysAdmin" />
-        <activity android:name=".LoginActivity"
+        <activity android:name=".Acitivity.profile.EditEmpProfile"></activity>
+        <activity android:name=".Acitivity.allList.all_officer_list" />
+        <activity android:name=".AdminDashboardActivity" />
+        <activity android:name=".Acitivity.fillters.Fillter_Employee" />
+        <activity android:name=".Acitivity.fillters.Fillter_RegAdmin" />
+        <activity android:name=".Acitivity.AssaignAdmin.assaginZilaAdmin" />
+        <activity android:name=".Acitivity.allList.UserListActivity" />
+        <activity android:name=".Acitivity.fillters.Fillter_SysAdmin" />
+        <activity
+            android:name=".LoginActivity"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity android:name=".AllComplainList" />
-        <activity android:name=".ComplainDetailsActivity"/>
-        <activity android:name=".Acitivity.Fillter_UpzilaAdmin"/>
-        <activity android:name=".EmpCreateActivity">
-
-        </activity>
+        <activity android:name=".ComplainDetailsActivity" />
+        <activity android:name=".Acitivity.fillters.Fillter_UpzilaAdmin" />
+        <activity android:name=".Acitivity.AssaignAdmin.EmpCreateActivity" />
         <activity android:name=".MainActivity" />
     </application>
 

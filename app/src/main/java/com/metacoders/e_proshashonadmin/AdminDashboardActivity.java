@@ -3,6 +3,9 @@ package com.metacoders.e_proshashonadmin;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -15,11 +18,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.metacoders.e_proshashonadmin.Acitivity.AssaignAdmin.EmpCreateActivity;
 import com.metacoders.e_proshashonadmin.Acitivity.AssaignAdmin.assaginZilaAdmin;
-import com.metacoders.e_proshashonadmin.Acitivity.Fillter_Employee;
-import com.metacoders.e_proshashonadmin.Acitivity.Fillter_RegAdmin;
-import com.metacoders.e_proshashonadmin.Acitivity.Fillter_SysAdmin;
-import com.metacoders.e_proshashonadmin.Acitivity.Fillter_UpzilaAdmin;
+import com.metacoders.e_proshashonadmin.Acitivity.allList.all_officer_list;
+import com.metacoders.e_proshashonadmin.Acitivity.fillters.Fillter_Employee;
+import com.metacoders.e_proshashonadmin.Acitivity.fillters.Fillter_RegAdmin;
+import com.metacoders.e_proshashonadmin.Acitivity.fillters.Fillter_SysAdmin;
+import com.metacoders.e_proshashonadmin.Acitivity.fillters.Fillter_UpzilaAdmin;
 import com.metacoders.e_proshashonadmin.Const.Const;
 import com.metacoders.e_proshashonadmin.Models.ComplainModel;
 import com.metacoders.e_proshashonadmin.Models.EmpModel;
@@ -81,15 +86,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
                 //now what to do is
                 // clear the shared preferences
 
-                SharedPrefManager.getInstance(getApplicationContext())
-                        .logout();
-
-                // nbow the get the login
-
-                Intent p = new Intent(getApplicationContext(), LoginActivity.class);
-                p.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(p);
-
+                loagOut();
 
             }
         });
@@ -97,6 +94,15 @@ public class AdminDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Fillter_RegAdmin.class);
+                startActivity(intent);
+            }
+        });
+
+        binding.offlicerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getApplicationContext(), all_officer_list.class);
                 startActivity(intent);
             }
         });
@@ -111,6 +117,18 @@ public class AdminDashboardActivity extends AppCompatActivity {
         });
 
         decideWhatToShow();
+    }
+
+    private void loagOut() {
+        SharedPrefManager.getInstance(getApplicationContext())
+                .logout();
+
+        // nbow the get the login
+
+        Intent p = new Intent(getApplicationContext(), LoginActivity.class);
+        p.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(p);
+
     }
 
 
@@ -141,25 +159,33 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
              */
             // decide thte data
-            if (ROLESTR.equals("regadmin")) {
-                // regonal admin like -> zila admin
-                binding.createZilaAdminCard.setVisibility(View.GONE);
-                binding.createEmp.setVisibility(View.GONE);
-                loadCounterForRegAdmin();
+            switch (ROLESTR) {
+                case "regadmin":
+                    // regonal admin like -> zila admin
+                    binding.createZilaAdminCard.setVisibility(View.GONE);
+                    binding.createEmp.setVisibility(View.GONE);
+                    binding.offlicerView.setVisibility(View.GONE);
+                    loadCounterForRegAdmin();
 
-            } else if (ROLESTR.equals("upzadmin")) {
-                binding.createZilaAdminCard.setVisibility(View.GONE);
-                binding.createEmp.setVisibility(View.GONE);
-                loadCounterForUpzAdmin();
-            } else if (ROLESTR.equals("employee")) {
-                // plain employee like ->  employee
-                binding.createZilaAdminCard.setVisibility(View.GONE);
-                binding.createEmp.setVisibility(View.GONE);
-                binding.zilaAdminView.setVisibility(View.GONE);
-                loadCounterForEmp();
-            } else {
-                binding.zilaAdminView.setVisibility(View.GONE);
-                loadCounterForSysAdmin();
+                    break;
+                case "upzadmin":
+                    binding.createZilaAdminCard.setVisibility(View.GONE);
+                    binding.createEmp.setVisibility(View.GONE);
+                    binding.offlicerView.setVisibility(View.GONE);
+                    loadCounterForUpzAdmin();
+                    break;
+                case "employee":
+                    // plain employee like ->  employee
+                    binding.createZilaAdminCard.setVisibility(View.GONE);
+                    binding.createEmp.setVisibility(View.GONE);
+                    binding.zilaAdminView.setVisibility(View.GONE);
+                    binding.offlicerView.setVisibility(View.GONE);
+                    loadCounterForEmp();
+                    break;
+                default:
+                    binding.zilaAdminView.setVisibility(View.GONE);
+                    loadCounterForSysAdmin();
+                    break;
             }
 
         }
@@ -183,12 +209,16 @@ public class AdminDashboardActivity extends AppCompatActivity {
                     ComplainModel complainModel = postSnapshot.getValue(ComplainModel.class);
                     // replce with real uid
                     //* counter
-                    if (complainModel.getComplain_status().equals("ACCEPTED")) {
-                        acceptCount++;
-                    } else if (complainModel.getComplain_status().equals("REJECTED")) {
-                        rejectCount++;
-                    } else if (complainModel.getComplain_status().equals("COMPLETED")) {
-                        completedCount++;
+                    switch (complainModel.getComplain_status()) {
+                        case "ACCEPTED":
+                            acceptCount++;
+                            break;
+                        case "REJECTED":
+                            rejectCount++;
+                            break;
+                        case "COMPLETED":
+                            completedCount++;
+                            break;
                     }
 
                     complainModelList.add(complainModel);
@@ -362,6 +392,34 @@ public class AdminDashboardActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Error : " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.top_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+//        switch (item.getItemId()) {
+//            case R.id.logout_menu:
+//                    loagOut();
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+
+        if (item.getItemId() == R.id.logout_menu) {
+            loagOut();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
 
 
     }

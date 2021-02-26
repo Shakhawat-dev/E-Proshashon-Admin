@@ -62,6 +62,7 @@ public class complainListAdapter extends RecyclerView.Adapter<complainListAdapte
 
         holder.title.setText(item.getComplain_type());
         //    fareView.setText(fare);
+        holder.dateView.setText(item.getComplain_date());
 
         if (item.getComplain_status().equals("ACCEPTED")) {
             holder.iconImage.setBackgroundColor(ContextCompat.getColor(context, R.color.green_500));
@@ -100,7 +101,7 @@ public class complainListAdapter extends RecyclerView.Adapter<complainListAdapte
 
     class viewholder extends RecyclerView.ViewHolder {
 
-        public TextView title, desc;
+        public TextView title, desc ,dateView ;
         public ImageView iconImage;
 
 
@@ -110,6 +111,7 @@ public class complainListAdapter extends RecyclerView.Adapter<complainListAdapte
             title = itemView.findViewById(R.id.complain_title);
             desc = itemView.findViewById(R.id.complain_details);
             iconImage = itemView.findViewById(R.id.status_image);
+            dateView = itemView.findViewById(R.id.date) ;
         }
 
 

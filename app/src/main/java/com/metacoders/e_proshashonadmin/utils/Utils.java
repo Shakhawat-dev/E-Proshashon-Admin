@@ -29,11 +29,11 @@ public class Utils {
     public static String[] disrictDesignationList = new String[]{
             "নির্বাচন করুন",
             "জেলা প্রশাসক_জেলা প্রশাসকের কার্যালয়",
-            "পুলিশ সুপার_পুলিশ সুপারের কার্যালয়",
             "অতিরিক্ত জেলা ম্যাজিস্ট্রেট_জেলা প্রশাসকের কার্যালয়",
             "অতিরিক্ত জেলা প্রশাসক (রাজস্ব)_জেলা প্রশাসকের কার্যালয়",
             "উপ পরিচালক,স্থানীয় সরকার (চলতি দায়িত্ব)_জেলা প্রশাসকের কার্যালয়",
             "অতিরিক্ত জেলা প্রশাসক (শিক্ষা ও আইসিটি)_জেলা প্রশাসকের কার্যালয়",
+            "পুলিশ সুপার_পুলিশ সুপারের কার্যালয়",
             "কোম্পানী কমান্ডার সিপিসি-৩_র\u200C্যাপিড এ্যাকশন ব্যাটালিয়ন (র\u200C্যাব)",
             "জেলা কমান্ড্যান্ট (অতিঃ দায়িত্ব)_আনসার ও গ্রাম প্রতিরক্ষা",
             "সহকারী পরিচালক_মাদকদ্রব্য নিয়ন্ত্রন অধিদপ্তর",
@@ -118,6 +118,8 @@ public class Utils {
     }
 
 
+
+
     public static List<EmpModel> FillterEmpModel(
             String department,
             String zila_upzila,
@@ -148,9 +150,14 @@ public class Utils {
     public static List<ComplainModel> FillterComplainModel(String uid, String upzila, String role,
                                                            List<ComplainModel> complainModelList, String status
             , String origINDepartment , String complain_type) {
+        // fillther the role
+        if(role.contains("_")){
+            String[] a = role.split("_") ;
+            role = a[0];
+        }
 
-
-        Log.d("TAG", "FillterComplainModel: " + uid + " " + upzila + " " );
+        Log.d("TAG", "FillterComplainModel:  origin Department -> " + origINDepartment + " upzila -> " + upzila
+                + " role ->  " + role  + " complain type ->" + complain_type);
         List<ComplainModel> fillteredList = new ArrayList<>();
         for (ComplainModel item : complainModelList) {
             if (item.getEmp_uid().contains(uid) &&
@@ -162,7 +169,7 @@ public class Utils {
                 fillteredList.add(item);
             }
         }
-
+        Log.d("TAG", "FillterComplainModel: Size ->" + fillteredList.size());
         return fillteredList;
     }
 

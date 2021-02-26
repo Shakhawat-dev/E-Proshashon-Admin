@@ -32,7 +32,6 @@ public class AllComplainList extends AppCompatActivity {
         binding.list.setLayoutManager(new LinearLayoutManager(this));
 
 
-
         loadAllList() ;
 
     }

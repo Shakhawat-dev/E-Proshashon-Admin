@@ -47,6 +47,9 @@ public class viewholderForAllCompainList extends RecyclerView.ViewHolder {
 
         TextView title = mview.findViewById(R.id.complain_title);
         TextView desc = mview.findViewById(R.id.complain_details);
+        TextView date = mview.findViewById(R.id.date) ;
+
+        date.setText(model.getComplain_date());
 
         title.setText(model.getName());
         //    fareView.setText(fare);

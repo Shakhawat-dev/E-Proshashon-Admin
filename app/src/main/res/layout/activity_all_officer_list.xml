@@ -13,8 +13,28 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:text="প্রশাসন"
+                android:textColor="@color/blue_800"
+                android:textSize="16sp" />
+            <Spinner
+                android:id="@+id/depart_type_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/spinner_background"
+                android:textColor="@color/black"
+                android:textStyle="normal" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -25,16 +45,14 @@
                 android:textColor="@color/blue_800"
                 android:textSize="16sp" />
 
-
             <Spinner
-                android:id="@+id/depart_role_spinner"
+                android:id="@+id/role_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="6dp"
                 android:layout_marginBottom="4dp"
-                android:layout_weight="2"
                 android:background="@drawable/spinner_background"
                 android:textColor="@color/black"
                 android:textStyle="normal" />
@@ -81,69 +99,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="2">
-
-
-            <Spinner
-                android:id="@+id/user_list_spinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="6dp"
-                android:layout_marginBottom="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/spinner_background"
-                android:textColor="@color/black"
-                android:textStyle="normal" />
-
-
-            <Spinner
-                android:id="@+id/status_spinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="6dp"
-                android:layout_marginBottom="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/spinner_background"
-                android:textColor="@color/black"
-                android:textStyle="normal" />
-
-
-        </LinearLayout>
+            android:weightSum="2"/>
 
         <TextView
+            android:id="@+id/counter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:text="অভিযোগের ধরণ"
-            android:textColor="@color/blue_800"
+            android:layout_margin="5dp"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
-        <Spinner
-            android:id="@+id/complainType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="6dp"
-            android:layout_marginBottom="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/spinner_background"
-            android:textColor="@color/black"
-            android:textStyle="normal" />
-        <Button
-            android:id="@+id/search_button"
-            android:layout_width="wrap_content"
-            android:text="Search"
-            android:visibility="gone"
-            android:layout_margin="@dimen/_4sdp"
-            android:layout_gravity="end"
-            android:layout_height="wrap_content"/>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="3dp"
@@ -151,12 +117,11 @@
             android:background="@color/gray" />
 
 
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/complainList"
+            android:id="@+id/userList"
             android:layout_width="match_parent"
-            android:nestedScrollingEnabled="false"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false" />
 
 
     </LinearLayout>

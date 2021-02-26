@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Acitivity.Fillter_SysAdmin">
+    tools:context=".Acitivity.fillters.Fillter_SysAdmin">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +15,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:text="প্রশাসন"
+                android:textColor="@color/blue_800"
+                android:textSize="16sp" />
             <Spinner
                 android:id="@+id/depart_type_spinner"
                 android:layout_width="match_parent"
@@ -27,6 +35,15 @@
                 android:background="@drawable/spinner_background"
                 android:textColor="@color/black"
                 android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:text="অধিদপ্তর/ বিভাগ / কার্যালয়"
+                android:textColor="@color/blue_800"
+                android:textSize="16sp" />
 
             <Spinner
                 android:id="@+id/role_spinner"
@@ -113,6 +130,15 @@
 
 
         </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:text="অভিযোগের ধরণ"
+            android:textColor="@color/blue_800"
+            android:textSize="16sp" />
 
         <Spinner
             android:id="@+id/complain_type"

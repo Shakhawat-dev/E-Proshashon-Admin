@@ -74,6 +74,15 @@
                 android:textStyle="normal"
                 android:text="মন্তব্য্যঃ কোন মন্তব্য দেয়া হইনি।" />
 
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:text="Date: "
+                android:layout_marginEnd="10dp"
+                android:textSize="15sp"
+                android:textAlignment="viewEnd"
+                android:layout_height="wrap_content"/>
+
         </LinearLayout>
 
 

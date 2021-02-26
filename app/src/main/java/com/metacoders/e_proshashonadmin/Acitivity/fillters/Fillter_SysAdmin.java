@@ -1,4 +1,4 @@
-package com.metacoders.e_proshashonadmin.Acitivity;
+package com.metacoders.e_proshashonadmin.Acitivity.fillters;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -301,7 +301,7 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
     }
 
     private void loadUpzliaRoleList() {
-        Toast.makeText(getApplicationContext(), orginDepartment + " ", Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(getApplicationContext(), orginDepartment + " ", Toast.LENGTH_SHORT).show();
         List<String> newlist = new ArrayList<>();
         List<String> upzilaList = Arrays.asList(Utils.upzillaDesignationList);
 
@@ -344,6 +344,7 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
                 Const.adminType());
         employeeTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.departTypeSpinner.setAdapter(employeeTypeAdapter);
+        binding.departTypeSpinner.setSelection(1);
     }
 
     public void loadComplainList() {
