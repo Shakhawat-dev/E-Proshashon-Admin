@@ -46,23 +46,24 @@
 
                     <ImageView
                         android:layout_width="0dp"
-                        android:layout_height="128dp"
+                        android:layout_height="100dp"
                         android:layout_weight="1"
                         android:padding="16dp"
-                        android:src="@drawable/unnamed" />
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/unnamed" />
 
                     <ImageView
                         android:layout_width="0dp"
-                        android:layout_height="128dp"
+                        android:layout_height="100dp"
                         android:layout_weight="1"
                         android:padding="8dp"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/cabinet_division_logo" />
 
                     <ImageView
                         android:layout_width="0dp"
-                        android:layout_height="128dp"
+                        android:layout_height="100dp"
                         android:layout_weight="1"
-                        android:padding="32dp"
                         android:src="@drawable/mujib_100_logo" />
                 </LinearLayout>
 
@@ -92,22 +93,35 @@
                         android:textStyle="bold" />-->
 
                     <ImageView
-                        android:layout_width="170dp"
-                        android:layout_height="150dp"
+                        android:layout_width="150dp"
+                        android:layout_height="130dp"
                         android:layout_gravity="center_horizontal"
-                        android:scaleType="centerCrop"
-                        android:src="@mipmap/ic_launcher_foreground"
+                        android:src="@drawable/admin_logo_1"
                         android:textSize="48sp"
                         android:textStyle="bold" />
+
+
+
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
                         android:text="প্রবেশ করুন"
+                        android:visibility="gone"
                         android:textColor="@color/black"
                         android:textSize="30sp"
                         android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_gravity="center_horizontal"
+                        android:text="আপনার অভিযোগ আমাদের জানান"
+                        android:textColor="#000000"
+                        android:visibility="visible" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -134,13 +148,14 @@
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="4dp"
                         android:padding="4dp"
                         android:text="আপনার ফোন নাম্বার ও পাসওয়ার্ড দিয়ে প্রবেশ করুন"
                         android:textColor="@color/black"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <LinearLayout
@@ -290,13 +305,13 @@
     <ImageView
         android:id="@+id/footer_image"
         android:layout_width="match_parent"
-        android:src="@drawable/bottom"
-        android:scaleType="fitXY"
+        android:src="@drawable/ppp1"
+        android:scaleType="centerCrop"
         android:adjustViewBounds="true"
         app:layout_constraintTop_toBottomOf="@+id/scale"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_height="@dimen/_100sdp"/>
+        android:layout_height="wrap_content"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -65,7 +65,6 @@ public class SharedPrefManager {
         EmpModel userModel = new EmpModel();
 
         String data = sharedPreferences.getString(PROFILE_DATA, null);
-        Log.d("TAG", "Rerturned User Deatiles :  " + data);
         if (data == null) {
             userModel = null;
         } else {
@@ -75,8 +74,6 @@ public class SharedPrefManager {
         }
         return userModel;
     }
-
-
 
 
     public void logout() {

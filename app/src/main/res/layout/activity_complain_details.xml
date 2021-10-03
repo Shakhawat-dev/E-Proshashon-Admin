@@ -111,6 +111,57 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginVertical="@dimen/_8sdp"
+                android:drawableStart="@drawable/location_icon_w"
+                android:drawablePadding="@dimen/_8sdp"
+                android:text="অভিযোগ হস্তান্তর বর্ণনা"
+                android:textColor="@color/blue_800"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:id="@+id/asagin_by"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:drawablePadding="@dimen/_8sdp"
+                android:text=""
+                android:textColor="@color/blue_800"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/asagin_to"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginVertical="@dimen/_4sdp"
+                android:drawablePadding="@dimen/_8sdp"
+                android:textColor="@color/blue_800"
+                android:textSize="16sp"
+                android:text=""
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:drawableStart="@drawable/location_icon_w"
+                android:drawablePadding="8dp"
+                android:text="কর্মকর্তার বিবরণ"
+                android:textColor="@color/blue_800"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+            <TextView
                 android:id="@+id/department"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -186,6 +237,238 @@
                     android:textColor="@color/black"
                     android:textStyle="normal" />
             </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:drawableStart="@drawable/location_icon_w"
+                android:drawablePadding="8dp"
+                android:text="অভিযোগকারীর বিবরণ"
+                android:textColor="@color/blue_800"
+                android:textSize="16dp"
+                android:textStyle="normal" />
+
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                app:boxStrokeColor="@color/blue_600"
+                app:hintAnimationEnabled="true"
+                app:hintTextColor="@color/blue_600">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/complain_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="অভিযোগকারীর নাম"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+                    android:textStyle="normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                app:boxStrokeColor="@color/blue_600"
+                app:hintAnimationEnabled="true"
+                app:hintTextColor="@color/blue_600">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/complainerPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:hint="অভিযোগকারীর নম্বর"
+                    android:focusableInTouchMode="false"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+                    android:textStyle="normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                app:boxStrokeColor="@color/blue_600"
+                app:hintAnimationEnabled="true"
+                app:hintTextColor="@color/blue_600">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="অভিযোগকারীর লিঙ্গ"
+                    android:inputType="phone"
+                    android:textColor="@color/black"
+                    android:textStyle="normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginVertical="@dimen/_16sdp"
+                android:drawableStart="@drawable/location_icon_w"
+                android:drawablePadding="@dimen/_8sdp"
+                android:text="অভিযোগকারীর ঠিকানা"
+                android:textColor="@color/blue_800"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                app:boxStrokeColor="@color/blue_600"
+                app:hintAnimationEnabled="true"
+                app:hintTextColor="@color/blue_600">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/complainerDiv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="অভিযোগকারীর বিভাগ"
+                    android:inputType="phone"
+                    android:textColor="@color/black"
+                    android:textStyle="normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                app:boxStrokeColor="@color/blue_600"
+                app:hintAnimationEnabled="true"
+                app:hintTextColor="@color/blue_600">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/complainerZila"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="অভিযোগকারীর জেলা"
+                    android:inputType="phone"
+                    android:textColor="@color/black"
+                    android:textStyle="normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                app:boxStrokeColor="@color/blue_600"
+                app:hintAnimationEnabled="true"
+                app:hintTextColor="@color/blue_600">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/complainerUpZila"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="অভিযোগকারীর উপজেলা"
+                    android:inputType="phone"
+                    android:textColor="@color/black"
+                    android:textStyle="normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                app:boxStrokeColor="@color/blue_600"
+                app:hintAnimationEnabled="true"
+                android:focusable="false"
+                app:hintTextColor="@color/blue_600">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="অভিযোগকারীর ইউনিয়ন/পৌরসভা"
+                    android:inputType="text"
+                    android:focusable="false"
+                    android:id="@+id/pourosaba"
+                    android:textColor="@color/black"
+                    android:textStyle="normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:drawableStart="@drawable/location_icon_w"
+                android:drawablePadding="8dp"
+                android:text="অভিযোগের বিবরণ"
+                android:textColor="@color/blue_800"
+                android:textSize="16dp"
+                android:textStyle="normal" />
 
             <com.google.android.material.textfield.TextInputLayout
 
@@ -396,6 +679,7 @@
                     android:textColor="@color/black"
                     android:textStyle="normal" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -409,6 +693,7 @@
                 android:textColor="@color/blue_800"
                 android:textSize="16dp"
                 android:textStyle="normal" />
+
             <Spinner
                 android:id="@+id/status_spinner"
                 android:layout_width="match_parent"
@@ -495,14 +780,14 @@
                     android:text="পূর্ববর্তী" />
 
                 <Button
-                    android:id="@+id/cancel_btn"
+                    android:id="@+id/assaign_btn"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
                     android:layout_weight="1"
-                    android:text="বাতিল" />
+                    android:text="এটি বরাদ্দ করুন" />
 
                 <Button
                     android:id="@+id/accept_btn"

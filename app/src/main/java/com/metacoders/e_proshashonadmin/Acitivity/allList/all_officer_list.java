@@ -250,6 +250,8 @@ public class all_officer_list extends AppCompatActivity implements EmployeeListA
     private void search() {
 
         Log.d("EMP", ": " + department + " ->" + upzila + " " + role);
+        String[]  list = role.split("_") ;
+        role = list[0]; 
 
         List<EmpModel> fillteredEmpList = Utils.FillterEmpModel(
                 department,

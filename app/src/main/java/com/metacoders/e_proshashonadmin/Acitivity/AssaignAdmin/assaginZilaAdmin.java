@@ -24,7 +24,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.awesomedialog.blennersilva.awesomedialoglibrary.AwesomeSuccessDialog;
 import com.awesomedialog.blennersilva.awesomedialoglibrary.interfaces.Closure;
 import com.github.dhaval2404.imagepicker.ImagePicker;
-import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -152,7 +151,7 @@ public class assaginZilaAdmin extends AppCompatActivity implements Check_box_ada
                     // loadPermissionList(2);
                     LoadRoleList(2);
 
-                } else if ( i != 0 ) {
+                } else if (i != 0) {
                     binding.upozillaSpinner.setVisibility(View.GONE);
                     /*
                         Zila Rcv add
@@ -182,8 +181,8 @@ public class assaginZilaAdmin extends AppCompatActivity implements Check_box_ada
 //                    emp_role = "employee_";
 //
 //                } else {
-                    // admin
-                    emp_role = "regadmin_";
+                // admin
+                emp_role = "regadmin_";
 
 
                 emp_role = emp_role + parent.getSelectedItem().toString();
@@ -218,9 +217,9 @@ public class assaginZilaAdmin extends AppCompatActivity implements Check_box_ada
     private void loadPermissionList() {
 
         List<String> dataset = Arrays.asList(Const.divisionList());
-        List<String>newDataset = new ArrayList<String>(dataset);
-        newDataset.remove(0) ;
-        newDataset.remove(1) ;
+        List<String> newDataset = new ArrayList<String>(dataset);
+        newDataset.remove(0);
+        newDataset.remove(1);
         List<CheckBoxModel> checkBoxModelList = new ArrayList<>();
 
         for (int i = 0; i < newDataset.size(); i++) {
@@ -243,14 +242,13 @@ public class assaginZilaAdmin extends AppCompatActivity implements Check_box_ada
              zilla permission load
              */
             roleSet = Arrays.asList(Utils.disrictDesignationList);
-            for(String item : roleSet ){
-                if(item.contains(department_name)){
-                    String[] strings = item.split("_") ;
+            for (String item : roleSet) {
+                if (item.contains(department_name)) {
+                    String[] strings = item.split("_");
                     dataset.add(strings[0]);
                 }
             }
         }
-
 
 
         ArrayAdapter<String> roleAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dataset);
@@ -276,7 +274,7 @@ public class assaginZilaAdmin extends AppCompatActivity implements Check_box_ada
     private void loadDepartmentTypes() {
         List<String> deptList = Arrays.asList(Const.divisionList());
         List<String> newDepList = new ArrayList<String>(deptList);
-        newDepList.remove(2) ;
+        newDepList.remove(2);
         ArrayAdapter<String> departmentTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, newDepList);
         departmentTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.positionList.setAdapter(departmentTypeAdapter);
@@ -327,6 +325,9 @@ public class assaginZilaAdmin extends AppCompatActivity implements Check_box_ada
                 model.setDepartment_name(department_name);
                 model.setDepartment(department);
                 model.setRole_list(roleList.toString());
+                if(upzila.isEmpty()){
+                    upzila = "z" ;
+                }
                 model.setUpzila(upzila);
                 uploadTheData(model);
 

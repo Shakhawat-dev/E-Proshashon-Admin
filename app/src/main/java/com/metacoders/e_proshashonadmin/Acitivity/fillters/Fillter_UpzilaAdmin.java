@@ -34,7 +34,7 @@ public class Fillter_UpzilaAdmin extends AppCompatActivity implements complainLi
     ValueEventListener valueEventListener = null;
     List<ComplainModel> complainModelList = new ArrayList<>();
     List<EmpModel> employeeList = new ArrayList<>();
-    String department = "", upzila = "", role = "", uid = "", departmentName = "উপজেলা প্রশাসন", status = "" , complainType ="";
+    String department = "", upzila = "", role = "", uid = "", departmentName = "উপজেলা", status = "" , complainType ="";
     complainListAdapter adapter;
 
     private ActivityFillterRegAdminBinding binding;
@@ -226,6 +226,8 @@ public class Fillter_UpzilaAdmin extends AppCompatActivity implements complainLi
                 Const.statusList());
         complainTypeAdapter.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
         binding.statusSpinner.setAdapter(complainTypeAdapter);
+        binding.statusSpinner.setSelection(getIntent().getIntExtra("pos", 0));
+
     }
 
     private void loadEmpListInSpinner() {
@@ -297,6 +299,16 @@ public class Fillter_UpzilaAdmin extends AppCompatActivity implements complainLi
                             .getUser().getUpzila())) {
                         complainModelList.add(complainModel);
                     }
+                    try {
+                        if (complainModel.getAssignedTo().equals(uid)) {
+                            complainModelList.add(complainModel);
+                        }
+                    } catch (Exception e) {
+
+                    }
+
+
+
                 }
                 binding.complainList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 binding.complainList.setAdapter(new complainListAdapter(complainModelList, getApplicationContext(), Fillter_UpzilaAdmin.this));

@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
+    id 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 }
 
 android {
@@ -12,8 +13,8 @@ android {
         applicationId "com.metacoders.e_proshashonadmin"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 3
-        versionName "1.7"
+        versionCode 15
+        versionName "2.0.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -39,16 +40,16 @@ dependencies {
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.google.firebase:firebase-storage:19.2.1'
-    implementation 'com.google.firebase:firebase-crashlytics:17.3.1'
+    implementation 'com.google.firebase:firebase-crashlytics:17.4.0'
     implementation 'com.google.firebase:firebase-analytics:18.0.2'
-    implementation 'com.google.firebase:firebase-database:19.6.0'
-    implementation 'com.google.firebase:firebase-auth:20.0.2'
+    implementation 'com.google.firebase:firebase-database:19.7.0'
+    implementation 'com.google.firebase:firebase-auth:20.0.3'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.github.dhaval2404:imagepicker:1.8'
     implementation 'com.github.arcadefire:nice-spinner:1.4.4'
-
+    implementation 'com.karumi:dexter:6.2.3'
     def circleImageView_version = '3.1.0'
     implementation "de.hdodenhof:circleimageview:$circleImageView_version"
     // doa.ogue
@@ -57,10 +58,12 @@ dependencies {
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     // converts json to a java object
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
     // gliude
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
     implementation 'com.github.stfalcon:stfalcon-imageviewer:1.0.1'
     implementation 'com.github.tntkhang:full-screen-image-view-library:1.1.0'
-
+    implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
+    implementation 'com.github.judemanutd:autostarter:1.0.9'
 }

@@ -6,10 +6,8 @@ import java.util.List;
 public class Const {
     public static final String COMPLAIN_REPO = "complain_box";
     public static final String USER_PROFILE_REPO = "user_profile";
-    public static final String PUBLISHABLE = "pk_test_51ILMXLELeQjZhqHV6W3QTtzVzKitUVEpdoJOf3xUwXslmO5x1zNG9wO7SZxVXM2pGeFnb5YtzeDJZxTpmFNG1e9100qd1hRJCE";
-    public static final String SECRET_KEY = "sk_test_51ILMXLELeQjZhqHV70x6UA3wvLdikhX7hjTE8n3g97N9X6m2l6T9ZOwY9O9AJxGnOKL6ieNT8QsQIsEoM3Mc9fDq00oGdySOt9";
     public static final String EMPLOYEE_LIST = "emp_list";
-
+    public static final String ONESIGNAL_APP_ID = "a83eda6c-7220-4359-8f14-d9e06b131b98";
 
     //upozillaType
 
@@ -53,10 +51,10 @@ public class Const {
     public static List<String> statusList() {
         List<String> statusList = new ArrayList<String>();
         statusList.add("নির্বাচন করুন");
-        statusList.add("PENDING") ;
+        statusList.add("PENDING");
         statusList.add("ACCEPTED");
         statusList.add("REJECTED");
-        statusList.add("INCOMPLETE");
+        statusList.add("INQUIRY");
         statusList.add("COMPLETED");
 
         return statusList;
@@ -75,7 +73,6 @@ public class Const {
     }
 
 
-
     public static String[] divisionList() {
 
 
@@ -83,6 +80,7 @@ public class Const {
                 "নির্বাচন করুন",
                 "জেলা প্রশাসকের কার্যালয়",
                 "উপজেলা নির্বাহী অফিসারের কার্যালয়",
+                "উপজেলা ভূমি অফিস",
                 "পুলিশ সুপারের কার্যালয়",
                 "র\u200C্যাপিড এ্যাকশন ব্যাটালিয়ন (র\u200C্যাব)",
                 "আনসার ও গ্রাম প্রতিরক্ষা",

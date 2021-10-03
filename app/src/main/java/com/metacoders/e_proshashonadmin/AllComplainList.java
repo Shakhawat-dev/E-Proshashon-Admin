@@ -32,11 +32,11 @@ public class AllComplainList extends AppCompatActivity {
         binding.list.setLayoutManager(new LinearLayoutManager(this));
 
 
-        loadAllList() ;
+
 
     }
 
-    void loadAllList() {
+    private void loadAllList() {
         FirebaseRecyclerOptions<ComplainModel> options;
         FirebaseRecyclerAdapter<ComplainModel, viewholderForAllCompainList> firebaseRecyclerAdapter;
         DatabaseReference mref = FirebaseDatabase.getInstance().getReference(Utils.COMPLAIN_REPO);
@@ -77,4 +77,9 @@ public class AllComplainList extends AppCompatActivity {
         binding.list.setAdapter(firebaseRecyclerAdapter);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadAllList() ;
+    }
 }

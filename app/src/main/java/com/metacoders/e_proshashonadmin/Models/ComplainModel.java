@@ -3,7 +3,6 @@ package com.metacoders.e_proshashonadmin.Models;
 import java.io.Serializable;
 
 public class ComplainModel implements Serializable {
-
     String name;
     String complain_status;
     String user_mobile;
@@ -30,20 +29,13 @@ public class ComplainModel implements Serializable {
     String emp_role;
     String complain_officer_department_name = "NULL" ;
     String complain_date = "";
-
-
+    String assignedTo = "" ;
+    String assignedBy = "" ;
 
     public ComplainModel() {
     }
 
-    public ComplainModel(String name, String complain_status, String user_mobile, String user_gender,
-                         String user_division, String user_district, String user_thana_upzila,
-                         String user_union_porusova, String user_id, String post_id, String complain_division,
-                         String complain_district, String complain_thana_upzilla, String complain_officer_type,
-                         String complain_officer_name, String complain_officer_mobile, String complain_type,
-                         String complain_desc, String complain_ref_link, Attachments attachments,
-                         String comment, String department, String emp_uid, String emp_role ,
-                         String complain_officer_department_name , String complain_date ) {
+    public ComplainModel(String name, String complain_status, String user_mobile, String user_gender, String user_division, String user_district, String user_thana_upzila, String user_union_porusova, String user_id, String post_id, String complain_division, String complain_district, String complain_thana_upzilla, String complain_officer_type, String complain_officer_name, String complain_officer_mobile, String complain_type, String complain_desc, String complain_ref_link, Attachments attachments, String comment, String department, String emp_uid, String emp_role, String complain_officer_department_name, String complain_date, String assignedTo, String assignedBy) {
         this.name = name;
         this.complain_status = complain_status;
         this.user_mobile = user_mobile;
@@ -69,13 +61,29 @@ public class ComplainModel implements Serializable {
         this.emp_uid = emp_uid;
         this.emp_role = emp_role;
         this.complain_officer_department_name = complain_officer_department_name;
-        this.complain_date  = complain_date ;
-
-
+        this.complain_date = complain_date;
+        this.assignedTo = assignedTo;
+        this.assignedBy = assignedBy;
     }
 
     public String getComplain_date() {
         return complain_date;
+    }
+
+    public String getAssignedBy() {
+        return assignedBy;
+    }
+
+    public void setAssignedBy(String assignedBy) {
+        this.assignedBy = assignedBy;
+    }
+
+    public String getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(String assignedTo) {
+        this.assignedTo = assignedTo;
     }
 
     public void setComplain_date(String complain_date) {

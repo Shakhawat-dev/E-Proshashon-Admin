@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ই-নালিশ এডমিন</string>
+    <string name="assianged_ovijog">আরোপিত অভিযোগ সমূহ</string>
+    <string name="assagined_ovijob">আরোপিত করা হইসে অভিযোগ সমূহ</string>
 </resources>

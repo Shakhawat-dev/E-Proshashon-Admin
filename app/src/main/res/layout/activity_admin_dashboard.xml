@@ -19,7 +19,6 @@
             android:orientation="vertical">
 
             <LinearLayout
-
                 android:id="@+id/filter_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,6 +46,7 @@
                         android:layout_weight="1">
 
                         <LinearLayout
+                            android:id="@+id/totalBtn"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
@@ -63,8 +63,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:drawableStart="@drawable/ic_baseline_how_to_vote_24"
-                                android:text="00"
                                 android:drawablePadding="8dp"
+                                android:text="00"
                                 android:textColor="@color/black"
                                 android:textSize="36sp"
                                 android:textStyle="bold" />
@@ -80,6 +80,85 @@
                         android:layout_weight="1">
 
                         <LinearLayout
+                            android:id="@+id/pendingBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="অপেক্ষমান অভিযোগ"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/pendingPostCount"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:drawableStart="@drawable/ic_baseline_verified_24"
+                                android:drawablePadding="8dp"
+                                android:text="00"
+                                android:textColor="@color/black"
+                                android:textSize="36sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:id="@+id/pending1Btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text=" তদন্তাধীন অভিযোগ"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/inQuiryPostCount"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:drawableStart="@drawable/ic_baseline_how_to_vote_24"
+                                android:drawablePadding="8dp"
+                                android:text="00"
+                                android:textColor="@color/black"
+                                android:textSize="36sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:id="@+id/acceptedBtn"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
@@ -96,8 +175,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:drawableStart="@drawable/ic_baseline_verified_24"
-                                android:text="00"
                                 android:drawablePadding="8dp"
+                                android:text="00"
                                 android:textColor="@color/black"
                                 android:textSize="36sp"
                                 android:textStyle="bold" />
@@ -123,6 +202,7 @@
                         android:layout_weight="1">
 
                         <LinearLayout
+                            android:id="@+id/cancelBtn"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
@@ -139,8 +219,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:drawableStart="@drawable/ic_baseline_new_releases_24"
-                                android:text="00"
                                 android:drawablePadding="8dp"
+                                android:text="00"
                                 android:textColor="@color/black"
                                 android:textSize="36sp"
                                 android:textStyle="bold" />
@@ -156,6 +236,7 @@
                         android:layout_weight="1">
 
                         <LinearLayout
+                            android:id="@+id/successBtn"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
@@ -172,8 +253,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:drawableStart="@drawable/completed_icon_24"
-                                android:text="00"
                                 android:drawablePadding="8dp"
+                                android:text="00"
                                 android:textColor="@color/black"
                                 android:textSize="36sp"
                                 android:textStyle="bold" />
@@ -247,6 +328,116 @@
                                 android:layout_marginStart="16dp"
                                 android:layout_weight="1"
                                 android:text="অভিযোগ সমূহ"
+                                android:textAlignment="textStart"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:src="@drawable/ic_baseline_chevron_right_24" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/assiagn_complain_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    app:strokeColor="@color/colorPrimary"
+                    app:strokeWidth="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="16dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/colorPrimary" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start|center"
+                            android:orientation="horizontal"
+                            android:padding="16dp">
+
+                            <ImageView
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:src="@drawable/ic_baseline_how_to_vote_24" />
+
+                            <TextView
+                                style="@style/TextAppearance.MaterialComponents.Headline6"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="1"
+                                android:text="@string/assianged_ovijog"
+                                android:textAlignment="textStart"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:src="@drawable/ic_baseline_chevron_right_24" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/assiagn_from_complain_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    app:strokeColor="@color/colorPrimary"
+                    app:strokeWidth="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="16dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/colorPrimary" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start|center"
+                            android:orientation="horizontal"
+                            android:padding="16dp">
+
+                            <ImageView
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:src="@drawable/ic_baseline_how_to_vote_24" />
+
+                            <TextView
+                                style="@style/TextAppearance.MaterialComponents.Headline6"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="1"
+                                android:text="@string/assagined_ovijob"
                                 android:textAlignment="textStart"
                                 android:textStyle="bold" />
 
@@ -420,6 +611,7 @@
                     </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>
+
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/offlicer_view"
                     android:layout_width="match_parent"
@@ -471,6 +663,7 @@
                     </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>
+
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/logout"
                     android:layout_width="match_parent"

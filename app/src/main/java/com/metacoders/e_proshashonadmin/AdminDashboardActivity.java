@@ -1,5 +1,6 @@
 package com.metacoders.e_proshashonadmin;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,24 +14,35 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.metacoders.e_proshashonadmin.Acitivity.AssaignAdmin.EmpCreateActivity;
 import com.metacoders.e_proshashonadmin.Acitivity.AssaignAdmin.assaginZilaAdmin;
+import com.metacoders.e_proshashonadmin.Acitivity.AssaignedListForAdminsActivity;
 import com.metacoders.e_proshashonadmin.Acitivity.allList.all_officer_list;
 import com.metacoders.e_proshashonadmin.Acitivity.fillters.Fillter_Employee;
 import com.metacoders.e_proshashonadmin.Acitivity.fillters.Fillter_RegAdmin;
 import com.metacoders.e_proshashonadmin.Acitivity.fillters.Fillter_SysAdmin;
 import com.metacoders.e_proshashonadmin.Acitivity.fillters.Fillter_UpzilaAdmin;
+import com.metacoders.e_proshashonadmin.Acitivity.profile.EmpProfile;
 import com.metacoders.e_proshashonadmin.Const.Const;
 import com.metacoders.e_proshashonadmin.Models.ComplainModel;
 import com.metacoders.e_proshashonadmin.Models.EmpModel;
 import com.metacoders.e_proshashonadmin.databinding.ActivityAdminDashboardBinding;
 import com.metacoders.e_proshashonadmin.utils.SharedPrefManager;
 import com.metacoders.e_proshashonadmin.utils.Utils;
+import com.onesignal.OSDeviceState;
+import com.onesignal.OneSignal;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,9 +50,11 @@ import java.util.List;
 
 public class AdminDashboardActivity extends AppCompatActivity {
 
-    int rejectCount = 0, acceptCount = 0, completedCount = 0, allCount = 0;
+    int rejectCount = 0, acceptCount = 0, completedCount = 0, allCount = 0, inquiryCount = 0, pendingCount = 0;
     private MaterialCardView mAllComplainCard, mCreateAdminCard;
     private ActivityAdminDashboardBinding binding;
+    private FirebaseAuth mauth;
+    private DatabaseReference mdatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,25 +62,42 @@ public class AdminDashboardActivity extends AppCompatActivity {
         binding = ActivityAdminDashboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        updateYourId();
+
+        binding.assiagnComplainCard.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), Fillter_Employee.class);
+            startActivity(intent);
+        });
+
+        binding.pendingBtn.setOnClickListener(v -> {
+
+            goToMethod(1);
+        });
+
+        binding.pending1Btn.setOnClickListener(v -> {
+            goToMethod(4);
+        });
+
+        binding.acceptedBtn.setOnClickListener(v -> {
+            goToMethod(2);
+        });
+
+        binding.totalBtn.setOnClickListener(v -> {
+            goToMethod(0);
+        });
+
+        binding.cancelBtn.setOnClickListener(v -> {
+            goToMethod(3);
+        });
+        binding.successBtn.setOnClickListener(v -> {
+            goToMethod(5);
+        });
+
+
         binding.allComplainCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Utils.getRole(getApplicationContext()).equals("regadmin")) {
-                    Intent intent = new Intent(getApplicationContext(), Fillter_RegAdmin.class);
-                    startActivity(intent);
-
-                } else if (Utils.getRole(getApplicationContext()).equals("employee")) {
-
-                    Intent intent = new Intent(getApplicationContext(), Fillter_Employee.class);
-                    startActivity(intent);
-                } else if (Utils.getRole(getApplicationContext()).equals("upzadmin")) {
-                    Intent intent = new Intent(getApplicationContext(), Fillter_UpzilaAdmin.class);
-                    startActivity(intent);
-                } else {
-
-                    Intent intent = new Intent(getApplicationContext(), Fillter_SysAdmin.class);
-                    startActivity(intent);
-                }
+                goToMethod(0);
             }
         });
 
@@ -81,11 +112,8 @@ public class AdminDashboardActivity extends AppCompatActivity {
         binding.logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 //now what to do is
                 // clear the shared preferences
-
                 loagOut();
 
             }
@@ -94,6 +122,14 @@ public class AdminDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Fillter_RegAdmin.class);
+                startActivity(intent);
+            }
+        });
+
+        binding.assiagnFromComplainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AssaignedListForAdminsActivity.class);
                 startActivity(intent);
             }
         });
@@ -116,7 +152,75 @@ public class AdminDashboardActivity extends AppCompatActivity {
             }
         });
 
-        decideWhatToShow();
+        //decideWhatToShow();
+
+        Dexter.withContext(getApplicationContext())
+                .withPermission(Manifest.permission.CAMERA)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
+
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+
+                    }
+                })
+                .onSameThread()
+                .check();
+    }
+
+    private void goToMethod( int post) {
+        switch (Utils.getRole(getApplicationContext())) {
+            case "regadmin": {
+                Intent intent = new Intent(getApplicationContext(), Fillter_RegAdmin.class);
+                intent.putExtra("pos" , post) ;
+                startActivity(intent);
+
+                break;
+            }
+            case "employee": {
+
+                Intent intent = new Intent(getApplicationContext(), Fillter_Employee.class);
+                intent.putExtra("pos" , post) ;
+                startActivity(intent);
+                break;
+            }
+            case "upzadmin": {
+                Intent intent = new Intent(getApplicationContext(), Fillter_UpzilaAdmin.class);
+                intent.putExtra("pos" , post) ;
+                startActivity(intent);
+                break;
+            }
+            default: {
+
+                Intent intent = new Intent(getApplicationContext(), Fillter_SysAdmin.class);
+                intent.putExtra("pos" , post) ;
+                startActivity(intent);
+                break;
+            }
+        }
+    }
+
+    private void updateYourId() {
+        OSDeviceState device = OneSignal.getDeviceState();
+
+        String userId = device.getUserId();
+
+        if (userId != null) {
+
+            String id = SharedPrefManager.getInstance(getApplicationContext()).getUser().getEmp_uid();
+            mdatabase = FirebaseDatabase.getInstance().getReference(Const.EMPLOYEE_LIST).child(id);
+            mdatabase.child("emp_not_uid").setValue(userId);
+        }
+
+
     }
 
     private void loagOut() {
@@ -133,6 +237,13 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
 
     public void decideWhatToShow() {
+        rejectCount = 0;
+        acceptCount = 0;
+        completedCount = 0;
+        allCount = 0;
+        pendingCount = 0;
+        inquiryCount = 0;
+
         /*
          * load the profile data
          * then decide what to show what not
@@ -158,19 +269,22 @@ public class AdminDashboardActivity extends AppCompatActivity {
                 role.get(0) has the actual role  emp or reg_admin , sys_admin
 
              */
-            // decide thte data
+            // decide the data
+            binding.assiagnComplainCard.setVisibility(View.GONE);
+
             switch (ROLESTR) {
+
                 case "regadmin":
                     // regonal admin like -> zila admin
                     binding.createZilaAdminCard.setVisibility(View.GONE);
-                    binding.createEmp.setVisibility(View.GONE);
+                    binding.createEmp.setVisibility(View.VISIBLE);
                     binding.offlicerView.setVisibility(View.GONE);
                     loadCounterForRegAdmin();
 
                     break;
                 case "upzadmin":
                     binding.createZilaAdminCard.setVisibility(View.GONE);
-                    binding.createEmp.setVisibility(View.GONE);
+                    binding.createEmp.setVisibility(View.VISIBLE);
                     binding.offlicerView.setVisibility(View.GONE);
                     loadCounterForUpzAdmin();
                     break;
@@ -180,6 +294,8 @@ public class AdminDashboardActivity extends AppCompatActivity {
                     binding.createEmp.setVisibility(View.GONE);
                     binding.zilaAdminView.setVisibility(View.GONE);
                     binding.offlicerView.setVisibility(View.GONE);
+                    binding.assiagnComplainCard.setVisibility(View.VISIBLE);
+                    binding.assiagnFromComplainCard.setVisibility(View.GONE);
                     loadCounterForEmp();
                     break;
                 default:
@@ -219,6 +335,12 @@ public class AdminDashboardActivity extends AppCompatActivity {
                         case "COMPLETED":
                             completedCount++;
                             break;
+                        case "PENDING":
+                            pendingCount++;
+                            break;
+                        case "INQUIRY":
+                            inquiryCount++;
+                            break;
                     }
 
                     complainModelList.add(complainModel);
@@ -230,7 +352,8 @@ public class AdminDashboardActivity extends AppCompatActivity {
                 binding.acceptedPostCount.setText(acceptCount + "");
                 binding.completedPostCount.setText(completedCount + "");
                 binding.rejectedPostCount.setText(rejectCount + "");
-
+                binding.pendingPostCount.setText(pendingCount + "");
+                binding.inQuiryPostCount.setText(inquiryCount + "");
 
             }
 
@@ -259,7 +382,6 @@ public class AdminDashboardActivity extends AppCompatActivity {
                  */
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     ComplainModel complainModel = postSnapshot.getValue(ComplainModel.class);
-                    // replce with real uid
                     //* counter
                     for (int i = 1; i < departmentList.size(); i++) {
 
@@ -275,15 +397,24 @@ public class AdminDashboardActivity extends AppCompatActivity {
                                 && complainModel.getComplain_officer_department_name().equals(departmentList.get(i))) {
                             completedCount++;
                             complainModelList.add(complainModel);
+                        } else if (complainModel.getComplain_status().equals("PENDING")
+                                && complainModel.getComplain_officer_department_name().equals(departmentList.get(i))) {
+                            pendingCount++;
+                            complainModelList.add(complainModel);
+                        } else if (complainModel.getComplain_status().equals("INQUIRY")
+                                && complainModel.getComplain_officer_department_name().equals(departmentList.get(i))) {
+                            inquiryCount++;
+                            complainModelList.add(complainModel);
                         }
                     }
                 }
 
-                binding.tottalPostCount.setText(complainModelList.size() + "");
+                binding.tottalPostCount.setText((acceptCount + inquiryCount + completedCount + rejectCount + pendingCount) + "");
                 binding.acceptedPostCount.setText(acceptCount + "");
                 binding.completedPostCount.setText(completedCount + "");
                 binding.rejectedPostCount.setText(rejectCount + "");
-
+                binding.pendingPostCount.setText(pendingCount + "");
+                binding.inQuiryPostCount.setText(inquiryCount + "");
 
             }
 
@@ -298,7 +429,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
     public void loadCounterForUpzAdmin() {
         List<ComplainModel> complainModelList = new ArrayList<>();
-        String thana = Utils.getRole(getApplicationContext());
+        String thana = SharedPrefManager.getInstance(getApplicationContext()).getUser().getUpzila();
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference(Const.COMPLAIN_REPO);
         complainModelList.clear();
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -322,6 +453,14 @@ public class AdminDashboardActivity extends AppCompatActivity {
                             && complainModel.getComplain_thana_upzilla().equals(
                             thana)) {
                         completedCount++;
+                    } else if (complainModel.getComplain_status().equals("PENDING")
+                            && complainModel.getComplain_thana_upzilla().equals(
+                            thana)) {
+                        pendingCount++;
+                    } else if (complainModel.getComplain_status().equals("INQUIRY")
+                            && complainModel.getComplain_thana_upzilla().equals(
+                            thana)) {
+                        inquiryCount++;
                     }
 
                     complainModelList.add(complainModel);
@@ -329,10 +468,12 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
                 }
 
-                binding.tottalPostCount.setText((acceptCount + completedCount + rejectCount) + "");
+                binding.tottalPostCount.setText((acceptCount + inquiryCount + completedCount + pendingCount + rejectCount) + "");
                 binding.acceptedPostCount.setText(acceptCount + "");
                 binding.completedPostCount.setText(completedCount + "");
                 binding.rejectedPostCount.setText(rejectCount + "");
+                binding.pendingPostCount.setText(pendingCount + "");
+                binding.inQuiryPostCount.setText(inquiryCount + "");
 
 
             }
@@ -372,17 +513,30 @@ public class AdminDashboardActivity extends AppCompatActivity {
                             && complainModel.getEmp_uid().equals(
                             uid)) {
                         completedCount++;
+                    } else if (
+                            complainModel.getComplain_status().equals("PENDING")
+                                    && complainModel.getEmp_uid().equals(
+                                    uid)
+                    ) {
+                        pendingCount++;
+                    } else if (
+                            complainModel.getComplain_status().equals("INQUIRY")
+                                    && complainModel.getEmp_uid().equals(
+                                    uid)
+                    ) {
+                        inquiryCount++;
                     }
-
                     complainModelList.add(complainModel);
 
 
                 }
 
-                binding.tottalPostCount.setText((acceptCount + completedCount + rejectCount) + "");
+                binding.tottalPostCount.setText((acceptCount + inquiryCount + completedCount + rejectCount + pendingCount) + "");
                 binding.acceptedPostCount.setText(acceptCount + "");
                 binding.completedPostCount.setText(completedCount + "");
                 binding.rejectedPostCount.setText(rejectCount + "");
+                binding.pendingPostCount.setText(pendingCount + "");
+                binding.inQuiryPostCount.setText(inquiryCount + "");
 
 
             }
@@ -394,6 +548,12 @@ public class AdminDashboardActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        decideWhatToShow();
     }
 
     @Override
@@ -417,6 +577,10 @@ public class AdminDashboardActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.logout_menu) {
             loagOut();
             return true;
+        } else if (item.getItemId() == R.id.profile_menu) {
+            Intent p = new Intent(getApplicationContext(), EmpProfile.class);
+            startActivity(p);
+            return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
@@ -424,5 +588,23 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        try {
+            updateProfile();
+        } catch (Exception e) {
 
+        }
+
+    }
+
+    private void updateProfile() {
+        DatabaseReference mref = FirebaseDatabase.getInstance().getReference(Const.EMPLOYEE_LIST)
+                .child(SharedPrefManager.getInstance(getApplicationContext()).getUser().getEmp_uid() + "");
+
+
+        String uid = OneSignal.getDeviceState().getUserId();
+        mref.child("emp_not_uid").setValue(uid + "");
+    }
 }

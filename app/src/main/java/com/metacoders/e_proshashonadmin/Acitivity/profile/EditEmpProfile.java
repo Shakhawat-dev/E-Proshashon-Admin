@@ -31,7 +31,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.metacoders.e_proshashonadmin.Acitivity.AssaignAdmin.EmpCreateActivity;
 import com.metacoders.e_proshashonadmin.Models.EmpModel;
 import com.metacoders.e_proshashonadmin.R;
 import com.metacoders.e_proshashonadmin.databinding.ActivityEditEmpProfileBinding;
@@ -94,15 +93,15 @@ public class EditEmpProfile extends AppCompatActivity {
                 String newName = binding.name.getText().toString();
                 String mail = binding.email.getText().toString();
                 String ph = binding.mobile.getText().toString();
-                if(binding.password.getText().toString().length() == 0 ){
+                if (binding.password.getText().toString().length() == 0) {
 
-                }else {
+                } else {
                     model.setEmp_password(Utils.convertItTohash(binding.password.getText().toString()));
                 }
 
-                if(newName.isEmpty() || mail.isEmpty() || ph.isEmpty() ){
-                    Toast.makeText(getApplicationContext() , "Error!! Please Fill The Form" , Toast.LENGTH_SHORT).show();
-                }else {
+                if (newName.isEmpty() || mail.isEmpty() || ph.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Error!! Please Fill The Form", Toast.LENGTH_SHORT).show();
+                } else {
                     model.setEmp_name(newName);
                     model.setEmp_mail(mail);
                     model.setEmp_ph(ph);
@@ -111,7 +110,6 @@ public class EditEmpProfile extends AppCompatActivity {
                     uploadTheData(model);
 
                 }
-
 
 
             }
@@ -130,14 +128,23 @@ public class EditEmpProfile extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext() , "Operation Failed " , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Operation Failed ", Toast.LENGTH_SHORT).show();
                     }
-                }) ;
+                });
+            }
+        });
+
+        binding.cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();
             }
         });
 
 
     }
+
     private void uploadTheData(EmpModel model) {
         ProgressDialog dialog1 = new ProgressDialog(EditEmpProfile.this);
         dialog1.setMessage("Updating Profile...");
@@ -159,6 +166,7 @@ public class EditEmpProfile extends AppCompatActivity {
             }
         });
     }
+
     private void uploadItToStorage(Uri imageUri, String imagePath) {
         ProgressDialog dialog = new ProgressDialog(EditEmpProfile.this);
         dialog.setMessage("Uploading The Image...");
@@ -207,6 +215,7 @@ public class EditEmpProfile extends AppCompatActivity {
         binding.email.setText(model.getEmp_mail());
         binding.mobile.setText(model.getEmp_ph());
         binding.name.setText(model.getEmp_name());
+
         Glide.with(getApplicationContext())
                 .load(model.getEmp_pp())
                 .error(R.drawable.placeholder)
@@ -215,7 +224,7 @@ public class EditEmpProfile extends AppCompatActivity {
 
         binding.adminTypeSpinner.setText(model.getDepartment());
         if (model.getUpzila().contains("z")) {
-            binding.upozillaSpinner.setText("জিলা");
+            binding.upozillaSpinner.setText("জেলা");
         } else {
             binding.upozillaSpinner.setText(model.getUpzila());
         }
@@ -227,6 +236,7 @@ public class EditEmpProfile extends AppCompatActivity {
 
 
     }
+
     private void triggerNextPage() {
         new AwesomeSuccessDialog(EditEmpProfile.this)
                 .setTitle("অভিনন্দন")
@@ -254,12 +264,14 @@ public class EditEmpProfile extends AppCompatActivity {
         //   Toast.makeText(applicationContext, "Success !!!", Toast.LENGTH_LONG).show()
 
     }
+
     private void BringImagePicker() {
         ImagePicker.Companion.with(EditEmpProfile.this)
                 .galleryOnly()
                 //Crop image(Optional), Check Customization for more option
                 .compress(1024)            //Final image size will be less than 1 MB(Optional)
                 .start();
+
     }
 
     @Override

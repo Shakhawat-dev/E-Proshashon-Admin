@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.metacoders.e_proshashonadmin">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,7 +14,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EProshashonAdmin">
-        <activity android:name=".Acitivity.profile.EditEmpProfile"></activity>
+        <activity
+            android:name=".Acitivity.AssaignedListForAdminsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Acitivity.AssaginedList.AssaginedListEmployee"
+            android:exported="true" />
+        <activity
+            android:name=".Acitivity.assaginComplain.AssiagnComplainSysAdmin"
+            android:exported="true" />
+        <activity
+            android:name=".Acitivity.assaginComplain.AssiagnComplainUpzilaAdmin"
+            android:exported="true" />
+        <activity
+            android:name=".Acitivity.assaginComplain.Assiagn_ComplainToOfficer"
+            android:exported="true" />
+        <activity
+            android:name=".Acitivity.profile.EditOwnProfile"
+            android:exported="true" />
+        <activity android:name=".Acitivity.profile.EmpProfile" />
+        <activity android:name=".Acitivity.profile.EditEmpProfile" />
         <activity android:name=".Acitivity.allList.all_officer_list" />
         <activity android:name=".AdminDashboardActivity" />
         <activity android:name=".Acitivity.fillters.Fillter_Employee" />
@@ -32,6 +55,20 @@
         <activity android:name=".Acitivity.fillters.Fillter_UpzilaAdmin" />
         <activity android:name=".Acitivity.AssaignAdmin.EmpCreateActivity" />
         <activity android:name=".MainActivity" />
+
+        <meta-data
+            android:name="com.onesignal.NotificationServiceExtension"
+            android:value=".NotificationServiceExtension" /> <!-- <meta-data -->
+        <!-- android:name="com.onesignal.NotificationOpened.DEFAULT" -->
+        <!-- android:value="DISABLE" /> -->
+        <meta-data
+            android:name="com.onesignal.NotificationAccentColor.DEFAULT"
+            android:value="FF2471A3" />
+
+        <service
+            android:name=".persistant_service"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

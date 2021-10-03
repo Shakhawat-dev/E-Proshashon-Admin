@@ -82,6 +82,12 @@ public class complainListAdapter extends RecyclerView.Adapter<complainListAdapte
             holder.desc.setText("মন্তব্যঃ " + item.getComment());
         }
 
+        if(item.getComment().contains("--")){
+            String[] s = item.getComment().split("--") ;
+            String by  = s[1] ;
+            holder.commented.setText("মন্তব্য করেছেনঃ " + by  );
+        }
+
     }
 
 
@@ -101,7 +107,7 @@ public class complainListAdapter extends RecyclerView.Adapter<complainListAdapte
 
     class viewholder extends RecyclerView.ViewHolder {
 
-        public TextView title, desc ,dateView ;
+        public TextView title, desc ,dateView ,commented ;
         public ImageView iconImage;
 
 
@@ -112,6 +118,7 @@ public class complainListAdapter extends RecyclerView.Adapter<complainListAdapte
             desc = itemView.findViewById(R.id.complain_details);
             iconImage = itemView.findViewById(R.id.status_image);
             dateView = itemView.findViewById(R.id.date) ;
+            commented = itemView.findViewById(R.id.commentBY) ;
         }
 
 

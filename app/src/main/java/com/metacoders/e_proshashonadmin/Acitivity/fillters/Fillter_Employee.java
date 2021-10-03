@@ -25,12 +25,12 @@ import com.metacoders.e_proshashonadmin.utils.SharedPrefManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Fillter_Employee extends AppCompatActivity implements  complainListAdapter.ItemClickListener {
+public class Fillter_Employee extends AppCompatActivity implements complainListAdapter.ItemClickListener {
     ValueEventListener valueEventListener = null;
     List<ComplainModel> complainModelList = new ArrayList<>();
     List<EmpModel> employeeList = new ArrayList<>();
-    String department = "", upzila = "", role = "" , uid ="";
-    complainListAdapter adapter ;
+    String department = "", upzila = "", role = "", uid = "";
+    complainListAdapter adapter;
 
     private ActivityEmpComplainListBinding binding;
 
@@ -41,15 +41,16 @@ public class Fillter_Employee extends AppCompatActivity implements  complainList
 
         binding = ActivityEmpComplainListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        uid = SharedPrefManager.getInstance(getApplicationContext()).getUser().getEmp_uid() ;
+        uid = SharedPrefManager.getInstance(getApplicationContext()).getUser().getEmp_uid();
         // as it is employee hide necessary views
 
 
         binding.clist.setLayoutManager(new LinearLayoutManager(this));
 
-    loadEmpListData();
+        loadEmpListData();
 
     }
+
     void loadEmpListData() {
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference(Const.COMPLAIN_REPO);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -61,17 +62,24 @@ public class Fillter_Employee extends AppCompatActivity implements  complainList
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     ComplainModel model = postSnapshot.getValue(ComplainModel.class);
                     // replce with real uid
-                    Log.d("TAG", "onDataChange: "+ model.getEmp_uid());
-                    if(model.getEmp_uid().equals(uid)){
+                    Log.d("TAG", "onDataChange: " + model.getEmp_uid());
+                    if (model.getEmp_uid().equals(uid)) {
                         complainModelList.add(model);
+                    }
+                    try {
+                        if (model.getAssignedTo().equals(uid)) {
+                            complainModelList.add(model);
+                        }
+                    } catch (Exception e) {
+
                     }
 
                 }
 
 
-                if(complainModelList.size()==0){
-                    Toast.makeText(getApplicationContext() ,
-                            "কোন অভিযোগ নেই" , Toast.LENGTH_LONG).show();
+                if (complainModelList.size() == 0) {
+                    Toast.makeText(getApplicationContext(),
+                            "কোন অভিযোগ নেই", Toast.LENGTH_LONG).show();
                 }
 
                 binding.clist.setAdapter(new complainListAdapter(complainModelList, getApplicationContext(), Fillter_Employee.this));
@@ -88,8 +96,8 @@ public class Fillter_Employee extends AppCompatActivity implements  complainList
 
     @Override
     public void onItemClick(ComplainModel model) {
-        Intent p = new Intent(getApplicationContext() , ComplainDetailsActivity.class);
-        p.putExtra("COMPLAIN_MODEL" , model) ;
+        Intent p = new Intent(getApplicationContext(), ComplainDetailsActivity.class);
+        p.putExtra("COMPLAIN_MODEL", model);
         startActivity(p);
     }
 }

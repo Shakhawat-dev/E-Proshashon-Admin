@@ -50,6 +50,7 @@
                 android:textColor="@color/green_500"
                 android:textSize="24sp" />
 
+
         </LinearLayout>
 
 
@@ -66,13 +67,21 @@
             app:layout_constraintTop_toBottomOf="@id/status_image_container">
 
             <TextView
+                android:id="@+id/commentBY"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="মন্তব্য করেছেনঃ "
+                android:visibility="gone"
+                android:textSize="15sp" />
+
+            <TextView
                 android:id="@+id/complain_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                android:maxLines="3"
+                android:maxLines="1"
                 android:textStyle="normal"
-                android:text="মন্তব্য্যঃ কোন মন্তব্য দেয়া হইনি।" />
+                android:text="মন্তব্যঃ কোন মন্তব্য দেয়া হইনি।" />
 
             <TextView
                 android:id="@+id/date"

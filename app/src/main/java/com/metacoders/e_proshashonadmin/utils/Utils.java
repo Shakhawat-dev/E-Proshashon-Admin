@@ -5,6 +5,10 @@ import android.util.Log;
 
 import com.metacoders.e_proshashonadmin.Models.ComplainModel;
 import com.metacoders.e_proshashonadmin.Models.EmpModel;
+import com.onesignal.OneSignal;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -22,7 +26,9 @@ public class Utils {
 অতিরিক্ত জেলা প্রশাসক (সার্বিক)
 উপ পরিচালক, স্থানীয় সরকার (চলতি দায়িত্ব)
 অতিরিক্ত জেলা প্রশাসক (শিক্ষা ও আইসিটি)
-         */
+
+       "অতিরিক্ত জেলা প্রশাসক (রাজস্ব)_জেলা প্রশাসকের কার্যালয়",
+ */
 
 
     public static String COMPLAIN_REPO = "complain_box";
@@ -30,7 +36,7 @@ public class Utils {
             "নির্বাচন করুন",
             "জেলা প্রশাসক_জেলা প্রশাসকের কার্যালয়",
             "অতিরিক্ত জেলা ম্যাজিস্ট্রেট_জেলা প্রশাসকের কার্যালয়",
-            "অতিরিক্ত জেলা প্রশাসক (রাজস্ব)_জেলা প্রশাসকের কার্যালয়",
+            "অতিরিক্ত জেলা প্রশাসক (রাজস্ব)_উপজেলা ভূমি অফিস",
             "উপ পরিচালক,স্থানীয় সরকার (চলতি দায়িত্ব)_জেলা প্রশাসকের কার্যালয়",
             "অতিরিক্ত জেলা প্রশাসক (শিক্ষা ও আইসিটি)_জেলা প্রশাসকের কার্যালয়",
             "পুলিশ সুপার_পুলিশ সুপারের কার্যালয়",
@@ -69,6 +75,7 @@ public class Utils {
     public static String[] upzillaDesignationList = new String[]{
             "নির্বাচন করুন",
             "উপজেলা নির্বাহী অফিসার_উপজেলা নির্বাহী অফিসারের কার্যালয়",
+            "সহকারী কমিশনার (ভূমি)_উপজেলা ভূমি অফিস",
             "ভারপ্রাপ্ত কর্মকর্তা-ওসি_পুলিশ সুপারের কার্যালয়",
             "উপজেলা আনসার ও ভিডিপি প্রশিক্ষক_আনসার ও গ্রাম প্রতিরক্ষা",
             "মাদকদ্রব্য নিয়ন্ত্রন কর্মকর্তা_মাদকদ্রব্য নিয়ন্ত্রন অধিদপ্তর",
@@ -118,6 +125,24 @@ public class Utils {
     }
 
 
+    public static void createNottification(String not_id, String msg) {
+        try {
+            OneSignal.postNotification(new JSONObject("{'contents': {'en':'" + msg + "'}, 'include_player_ids': ['" + not_id + "']}"),
+                    new OneSignal.PostNotificationResponseHandler() {
+                        @Override
+                        public void onSuccess(JSONObject response) {
+                            Log.i("OneSignalExample", "postNotification Success: " + response.toString());
+                        }
+
+                        @Override
+                        public void onFailure(JSONObject response) {
+                            Log.e("OneSignalExample", "postNotification Failure: " + response.toString());
+                        }
+                    });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public static List<EmpModel> FillterEmpModel(
@@ -126,20 +151,57 @@ public class Utils {
             String role,
             List<EmpModel> mainList
     ) {
-        Log.d("EMP", "FillterEmpModel: " + department + " "  +zila_upzila + " " + role);
-        List<EmpModel> fillteredList = new ArrayList<>();
-        EmpModel model = new EmpModel()  ;
+         List<EmpModel> fillteredList = new ArrayList<>();
+        EmpModel model = new EmpModel();
         model.setEmp_name("নির্বাচন করুন");
         model.setEmp_uid("");
         fillteredList.add(model);
 
 
         for (EmpModel item : mainList) {
+            Log.d("EMP", "FillterEmpModel: " + department + " " + zila_upzila + " " + role
+             + " Edd " + "FillterEmpModel: " + item.getDepartment() + " " + item
+                    .getUpzila() + " " + item
+                    .getEmp_role());
+
             if (item.getDepartment().contains(department) &&
                     item.getUpzila().contains(zila_upzila) &&
                     item.getEmp_role().contains(role)
             ) {
                 fillteredList.add(item);
+                Log.d("MATCHED", "FillterEmpModel: MATCHED");
+            }
+        }
+
+        return fillteredList;
+
+    }
+
+    public static List<EmpModel> FillterEmpModelForREGAdmin(
+            String department,
+            String zila_upzila,
+            String role,
+            List<EmpModel> mainList
+    ) {
+        List<EmpModel> fillteredList = new ArrayList<>();
+        EmpModel model = new EmpModel();
+        model.setEmp_name("নির্বাচন করুন");
+        model.setEmp_uid("");
+        fillteredList.add(model);
+
+
+        for (EmpModel item : mainList) {
+            Log.d("EMP", "FillterEmpModel: " + department + " " + zila_upzila + " " + role
+                    + " Edd " + "FillterEmpModel: " + item.getDepartment_name() + " " + item
+                    .getUpzila() + " " + item
+                    .getEmp_role());
+
+            if (item.getDepartment_name().contains(department) &&
+                    item.getUpzila().contains(zila_upzila) &&
+                    item.getEmp_role().contains(role)
+            ) {
+                fillteredList.add(item);
+                Log.d("MATCHED", "FillterEmpModel: MATCHED");
             }
         }
 
@@ -149,15 +211,16 @@ public class Utils {
 
     public static List<ComplainModel> FillterComplainModel(String uid, String upzila, String role,
                                                            List<ComplainModel> complainModelList, String status
-            , String origINDepartment , String complain_type) {
+            , String origINDepartment, String complain_type) {
         // fillther the role
-        if(role.contains("_")){
-            String[] a = role.split("_") ;
+        if (role.contains("_")) {
+            String[] a = role.split("_");
             role = a[0];
         }
 
         Log.d("TAG", "FillterComplainModel:  origin Department -> " + origINDepartment + " upzila -> " + upzila
-                + " role ->  " + role  + " complain type ->" + complain_type);
+                + " role ->  " + role + " complain type ->" + complain_type);
+
         List<ComplainModel> fillteredList = new ArrayList<>();
         for (ComplainModel item : complainModelList) {
             if (item.getEmp_uid().contains(uid) &&
@@ -174,20 +237,34 @@ public class Utils {
     }
 
     public static List<ComplainModel> FillterRegAdminComplainModel(String departmentName, String uid, String upzila,
-                                                                   String role, List<ComplainModel> complainModelList ,
-                                                                   String complainType , String status  ) {
+                                                                   String role, List<ComplainModel> complainModelList,
+                                                                   String complainType, String status) {
 
-
-        if(role.contains("_")){
+        if (role.contains("_")) {
             String[] a = role.split("_");
-            role = a[0] ;
+            role = a[0];
+        }else if(role.contains(",")) {
+            String[] a = role.split(",");
+            role = a[0];
+
         }
-        Log.d("TAG", "FillterComplainModel: " + uid + " " + upzila + " " + role + " " + departmentName );
+        String old = departmentName ;
+
+        try{
+            if(departmentName.contains("_")){
+                String[] b = departmentName.split("_") ;
+                departmentName = b[1] ;
+            }
+        }catch (Exception e ){
+         departmentName = old ;
+        }
+
+        Log.d("TAG", "FILLETCOMPLAIN: " + uid + " " + upzila + " ROLE-> " + role + " Department NAme->" + departmentName);
         List<ComplainModel> fillteredList = new ArrayList<>();
         for (ComplainModel item : complainModelList) {
             if (item.getEmp_uid().contains(uid) &&
-                    item.getComplain_thana_upzilla().contains(upzila) &&
-                    item.getEmp_role().contains(role)
+                    item.getComplain_thana_upzilla().contains(upzila)
+                    && item.getEmp_role().contains(role)
                     && item.getComplain_officer_department_name().contains(departmentName)
                     && item.getComplain_type().contains(complainType)
                     && item.getComplain_status().contains(status)
