@@ -276,16 +276,16 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
                 case "regadmin":
                     // regonal admin like -> zila admin
-                    binding.createZilaAdminCard.setVisibility(View.GONE);
+                    binding.createZilaAdminCard.setVisibility(View.VISIBLE);
                     binding.createEmp.setVisibility(View.VISIBLE);
-                    binding.offlicerView.setVisibility(View.GONE);
+                    binding.offlicerView.setVisibility(View.VISIBLE);
                     loadCounterForRegAdmin();
 
                     break;
                 case "upzadmin":
                     binding.createZilaAdminCard.setVisibility(View.GONE);
                     binding.createEmp.setVisibility(View.VISIBLE);
-                    binding.offlicerView.setVisibility(View.GONE);
+                    binding.offlicerView.setVisibility(View.VISIBLE);
                     loadCounterForUpzAdmin();
                     break;
                 case "employee":
