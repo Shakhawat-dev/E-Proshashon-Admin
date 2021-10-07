@@ -232,7 +232,7 @@
                     android:clickable="false"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:hint="মোবাইল নাম্বার"
+                    android:hint="মোবাইল নম্বর"
                     android:inputType="phone"
                     android:textColor="@color/black"
                     android:textStyle="normal" />

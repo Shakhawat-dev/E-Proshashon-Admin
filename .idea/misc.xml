@@ -26,7 +26,13 @@
         <entry key="..\:/Projects/Running Projects/E-Proshashon-Admin/app/src/main/res/layout/row_complaints.xml" value="0.340625" />
         <entry key="..\:/Projects/Running Projects/E-Proshashon-Admin/app/src/main/res/layout/row_employee_type.xml" value="0.340625" />
         <entry key="..\:/Projects/Running Projects/E-Proshashon-Admin/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.20104166666666667" />
+        <entry key="app/src/main/res/layout/activity_admin_create.xml" value="0.2864583333333333" />
         <entry key="app/src/main/res/layout/activity_admin_dashboard.xml" value="0.2864583333333333" />
+        <entry key="app/src/main/res/layout/activity_all_complain_list.xml" value="0.2864583333333333" />
+        <entry key="app/src/main/res/layout/activity_all_officer_list.xml" value="0.2864583333333333" />
+        <entry key="app/src/main/res/layout/activity_complain_details.xml" value="0.2864583333333333" />
+        <entry key="app/src/main/res/layout/activity_edit_emp_profile.xml" value="0.2864583333333333" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.2864583333333333" />
       </map>
     </option>
   </component>
