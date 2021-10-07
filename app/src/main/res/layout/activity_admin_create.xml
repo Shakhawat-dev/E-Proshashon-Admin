@@ -62,7 +62,7 @@
                     android:id="@+id/mobile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="মোবাইল"
+                    android:hint="মোবাইল নম্বর"
                     android:inputType="phone"
                     android:textColor="@color/black"
                     android:textStyle="normal" />
