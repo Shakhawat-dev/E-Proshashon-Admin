@@ -286,6 +286,8 @@ public class AdminDashboardActivity extends AppCompatActivity {
                     binding.createZilaAdminCard.setVisibility(View.GONE);
                     binding.createEmp.setVisibility(View.VISIBLE);
                     binding.offlicerView.setVisibility(View.VISIBLE);
+                    binding.assiagnComplainCard.setVisibility(View.VISIBLE);
+                    binding.assiagnFromComplainCard.setVisibility(View.VISIBLE);
                     loadCounterForUpzAdmin();
                     break;
                 case "employee":

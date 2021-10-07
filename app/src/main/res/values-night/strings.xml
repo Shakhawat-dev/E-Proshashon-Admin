@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="assianged_ovijog">আরোপিত অভিযোগ সমূহ</string>
-    <string name="assagined_ovijob">আরোপিত করা হইসে অভিযোগ সমূহ</string>
+    <string name="app_name">ই-নালিশ এডমিন</string>
+    <string name="assianged_ovijog">আপনার ওপর আরোপিত অভিযোগ সমূহ</string>
+    <string name="assagined_ovijob">আপনি আরোপিত করেছেন অভিযোগ সমূহ</string>
 </resources>

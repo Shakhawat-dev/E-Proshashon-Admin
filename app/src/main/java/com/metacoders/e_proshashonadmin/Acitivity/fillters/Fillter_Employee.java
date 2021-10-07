@@ -63,9 +63,7 @@ public class Fillter_Employee extends AppCompatActivity implements complainListA
                     ComplainModel model = postSnapshot.getValue(ComplainModel.class);
                     // replce with real uid
                     Log.d("TAG", "onDataChange: " + model.getEmp_uid());
-                    if (model.getEmp_uid().equals(uid)) {
-                        complainModelList.add(model);
-                    }
+
                     try {
                         if (model.getAssignedTo().equals(uid)) {
                             complainModelList.add(model);

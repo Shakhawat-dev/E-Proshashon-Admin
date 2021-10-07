@@ -42,7 +42,7 @@ public class AssaginedListEmployee extends AppCompatActivity implements complain
         uid = SharedPrefManager.getInstance(getApplicationContext()).getUser().getEmp_uid();
         // as it is employee hide necessary views
 
-
+        Toast.makeText(getApplicationContext() , "UID -> " + uid ,Toast.LENGTH_LONG).show();
         binding.clist.setLayoutManager(new LinearLayoutManager(this));
 
         loadEmpListData();
@@ -59,7 +59,7 @@ public class AssaginedListEmployee extends AppCompatActivity implements complain
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     ComplainModel model = postSnapshot.getValue(ComplainModel.class);
                     // replce with real uid
-                    Log.d("TAG", "onDataChange: " + model.getEmp_uid());
+                    Log.d("USER", "onDataChange: " + model.getAssignedTo()   + " userd -> " + uid);
                     try {
                         if (model.getAssignedTo().equals(uid)) {
                             complainModelList.add(model);
