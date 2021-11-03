@@ -31,6 +31,7 @@ public class Fillter_Employee extends AppCompatActivity implements complainListA
     List<EmpModel> employeeList = new ArrayList<>();
     String department = "", upzila = "", role = "", uid = "";
     complainListAdapter adapter;
+    int pos = -1;
 
     private ActivityEmpComplainListBinding binding;
 
@@ -43,6 +44,7 @@ public class Fillter_Employee extends AppCompatActivity implements complainListA
         setContentView(binding.getRoot());
         uid = SharedPrefManager.getInstance(getApplicationContext()).getUser().getEmp_uid();
         // as it is employee hide necessary views
+        pos = getIntent().getIntExtra("pos", -1);
 
 
         binding.clist.setLayoutManager(new LinearLayoutManager(this));
@@ -65,9 +67,13 @@ public class Fillter_Employee extends AppCompatActivity implements complainListA
                     Log.d("TAG", "onDataChange: " + model.getEmp_uid());
 
                     try {
-                        if (model.getAssignedTo().equals(uid)) {
+                        if (model.getAssignedTo().equals(uid) && pos == -1) {
+                            complainModelList.add(model);
+                        } else if (model.getEmp_uid().equals(uid) && pos != -1 ) {
                             complainModelList.add(model);
                         }
+
+
                     } catch (Exception e) {
 
                     }

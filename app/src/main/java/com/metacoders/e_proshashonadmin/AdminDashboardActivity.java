@@ -176,11 +176,11 @@ public class AdminDashboardActivity extends AppCompatActivity {
                 .check();
     }
 
-    private void goToMethod( int post) {
+    private void goToMethod(int post) {
         switch (Utils.getRole(getApplicationContext())) {
             case "regadmin": {
                 Intent intent = new Intent(getApplicationContext(), Fillter_RegAdmin.class);
-                intent.putExtra("pos" , post) ;
+                intent.putExtra("pos", post);
                 startActivity(intent);
 
                 break;
@@ -188,20 +188,20 @@ public class AdminDashboardActivity extends AppCompatActivity {
             case "employee": {
 
                 Intent intent = new Intent(getApplicationContext(), Fillter_Employee.class);
-                intent.putExtra("pos" , post) ;
+                intent.putExtra("pos", post);
                 startActivity(intent);
                 break;
             }
             case "upzadmin": {
                 Intent intent = new Intent(getApplicationContext(), Fillter_UpzilaAdmin.class);
-                intent.putExtra("pos" , post) ;
+                intent.putExtra("pos", post);
                 startActivity(intent);
                 break;
             }
             default: {
 
                 Intent intent = new Intent(getApplicationContext(), Fillter_SysAdmin.class);
-                intent.putExtra("pos" , post) ;
+                intent.putExtra("pos", post);
                 startActivity(intent);
                 break;
             }
@@ -278,6 +278,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
                     // regonal admin like -> zila admin
                     binding.createZilaAdminCard.setVisibility(View.VISIBLE);
                     binding.createEmp.setVisibility(View.VISIBLE);
+                    binding.assiagnComplainCard.setVisibility(View.VISIBLE);
                     binding.offlicerView.setVisibility(View.VISIBLE);
                     loadCounterForRegAdmin();
 
