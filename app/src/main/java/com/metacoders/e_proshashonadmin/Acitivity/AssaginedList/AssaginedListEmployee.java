@@ -43,7 +43,9 @@ public class AssaginedListEmployee extends AppCompatActivity implements complain
         // as it is employee hide necessary views
 
         Toast.makeText(getApplicationContext() , "UID -> " + uid ,Toast.LENGTH_LONG).show();
-        binding.clist.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager manager = new LinearLayoutManager(this , LinearLayoutManager.VERTICAL , true);
+        manager.setStackFromEnd(true);
+        binding.clist.setLayoutManager(manager);
 
         loadEmpListData();
     }

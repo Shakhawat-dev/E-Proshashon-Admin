@@ -28,12 +28,9 @@ public class AllComplainList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityAllComplainListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        binding.list.setLayoutManager(new LinearLayoutManager(this));
-
-
-
-
+        LinearLayoutManager manager = new LinearLayoutManager(this , LinearLayoutManager.VERTICAL , true);
+        manager.setStackFromEnd(true);
+        binding.list.setLayoutManager(manager);
     }
 
     private void loadAllList() {

@@ -34,7 +34,7 @@ public class Fillter_UpzilaAdmin extends AppCompatActivity implements complainLi
     ValueEventListener valueEventListener = null;
     List<ComplainModel> complainModelList = new ArrayList<>();
     List<EmpModel> employeeList = new ArrayList<>();
-    String department = "", upzila = "", role = "", uid = "", departmentName = "উপজেলা", status = "" , complainType ="";
+    String department = "", upzila = "", role = "", uid = "", departmentName = "উপজেলা", status = "", complainType = "";
     complainListAdapter adapter;
 
     private ActivityFillterRegAdminBinding binding;
@@ -49,7 +49,9 @@ public class Fillter_UpzilaAdmin extends AppCompatActivity implements complainLi
         getSupportActionBar().setTitle("অ্যাডমিন অনুসন্ধান");
 
         adapter = new complainListAdapter(complainModelList, getApplicationContext(), this);
-        binding.complainList.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true);
+        manager.setStackFromEnd(true);
+        binding.complainList.setLayoutManager(manager);
 
         loadProfileData();
         loadComplainList();
@@ -58,7 +60,6 @@ public class Fillter_UpzilaAdmin extends AppCompatActivity implements complainLi
         loadUpzilaList();
         loadStatusList();
         loadComplainType();
-
 
 
         // 1 st flood the dpartment chooser
@@ -140,8 +141,7 @@ public class Fillter_UpzilaAdmin extends AppCompatActivity implements complainLi
                     //  set the designationSpinner
                     role = parent.getSelectedItem().toString();
                     loadEmpListInSpinner();
-                }
-                else {
+                } else {
                     role = "";
 
                 }
@@ -190,9 +190,9 @@ public class Fillter_UpzilaAdmin extends AppCompatActivity implements complainLi
 
                 if (position != 0) {
 
-                    complainType =parent.getSelectedItem().toString() ;
+                    complainType = parent.getSelectedItem().toString();
                 } else {
-                    complainType ="";
+                    complainType = "";
                 }
                 search();
             }
@@ -212,9 +212,10 @@ public class Fillter_UpzilaAdmin extends AppCompatActivity implements complainLi
         binding.complainType.setAdapter(upzilaRoleListAdapter);
 
     }
+
     private void search() {
 
-        List<ComplainModel> fillteredList = Utils.FillterRegAdminComplainModel(departmentName, uid, upzila, role, complainModelList , complainType , status);
+        List<ComplainModel> fillteredList = Utils.FillterRegAdminComplainModel(departmentName, uid, upzila, role, complainModelList, complainType, status);
         //   uid ="" ;upzila = "" ; role = ""  ; ;
         binding.complainList.setAdapter(new complainListAdapter(fillteredList, getApplicationContext(), Fillter_UpzilaAdmin.this));
 
@@ -232,9 +233,9 @@ public class Fillter_UpzilaAdmin extends AppCompatActivity implements complainLi
 
     private void loadEmpListInSpinner() {
 
-        if(role.contains("_")){
-            String[] r  =  role.split("_") ;
-            role = r[0] ;
+        if (role.contains("_")) {
+            String[] r = role.split("_");
+            role = r[0];
         }
 
 
@@ -276,7 +277,6 @@ public class Fillter_UpzilaAdmin extends AppCompatActivity implements complainLi
     }
 
 
-
     private void loadZoneList(List<String> RoleList) {
         ArrayAdapter<String> departmentRoleList = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
                 RoleList);
@@ -306,7 +306,6 @@ public class Fillter_UpzilaAdmin extends AppCompatActivity implements complainLi
                     } catch (Exception e) {
 
                     }
-
 
 
                 }

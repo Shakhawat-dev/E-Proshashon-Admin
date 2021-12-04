@@ -151,7 +151,7 @@ public class Utils {
             String role,
             List<EmpModel> mainList
     ) {
-         List<EmpModel> fillteredList = new ArrayList<>();
+        List<EmpModel> fillteredList = new ArrayList<>();
         EmpModel model = new EmpModel();
         model.setEmp_name("নির্বাচন করুন");
         model.setEmp_uid("");
@@ -160,7 +160,7 @@ public class Utils {
 
         for (EmpModel item : mainList) {
             Log.d("EMP", "FillterEmpModel: " + department + " " + zila_upzila + " " + role
-             + " Edd " + "FillterEmpModel: " + item.getDepartment() + " " + item
+                    + " Edd " + "FillterEmpModel: " + item.getDepartment() + " " + item
                     .getUpzila() + " " + item
                     .getEmp_role());
 
@@ -243,20 +243,20 @@ public class Utils {
         if (role.contains("_")) {
             String[] a = role.split("_");
             role = a[0];
-        }else if(role.contains(",")) {
+        } else if (role.contains(",")) {
             String[] a = role.split(",");
             role = a[0];
 
         }
-        String old = departmentName ;
+        String old = departmentName;
 
-        try{
-            if(departmentName.contains("_")){
-                String[] b = departmentName.split("_") ;
-                departmentName = b[1] ;
+        try {
+            if (departmentName.contains("_")) {
+                String[] b = departmentName.split("_");
+                departmentName = b[1];
             }
-        }catch (Exception e ){
-         departmentName = old ;
+        } catch (Exception e) {
+            departmentName = old;
         }
 
         Log.d("TAG", "FILLETCOMPLAIN: " + uid + " " + upzila + " ROLE-> " + role + " Department NAme->" + departmentName);
@@ -289,6 +289,30 @@ public class Utils {
         }
 
         return ROLESTR;
+
+    }
+
+    public static boolean isStatusChecked(int pos, ComplainModel model) {
+        /*
+           statusList.add("PENDING");
+        statusList.add("ACCEPTED");
+        statusList.add("REJECTED");
+        statusList.add("INQUIRY");
+        statusList.add("COMPLETED");
+         */
+        if (pos == 1 && model.getComplain_status().contains("PENDING")) {
+            return true;
+        } else if (pos == 2 && model.getComplain_status().contains("ACCEPTED")) {
+            return true;
+        } else if (pos == 3 && model.getComplain_status().contains("REJECTED")) {
+            return true;
+        } else if (pos == 4 && model.getComplain_status().contains("INQUIRY")) {
+            return true;
+        } else if (pos == 5 && model.getComplain_status().contains("COMPLETED")) {
+            return true;
+        } else if (pos == 0) {
+            return true;
+        } else return false;
 
     }
 }

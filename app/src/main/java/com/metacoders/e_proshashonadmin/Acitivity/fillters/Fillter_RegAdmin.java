@@ -55,7 +55,9 @@ public class Fillter_RegAdmin extends AppCompatActivity implements complainListA
 
     private void setView() {
         adapter = new complainListAdapter(complainModelList, getApplicationContext(), this);
-        binding.complainList.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager manager = new LinearLayoutManager(this , LinearLayoutManager.VERTICAL , true);
+        manager.setStackFromEnd(true);
+        binding.complainList.setLayoutManager(manager);
 
         loadStatusList();
         loadComplainType();

@@ -1,5 +1,6 @@
 package com.metacoders.e_proshashonadmin.Acitivity.fillters;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,7 @@ import com.metacoders.e_proshashonadmin.Models.ComplainModel;
 import com.metacoders.e_proshashonadmin.Models.EmpModel;
 import com.metacoders.e_proshashonadmin.databinding.ActivityEmpComplainListBinding;
 import com.metacoders.e_proshashonadmin.utils.SharedPrefManager;
+import com.metacoders.e_proshashonadmin.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +48,11 @@ public class Fillter_Employee extends AppCompatActivity implements complainListA
         // as it is employee hide necessary views
         pos = getIntent().getIntExtra("pos", -1);
 
+        Context context;
+        LinearLayoutManager manager = new LinearLayoutManager(this , LinearLayoutManager.VERTICAL , true);
+        manager.setStackFromEnd(true);
+        binding.clist.setLayoutManager(manager);
 
-        binding.clist.setLayoutManager(new LinearLayoutManager(this));
 
         loadEmpListData();
 
@@ -68,9 +73,13 @@ public class Fillter_Employee extends AppCompatActivity implements complainListA
 
                     try {
                         if (model.getAssignedTo().equals(uid) && pos == -1) {
+
                             complainModelList.add(model);
+
                         } else if (model.getEmp_uid().equals(uid) && pos != -1 ) {
-                            complainModelList.add(model);
+                            if(Utils.isStatusChecked(pos , model)){
+                                complainModelList.add(model);
+                            }
                         }
 
 

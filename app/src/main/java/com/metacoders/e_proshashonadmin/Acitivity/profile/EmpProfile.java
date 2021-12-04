@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -55,6 +56,10 @@ public class EmpProfile extends AppCompatActivity {
         dialog.show();
         dialog.setCancelable(false);
         DatabaseReference mref = FirebaseDatabase.getInstance().getReference("emp_list").child(SharedPrefManager.getInstance(getApplicationContext()
+        ).getUser().getEmp_uid());
+
+
+        Log.d("TAG", "loadProfile: " + SharedPrefManager.getInstance(getApplicationContext()
         ).getUser().getEmp_uid());
 
         mref.addListenerForSingleValueEvent(new ValueEventListener() {

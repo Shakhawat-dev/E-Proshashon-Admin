@@ -47,7 +47,9 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
         setContentView(binding.getRoot());
 
         adapter = new complainListAdapter(complainModelList, getApplicationContext(), this);
-        binding.complainList.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager manager = new LinearLayoutManager(this , LinearLayoutManager.VERTICAL , true);
+        manager.setStackFromEnd(true);
+        binding.complainList.setLayoutManager(manager);
 
 
         // 1 st flood the dpartment chooser
