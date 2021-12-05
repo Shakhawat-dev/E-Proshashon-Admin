@@ -37,6 +37,7 @@ public class Const {
         complainTypes.add("মাদক");
         complainTypes.add("সন্ত্রাস ও চাঁদাবাজি");
         complainTypes.add("দুর্নীতি");
+        complainTypes.add("ভূমি");
         complainTypes.add("স্বাস্থ্য");
         complainTypes.add("শিক্ষা");
         complainTypes.add("জন্ম নিবন্ধন");
