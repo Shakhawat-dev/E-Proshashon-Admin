@@ -391,7 +391,7 @@ public class Fillter_SysAdmin extends AppCompatActivity implements complainListA
                     ComplainModel complainModel = postSnapshot.getValue(ComplainModel.class);
                     complainModelList.add(complainModel);
                 }
-                binding.complainList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+             //   binding.complainList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 binding.complainList.setAdapter(new complainListAdapter(complainModelList, getApplicationContext(), Fillter_SysAdmin.this));
                 binding.complainList.setAdapter(adapter);
                 callConter();

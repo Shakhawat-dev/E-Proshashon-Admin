@@ -77,9 +77,11 @@ public class Fillter_Employee extends AppCompatActivity implements complainListA
                             complainModelList.add(model);
 
                         } else if (model.getEmp_uid().equals(uid) && pos != -1 ) {
+
                             if(Utils.isStatusChecked(pos , model)){
                                 complainModelList.add(model);
                             }
+
                         }
 
 

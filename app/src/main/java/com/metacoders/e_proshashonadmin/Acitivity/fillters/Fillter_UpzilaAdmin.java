@@ -2,6 +2,7 @@ package com.metacoders.e_proshashonadmin.Acitivity.fillters;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -61,7 +62,7 @@ public class Fillter_UpzilaAdmin extends AppCompatActivity implements complainLi
         loadStatusList();
         loadComplainType();
 
-
+        loadDeleted();
         // 1 st flood the dpartment chooser
 
 
@@ -309,7 +310,8 @@ public class Fillter_UpzilaAdmin extends AppCompatActivity implements complainLi
 
 
                 }
-                binding.complainList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+
                 binding.complainList.setAdapter(new complainListAdapter(complainModelList, getApplicationContext(), Fillter_UpzilaAdmin.this));
                 binding.complainList.setAdapter(adapter);
                 mref.removeEventListener(valueEventListener);
@@ -368,6 +370,45 @@ public class Fillter_UpzilaAdmin extends AppCompatActivity implements complainLi
         Intent p = new Intent(getApplicationContext(), ComplainDetailsActivity.class);
         p.putExtra("COMPLAIN_MODEL", model);
         startActivity(p);
+    }
+
+
+    public void loadDeleted() {
+
+        DatabaseReference mref = FirebaseDatabase.getInstance().getReference("complain_box");
+
+        valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    ComplainModel complainModel = postSnapshot.getValue(ComplainModel.class);
+                   if(complainModel.getComplain_status().contains("REJECTED")){
+                       DatabaseReference mreff = FirebaseDatabase.getInstance().getReference("complain_box");
+                       mreff.child(complainModel.getPost_id()).removeValue();
+                       Log.d("TAG", "onDataChange: DELETED" + complainModel.getPost_id());
+                   }
+
+
+                }
+
+
+                binding.complainList.setAdapter(new complainListAdapter(complainModelList, getApplicationContext(), Fillter_UpzilaAdmin.this));
+                binding.complainList.setAdapter(adapter);
+                mref.removeEventListener(valueEventListener);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+
+
+        mref.addValueEventListener(valueEventListener);
+
+
     }
 }
 

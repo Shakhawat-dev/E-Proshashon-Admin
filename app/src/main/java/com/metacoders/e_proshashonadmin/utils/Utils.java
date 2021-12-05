@@ -300,6 +300,7 @@ public class Utils {
         statusList.add("INQUIRY");
         statusList.add("COMPLETED");
          */
+        Log.d("TAG", "isStatusChecked: $pos" + pos );
         if (pos == 1 && model.getComplain_status().contains("PENDING")) {
             return true;
         } else if (pos == 2 && model.getComplain_status().contains("ACCEPTED")) {
