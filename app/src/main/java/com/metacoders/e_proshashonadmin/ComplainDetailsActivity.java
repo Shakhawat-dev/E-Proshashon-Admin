@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.github.tntkhang.fullscreenimageview.library.FullScreenImageViewActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -23,10 +22,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.metacoders.e_proshashonadmin.Acitivity.ImageViewerPage;
 import com.metacoders.e_proshashonadmin.Acitivity.assaginComplain.AssiagnComplainSysAdmin;
 import com.metacoders.e_proshashonadmin.Acitivity.assaginComplain.AssiagnComplainUpzilaAdmin;
 import com.metacoders.e_proshashonadmin.Acitivity.assaginComplain.Assiagn_ComplainToOfficer;
-import com.metacoders.e_proshashonadmin.Acitivity.fillters.Fillter_RegAdmin;
 import com.metacoders.e_proshashonadmin.Const.Const;
 import com.metacoders.e_proshashonadmin.Models.ComplainModel;
 import com.metacoders.e_proshashonadmin.Models.EmpModel;
@@ -115,20 +114,18 @@ public class ComplainDetailsActivity extends AppCompatActivity {
                 Intent p = new Intent(getApplicationContext(), Assiagn_ComplainToOfficer.class);
                 p.putExtra("id", model.getPost_id());
                 startActivity(p);
-            }else if(Utils.getRole(getApplicationContext()).equals("upzadmin")){
+            } else if (Utils.getRole(getApplicationContext()).equals("upzadmin")) {
 
                 Intent p = new Intent(getApplicationContext(), AssiagnComplainUpzilaAdmin.class);
                 p.putExtra("id", model.getPost_id());
                 startActivity(p);
-            }
-            else if(Utils.getRole(getApplicationContext()).equals("sysAdmin")){
+            } else if (Utils.getRole(getApplicationContext()).equals("sysAdmin")) {
 
                 Intent p = new Intent(getApplicationContext(), AssiagnComplainSysAdmin.class);
                 p.putExtra("id", model.getPost_id());
                 startActivity(p);
-            }
-            else {
-                Toast.makeText(getApplicationContext() , "আপনার এটি অ্যাক্সেস করার ক্ষমতা নেই" , Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "আপনার এটি অ্যাক্সেস করার ক্ষমতা নেই", Toast.LENGTH_LONG).show();
             }
             // go to assagin page
 
@@ -293,9 +290,9 @@ public class ComplainDetailsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     try {
-                        EmpModel model = snapshot.getValue(EmpModel.class) ;
+                        EmpModel model = snapshot.getValue(EmpModel.class);
                         binding.asaginBy.setText("দায়িত্ব অর্পণ করেছেন : " + model.getEmp_name() + " , " + model.getDepartment_name());
-                        if(binding.asaginBy.getText().toString().contains("NULL")){
+                        if (binding.asaginBy.getText().toString().contains("NULL")) {
                             binding.asaginBy.setVisibility(View.GONE);
                             binding.title.setVisibility(View.GONE);
                         }
@@ -317,9 +314,9 @@ public class ComplainDetailsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     try {
-                        EmpModel model = snapshot.getValue(EmpModel.class) ;
+                        EmpModel model = snapshot.getValue(EmpModel.class);
                         binding.asaginTo.setText("যার উপরে দায়িত্ব অর্পণ করছে : " + model.getEmp_name() + " , " + model.getDepartment_name());
-                        if(binding.asaginTo.getText().toString().contains("NULL")){
+                        if (binding.asaginTo.getText().toString().contains("NULL")) {
                             binding.asaginTo.setVisibility(View.GONE);
                         }
                     } catch (Exception e) {
@@ -358,11 +355,10 @@ public class ComplainDetailsActivity extends AppCompatActivity {
         images.add(model.getAttachments().getImage_1());
         images.add(model.getAttachments().getImage_2());
         images.add(model.getAttachments().getImage_3());
-        Intent fullImageIntent = new Intent(ComplainDetailsActivity.this, FullScreenImageViewActivity.class);
+        Intent fullImageIntent = new Intent(ComplainDetailsActivity.this, ImageViewerPage.class);
         // uriString is an ArrayList<String> of URI of all images
-        fullImageIntent.putExtra(FullScreenImageViewActivity.URI_LIST_DATA, images);
+        fullImageIntent.putExtra("URI_LIST_DATA", images);
         // pos is the position of image will be showned when open
-        //  fullImageIntent.putExtra(FullScreenImageViewActivity.IMAGE_FULL_SCREEN_CURRENT_POS, 0);
         startActivity(fullImageIntent);
     }
 
